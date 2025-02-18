@@ -36,7 +36,6 @@ public class SwerveModule {
     private final RelativeEncoder drive_encoder;
     private final RelativeEncoder turn_encoder;
     private final CANcoder best_turn_encoder;
-    private  AbsoluteSensorRange range;
     private SwerveModuleState current_state;
     private Rotation2d current_rotation;
     private Rotation2d desired_rotation;
@@ -49,13 +48,6 @@ public class SwerveModule {
     public SwerveModule(int module_number, int drive_motor_id, int turn_motor_id, int can_coder_id, Rotation2d turn_offset) {
         this.module_number = module_number;
         this.turn_offset = turn_offset;
-
-
-        //cancoder old firmware
-        //this.best_turn_encoder = new CANCoder(can_coder_id);
-//
-        //range = AbsoluteSensorRange.Signed_PlusMinus180;
-        //this.best_turn_encoder.configAbsoluteSensorRange(range);
 
 
 
