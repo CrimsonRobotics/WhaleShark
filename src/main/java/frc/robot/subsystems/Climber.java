@@ -45,7 +45,7 @@ public class Climber extends SubsystemBase {
 
     //configures the motor with the config 
     //when this is run all old settings on spark max are reset to default
-    //tjen config is applied
+    //then config is applied
     //persist means that if robot is power cycled, the settings will remain
     motor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
