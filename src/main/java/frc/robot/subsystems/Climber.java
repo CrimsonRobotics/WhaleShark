@@ -13,6 +13,9 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.networktables.GenericEntry;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -23,6 +26,8 @@ public class Climber extends SubsystemBase {
   double voltage;
   PIDController pid;
   RelativeEncoder encoder;
+  ShuffleboardTab climber_tab;
+  GenericEntry climber_position;
   public Climber() {
     //creates the climb motor using the motor id from Constants
     motor = new SparkMax(Constants.climber.motor_id, MotorType.kBrushless);
@@ -46,6 +51,11 @@ public class Climber extends SubsystemBase {
 
     //this creates the pidcontroller that is used when putting the climber in the ready position
     pid = new PIDController(Constants.climber.kp, Constants.climber.ki, Constants.climber.kd);
+
+    //this creates the shuffleboard tab for outputing climber data onto shuffleboard
+    climber_tab = Shuffleboard.getTab("Climber");
+    //puts the climber current position onto the shuffleboard tab as "Position"
+    climber_position = climber_tab.add("Position", 0).getEntry();
   }
 
   //this will return the current position of the climb motor
@@ -72,5 +82,7 @@ public class Climber extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    //this will put the current position of the climber onto shuffleboard continually
+    climber_position.setDouble(get_position());
   }
 }
