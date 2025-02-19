@@ -7,17 +7,18 @@ package frc.robot.commands.Operator;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.Constants;
 import frc.robot.commands.Elevator.HoldPosition;
+import frc.robot.commands.Intake.Rest;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class Rest extends ParallelCommandGroup {
+public class Resting extends ParallelCommandGroup {
   /** Creates a new Rest. */
   Elevator elevator;
   Intake intake;
-  public Rest(Elevator elevator, Intake intake) {
+  public Resting(Elevator elevator, Intake intake) {
     //sets the paramaters to local instance variables
     this.elevator = elevator;
     this.intake = intake;
@@ -29,7 +30,7 @@ public class Rest extends ParallelCommandGroup {
       //the elevator will hold positiot at rest height
       new HoldPosition(this.elevator, Constants.elevator.rest),
       //the intake will go into rest state
-      new frc.robot.commands.Intake.Rest(this.intake)
+      new Rest(this.intake)
     );
   }
 }
