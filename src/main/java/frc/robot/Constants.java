@@ -110,6 +110,10 @@ public final class Constants {
     public static final double rest = 0;
     public static final double barge = 0;
     public static final double travel = 0;
+
+    //conversion factor for the encoder
+    public static final double position_conversion_factor = 1;
+    public static final double velocity_conversion_factor = 1;
   }
 
   public static class climber {
