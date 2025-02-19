@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -57,6 +58,14 @@ public class RobotContainer {
   private final JoystickButton resting = new JoystickButton(l_operator, 8);
   //Button 9
   private final JoystickButton traveling = new JoystickButton(l_operator, 9);
+  //Button 11
+  private final JoystickButton elevator_sysid_quas_for = new JoystickButton(l_operator, 11);
+  //Button 12
+  private final JoystickButton elevator_sysid_quas_rev = new JoystickButton(l_operator, 12);
+  //Button 15
+  private final JoystickButton elevator_sysid_dyna_for = new JoystickButton(l_operator, 15);
+  //Button 16
+  private final JoystickButton elevator_sysid_dyna_rev = new JoystickButton(l_operator, 16);
 
   //Right Operator Joystick
   //Button 12
@@ -106,6 +115,11 @@ public class RobotContainer {
     climb.whileTrue(new Climb(climber));
     resting.onTrue(new InstantCommand(() -> elevator.setDefaultCommand(new Resting(elevator, intake))));
     traveling.onTrue(new InstantCommand(() -> elevator.setDefaultCommand(new Traveling(elevator, intake))));
+
+    elevator_sysid_quas_for.whileTrue(elevator.sys_id_quas(SysIdRoutine.Direction.kForward));
+    elevator_sysid_quas_rev.whileTrue(elevator.sys_id_quas(SysIdRoutine.Direction.kReverse));
+    elevator_sysid_dyna_for.whileTrue(elevator.sys_id_dynamic(SysIdRoutine.Direction.kForward));
+    elevator_sysid_dyna_rev.whileTrue(elevator.sys_id_dynamic(SysIdRoutine.Direction.kReverse));
     //right operator buttons
     coral_intake.whileTrue(new IntakeAlgae(elevator, intake, Constants.elevator.coral));
     ground_intake.whileTrue(new IntakeAlgae(elevator, intake, Constants.elevator.ground));
