@@ -11,8 +11,8 @@ import frc.robot.subsystems.Elevator;
 public class HoldPosition extends Command {
   /** Creates a new HoldPosition. */
   Elevator elevator;
-  int position;
-  public HoldPosition(Elevator elevator, int position) {
+  double position;
+  public HoldPosition(Elevator elevator, double position) {
     this.elevator = elevator;
     this.position = position;
     // Use addRequirements() here to declare subsystem dependencies.

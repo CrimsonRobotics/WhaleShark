@@ -11,8 +11,8 @@ import frc.robot.subsystems.Elevator;
 public class RunToPosition extends Command {
   /** Creates a new RunToPosition. */
   Elevator elevator;
-  int position;
-  public RunToPosition(Elevator elevator, int position) {
+  double position;
+  public RunToPosition(Elevator elevator, double position) {
     this.elevator = elevator;
     this.position = position;
     // Use addRequirements() here to declare subsystem dependencies.
