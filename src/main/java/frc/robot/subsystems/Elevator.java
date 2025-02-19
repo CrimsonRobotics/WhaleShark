@@ -6,6 +6,11 @@ package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
+
+import static edu.wpi.first.units.Units.Meters;
+import static edu.wpi.first.units.Units.MetersPerSecond;
+import static edu.wpi.first.units.Units.Volts;
+
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
@@ -14,10 +19,17 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 import frc.robot.Constants;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.GenericEntry;
+import edu.wpi.first.units.measure.MutDistance;
+import edu.wpi.first.units.measure.MutLinearVelocity;
+import edu.wpi.first.units.measure.MutVoltage;
+import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.sysid.SysIdRoutineLog;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 
 public class Elevator extends SubsystemBase {
   /** Creates a new Elevator. */
@@ -30,6 +42,7 @@ public class Elevator extends SubsystemBase {
   double voltage;
   ShuffleboardTab elevator_tab;
   GenericEntry elevator_position;
+  SysIdRoutine routine;
   GenericEntry elevator_velocity;
   public Elevator() {
     //Creates spark max motor controllers
@@ -82,6 +95,33 @@ public class Elevator extends SubsystemBase {
     elevator_position = elevator_tab.add("Elevator Position", 0).getEntry();
     //puts the elevator current velocity onto the shuffleboard tab as "Elevator Velocity"
     elevator_velocity = elevator_tab.add("Elevator Velocity", 0).getEntry();
+
+
+    //system identificaiton routine stuff
+
+    // Mutable holder for unit-safe voltage values, persisted to avoid reallocation.
+    final MutVoltage m_appliedVoltage = Volts.mutable(0);
+    // Mutable holder for unit-safe linear distance values, persisted to avoid reallocation.
+    final MutDistance m_distance = Meters.mutable(0);
+    // Mutable holder for unit-safe linear velocity values, persisted to avoid reallocation.
+    final MutLinearVelocity m_velocity = MetersPerSecond.mutable(0);
+
+
+    routine = new SysIdRoutine(
+      new SysIdRoutine.Config(), 
+      new SysIdRoutine.Mechanism(
+        voltage -> {
+          set_voltage(voltage);
+        }, 
+        log -> {
+          log.motor("right motor")
+            .voltage(
+              m_appliedVoltage.mut_replace(
+                l_motor.get() * 12, Volts
+              ))
+            .linearPosition(m_distance.mut_replace(get_position(), Meters))
+            .linearVelocity(m_velocity.mut_replace(encoder.getVelocity(), MetersPerSecond));
+        }, this));
   }
 
   //this will return the current position of the elevator motor
@@ -109,6 +149,21 @@ public class Elevator extends SubsystemBase {
     l_motor.setVoltage(voltage);
   }
 
+  //system idenfitication stuff below
+  public void set_voltage(Voltage volt) {
+    r_motor.setVoltage(volt);
+    l_motor.setVoltage(volt);
+  }
+
+  //sysid commands
+  public Command sys_id_quas(SysIdRoutine.Direction direction) {
+    return routine.quasistatic(direction);
+  }
+
+  public Command sys_id_dynamic(SysIdRoutine.Direction direction) {
+    return routine.dynamic(direction);
+  }
+  
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

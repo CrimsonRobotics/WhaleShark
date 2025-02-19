@@ -49,7 +49,7 @@ public class Intake extends SubsystemBase {
       //sets the idle mode to brake
       .idleMode(IdleMode.kBrake)
       //sets the motor to not be inverted
-      .inverted(false)
+      .inverted(true)
       //sets the current limit to the intake current limit from Constants
       .smartCurrentLimit(Constants.intake.intake_current_limit)
       //will scale all .run() on the motor controller as if the battery has full charge
@@ -60,7 +60,7 @@ public class Intake extends SubsystemBase {
       //sets the idle mode to brake
       .idleMode(IdleMode.kBrake)
       //sets the motor to not be inverted
-      .inverted(false)
+      .inverted(true)
       //sets the current limit to the hold current limit from Constants
       .smartCurrentLimit(Constants.intake.hold_current_limit)
       //will scale all .run() on the motor controller as if the battery has full charge
