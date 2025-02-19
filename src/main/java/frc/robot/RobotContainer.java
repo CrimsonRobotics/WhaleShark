@@ -7,6 +7,8 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.Climber.Climb;
+import frc.robot.commands.Climber.ReadyUp;
 import frc.robot.commands.Operator.BargeScore;
 import frc.robot.commands.Operator.IntakeAlgae;
 import frc.robot.commands.Operator.Resting;
@@ -47,6 +49,10 @@ public class RobotContainer {
   //Creating Joystick Buttons
 
   //Left Operator Joystick
+  //Button 6
+  private final JoystickButton climber_ready = new JoystickButton(l_operator, 6);
+  //Button 7
+  private final JoystickButton climb = new JoystickButton(l_operator, 7);
   //Button 8
   private final JoystickButton resting = new JoystickButton(l_operator, 8);
   //Button 9
@@ -96,6 +102,8 @@ public class RobotContainer {
 
     //configuring buttons
     //left operator buttons
+    climber_ready.onTrue(new ReadyUp(climber));
+    climb.whileTrue(new Climb(climber));
     resting.onTrue(new InstantCommand(() -> elevator.setDefaultCommand(new Resting(elevator, intake))));
     traveling.onTrue(new InstantCommand(() -> elevator.setDefaultCommand(new Traveling(elevator, intake))));
     //right operator buttons
