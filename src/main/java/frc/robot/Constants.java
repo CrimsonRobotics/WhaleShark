@@ -112,7 +112,9 @@ public final class Constants {
     public static final double ki = 0;
     public static final double kd = 0;
 
+    //ready up position is the position that the climber will be at when it is ready to climb
     public static final int ready_up_position = 0;
+    //this is the speed at which the robot will climb
     public static final int climb_voltage = 6;
 
 
@@ -130,6 +132,11 @@ public final class Constants {
     public static final double rest_speed = 0.1;
 
     //enum for configs
+    //an enum is a variable that you create with set values you define
+    //it is helpful because it is like a boolean but can have more than two values
+    //it is better than number because it does not take up as much storage and ram
+    //and it is better than both because it is more descriptive
+    //I am using it for switching states of the intake
     public static enum state {
       HOLD,
       INTAKE
