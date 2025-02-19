@@ -105,6 +105,8 @@ public final class Constants {
     //height values of the elvator
     public static final double low_reef = 0;
     public static final double high_reef = 0;
+    public static final double coral = 0;
+    public static final double ground = 0;
     public static final double rest = 0;
     public static final double barge = 0;
     public static final double travel = 0;
