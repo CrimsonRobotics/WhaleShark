@@ -9,6 +9,7 @@ import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.Climber.Climb;
 import frc.robot.commands.Climber.ReadyUp;
+import frc.robot.commands.Drivetrain.Drive;
 import frc.robot.commands.Operator.BargeScore;
 import frc.robot.commands.Operator.IntakeAlgae;
 import frc.robot.commands.Operator.Resting;
@@ -78,6 +79,7 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
+    drivetrain.setDefaultCommand(new Drive(drivetrain, l_drive, r_drive));
     configureBindings();
   }
 
