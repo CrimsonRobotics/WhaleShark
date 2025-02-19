@@ -23,36 +23,36 @@ public final class Constants {
   }
   public static class dt {
     public static class mod0 {
-      public static final int drive_id = 54;
-      public static final int turn_id = 58;
-      public static final int can_coder = 8;
-      public static final Rotation2d turn_offset = Rotation2d.fromDegrees(339.3);
+      public static final int drive_id = 39;
+      public static final int turn_id = 43;
+      public static final int can_coder = 5;
+      public static final Rotation2d turn_offset = Rotation2d.fromDegrees(67.3);
     }
     public static class mod1 {
-      public static final int drive_id = 36;
-      public static final int turn_id = 52;
-      public static final int can_coder = 1;
-      public static final Rotation2d turn_offset = Rotation2d.fromDegrees(187.3);
+      public static final int drive_id = 47;
+      public static final int turn_id = 60;
+      public static final int can_coder = 6;
+      public static final Rotation2d turn_offset = Rotation2d.fromDegrees(271.2);
     }
     public static class mod2 {
-      public static final int drive_id = 53;
-      public static final int turn_id = 61;
-      public static final int can_coder = 2;
-      public static final Rotation2d turn_offset = Rotation2d.fromDegrees(166.1);
+      public static final int drive_id = 38;
+      public static final int turn_id = 48;
+      public static final int can_coder = 4;
+      public static final Rotation2d turn_offset = Rotation2d.fromDegrees(103.8);
     }
     public static class mod3 {
-      public static final int drive_id = 55;
-      public static final int turn_id = 59;
-      public static final int can_coder = 3;
-      public static final Rotation2d turn_offset = Rotation2d.fromDegrees(148.2);
+      public static final int drive_id = 45;
+      public static final int turn_id = 32;
+      public static final int can_coder = 7;
+      public static final Rotation2d turn_offset = Rotation2d.fromDegrees(226.0);
     }
 
     //this is the drive motor gear ratio, basically 6 rotation of the motor will rotation the drivec motor once
-    public static final double drive_motor_ratio = 6.12;
+    public static final double drive_motor_ratio = 6.75;
     //this is how many ecoder ticks for one motor revolution
     public static final double encoder_tick_ratio = 1;
     //this is the diameter of the drive wheel in meters, the number put in is in inches
-    public static final double wheel_diameter = Units.inchesToMeters(3.75);
+    public static final double wheel_diameter = Units.inchesToMeters(4);
     //this is the gear ratio of the turn motor, it takes 150 revolutions of the turn motor to rotate the wheel 7 times
     public static final double turn_motor_ratio = 150.0 / 7.0;
     //this uses the constants of the module to create a drive position vonversion factor.
@@ -96,8 +96,8 @@ public final class Constants {
   }
 
   public static class elevator {
-    public static final int r_motor_id = 1;
-    public static final int l_motor_id = 2;
+    public static final int r_motor_id = 41;
+    public static final int l_motor_id = 40;
     //run to position pid values
     public static final double kp = 0.1;
     public static final double ki = 0;
@@ -110,10 +110,20 @@ public final class Constants {
     public static final double rest = 0;
     public static final double barge = 0;
     public static final double travel = 0;
+
+    //conversion factors for the elevator
+    //gear ratio after encoder
+    //58 rotations of encoder shaft equals 16 rotations of output shaft
+    public static final double  gear_ratio = 16 / 58;
+    //encoder ticks per rotation of shaft
+    public static final double encoder_ticks = 1;
+    public static final double position_conversion_factor = gear_ratio / encoder_ticks;
+    
+
   }
 
   public static class climber {
-    public static final int motor_id = 3;
+    public static final int motor_id = 35;
 
     //run to position pid values
     public static final double kp = 0.1;
@@ -129,7 +139,7 @@ public final class Constants {
   }
 
   public static class intake {
-    public static final int motor_id = 4;
+    public static final int motor_id = 5;
     public static final int hold_current_limit = 40;
     public static final int intake_current_limit = 40;
 
