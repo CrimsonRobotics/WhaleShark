@@ -27,7 +27,7 @@ public class Traveling extends ParallelCommandGroup {
 
     //these commands will both happen at the same time
     addCommands(
-      //the elevator will hold positiot at rest height
+      //the elevator will hold position at travel height
       new HoldPosition(this.elevator, Constants.elevator.travel),
       //the intake will go into travel state(where it is holding a ball)
       new Travel(this.intake));
