@@ -102,6 +102,12 @@ public final class Constants {
     public static final double kp = 0.1;
     public static final double ki = 0;
     public static final double kd = 0;
+    //height values of the elvator
+    public static final double low_reef = 0;
+    public static final double high_reef = 0;
+    public static final double rest = 0;
+    public static final double barge = 0;
+    public static final double travel = 0;
   }
 
   public static class climber {
