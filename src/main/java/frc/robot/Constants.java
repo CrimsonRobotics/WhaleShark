@@ -114,14 +114,14 @@ public final class Constants {
     //conversion factors for the elevator
     //gear ratio after encoder
     //58 rotations of encoder shaft equals 16 rotations of output shaft
-    public static final double  gear_ratio = 16 / 58;
+    public static final double  gear_ratio = 58 / 16;
     //encoder ticks per rotation of shaft
     public static final double encoder_ticks = 1;
     //diameter of sprocket with chain in meters
     public static final double diameter = Units.inchesToMeters(7);
     //rotations of output shaft to meters of elevator movement
     public static final double rotations_to_meters = diameter * Math.PI;
-    public static final double position_conversion_factor = rotations_to_meters * gear_ratio / encoder_ticks;
+    public static final double position_conversion_factor = rotations_to_meters / (gear_ratio * encoder_ticks);
     
 
   }
