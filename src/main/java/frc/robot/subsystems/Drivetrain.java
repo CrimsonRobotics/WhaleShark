@@ -4,7 +4,14 @@
 
 package frc.robot.subsystems;
 
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+
 import com.ctre.phoenix6.hardware.Pigeon2;
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.config.PIDConstants;
+import com.pathplanner.lib.config.RobotConfig;
+import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -14,6 +21,8 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -21,6 +30,8 @@ import frc.robot.Constants;
 
 public class Drivetrain extends SubsystemBase {
   /** Creates a new Drivetrain. */
+  RobotConfig config;
+
   Pigeon2 gyro;
   private final SwerveModule[] dt;
   SwerveDrivePoseEstimator pose_estimator;
@@ -43,7 +54,98 @@ public class Drivetrain extends SubsystemBase {
 
     //field to visualize where pose estimator thinks robot is
     field = new Field2d();
+
+    //try to set the config from the robot config from the GUI settings in the path planner app
+    try{
+      config = RobotConfig.fromGUISettings();
+    //if there is a error it catches it and prints it
+    } catch (Exception exception){
+      exception.printStackTrace();
+    }
+    //configures the auto builder
+    AutoBuilder.configure(
+      //gets a pose supplier
+      this.get_pose_supplier(),
+      //uses the pose supplier to reset the pose estimator
+      (p) -> this.reset_supplier_pose(get_pose_supplier()),
+      //gets a robot relative speeds as supplier
+      this.get_robot_relative_speeds(),
+      //uses the speed supplier to drive the robot 
+      (speed_supplier,feedforward) -> this.drive_robot_relative_speeds(speed_supplier),
+      //creates a new controller with PID Constants for driving and rotations
+      new PPHolonomicDriveController(
+        new PIDConstants(0, 0, 0), 
+        new PIDConstants(0, 0, 0)),
+      //robot configs
+      config,
+      //used to flip the path
+      () -> {
+        //creates a variable called alliance and gets the alliance color from the driver station
+        var alliance = DriverStation.getAlliance();
+        //origin of path is on blue side
+        //if the alliance is present
+        if (alliance.isPresent()){
+          //flip the path to red alliance
+          return alliance.get() == DriverStation.Alliance.Red;
+        }
+        //if not than keep the path on blue alliance
+        return false;
+      },
+      //requirements are itself
+      this);
   }
+
+  //gets the pose as a supplier
+  public Supplier<Pose2d> get_pose_supplier() {
+    return () -> pose_estimator.getEstimatedPosition();
+  }
+
+  //reset the pose with the pose supplier
+  public void reset_supplier_pose(Supplier<Pose2d> pose_supplier){
+    Pose2d pose = pose_supplier.get();
+    //takes a Pose2d and resets the pose estimator using current yaw and module position
+    Consumer<Pose2d> reset = (p) -> this.pose_estimator.resetPosition(get_yaw(), 
+    new SwerveModulePosition[] {
+      this.dt[0].get_position(),
+      this.dt[1].get_position(),
+      this.dt[2].get_position(),
+      this.dt[3].get_position()
+    }, 
+    pose);
+    //accepts the pose from the pose supplier
+    reset.accept(pose);
+  }
+
+  //gets a chassis speed as a supplier
+  public Supplier<ChassisSpeeds> get_robot_relative_speeds(){
+    //gets the supplier from the states from the modules
+    return () -> Constants.dt.swerve_map.toChassisSpeeds(new SwerveModuleState[]{
+      this.dt[0].get_state(),
+      this.dt[1].get_state(),
+      this.dt[2].get_state(),
+      this.dt[3].get_state()
+    });
+  }
+  
+  //drives the robot with the chassis speeds fron get_robot_relative_speeds
+  public void drive_robot_relative_speeds(ChassisSpeeds speed_supplier){
+    ChassisSpeeds speeds = speed_supplier;
+
+    //takes a chassis speed to drive
+    Consumer<ChassisSpeeds> drive = (s) -> {
+      //gets the module state 
+      SwerveModuleState[] swerve_module_state = Constants.dt.swerve_map.toSwerveModuleStates(speeds);
+      //slows the wheels to prevent it from going over max speed
+      SwerveDriveKinematics.desaturateWheelSpeeds(swerve_module_state, Constants.dt.max_speed);
+      //sets desired state for all modules
+      for(SwerveModule module: this.dt) {
+        module.set_desired_state(swerve_module_state[module.module_number]);
+      }
+    };
+    //accepts the speed to drive the robot
+    drive.accept(speeds);
+  }
+
 
   public void set_gyro(double yaw) {
     //sets the gyros yaw to the yaw paramter
