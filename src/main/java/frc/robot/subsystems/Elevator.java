@@ -29,6 +29,7 @@ public class Elevator extends SubsystemBase {
   double voltage;
   ShuffleboardTab elevator_tab;
   GenericEntry elevator_position;
+  GenericEntry elevator_velocity;
   public Elevator() {
     //Creates spark max motor controllers
     r_motor = new SparkMax(Constants.elevator.r_motor_id, MotorType.kBrushless);
@@ -68,15 +69,21 @@ public class Elevator extends SubsystemBase {
     pid = new PIDController(Constants.elevator.kp, Constants.elevator.ki, Constants.elevator.kd);
 
     //this creates the shuffleboard tab for outputing elevator data onto shuffleboard
-    elevator_tab = Shuffleboard.getTab("Climber");
-    //puts the elevator current position onto the shuffleboard tab as "Position"
-    elevator_position = elevator_tab.add("Climber Position", 0).getEntry();
+    elevator_tab = Shuffleboard.getTab("Elevator");
+    //puts the elevator current position onto the shuffleboard tab as "ELevator Position"
+    elevator_position = elevator_tab.add("Elevator Position", 0).getEntry();
+    //puts the elevator current velocity onto the shuffleboard tab as "Elevator Velocity"
+    elevator_velocity = elevator_tab.add("Elevator Velocity", 0).getEntry();
   }
 
   //this will return the current position of the elevator motor
   //it is used for putting the elevator into various intake and scoring positions
   public double get_position() {
     return encoder.getPosition();
+  }
+
+  public double get_velocity() {
+    return encoder.getVelocity();
   }
 
   //this will have the elevator move to a specific position
@@ -94,5 +101,7 @@ public class Elevator extends SubsystemBase {
     // This method will be called once per scheduler run
     //this will put the current position of the climber onto shuffleboard continually
     elevator_position.setDouble(get_position());
+    //this will put the current velocity of the climber onto shuffleboard continually
+    elevator_velocity.setDouble(get_velocity());
   }
 }
