@@ -49,6 +49,9 @@ public class Elevator extends SubsystemBase {
       .idleMode(IdleMode.kBrake)
       //motor is not inverted
       .inverted(false);
+    r_motor_config.encoder
+      //sets the position conversion factor to the elevator position conversion factor from Constants
+      .positionConversionFactor(Constants.elevator.position_conversion_factor);
     
     //sets the left motor config
     l_motor_config
@@ -56,6 +59,9 @@ public class Elevator extends SubsystemBase {
       .idleMode(IdleMode.kBrake)
       //motor is not inverted
       .inverted(false);
+    l_motor_config.encoder
+      //sets the position conversion factor to the elevator position conversion factor from Constants
+      .positionConversionFactor(Constants.elevator.position_conversion_factor);
     
     //configures the motor controllers with the config s
     //when this is run all old settings on spark max are reset to default
