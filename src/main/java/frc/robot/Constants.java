@@ -117,7 +117,11 @@ public final class Constants {
     public static final double  gear_ratio = 16 / 58;
     //encoder ticks per rotation of shaft
     public static final double encoder_ticks = 1;
-    public static final double position_conversion_factor = gear_ratio / encoder_ticks;
+    //diameter of sprocket with chain in meters
+    public static final double diameter = Units.inchesToMeters(7);
+    //rotations of output shaft to meters of elevator movement
+    public static final double rotations_to_meters = diameter * Math.PI;
+    public static final double position_conversion_factor = rotations_to_meters * gear_ratio / encoder_ticks;
     
 
   }
@@ -140,7 +144,7 @@ public final class Constants {
 
   public static class intake {
     public static final int motor_id = 23;
-    public static final int hold_current_limit = 40;
+    public static final int hold_current_limit = 10;
     public static final int intake_current_limit = 40;
 
     //intake motor spin speeds
