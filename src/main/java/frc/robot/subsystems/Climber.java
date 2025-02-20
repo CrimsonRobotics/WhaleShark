@@ -42,6 +42,8 @@ public class Climber extends SubsystemBase {
       .idleMode(IdleMode.kBrake)
       //motor is not inverted
       .inverted(false);
+    config.encoder
+      .positionConversionFactor(Constants.climber.position_conversion_factor);
 
     //configures the motor with the config 
     //when this is run all old settings on spark max are reset to default
