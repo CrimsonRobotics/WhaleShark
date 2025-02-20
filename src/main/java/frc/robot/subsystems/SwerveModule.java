@@ -17,6 +17,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
@@ -149,6 +150,9 @@ public class SwerveModule {
         } else {
             turn_speed = this.turn_pid.calculate(diff, 0);
         }
+
+        SmartDashboard.putNumber("Can_coder from module" + this.module_number, this.get_can_coder().getDegrees());
+        SmartDashboard.putNumber("Difference" + this.module_number, diff);
 
         //drive_speed = this.drive_pid.calculate(drive_encoder.getVelocity(), desired_state.speedMetersPerSecond);
         drive_speed = desired_state.speedMetersPerSecond / Constants.dt.max_speed;

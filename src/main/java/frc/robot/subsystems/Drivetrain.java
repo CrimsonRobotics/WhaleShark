@@ -4,6 +4,9 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.BaseStatusSignal;
+import com.ctre.phoenix6.CANBus;
+import com.ctre.phoenix6.CANBus.CANBusStatus;
 import com.ctre.phoenix6.hardware.Pigeon2;
 
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
@@ -25,10 +28,10 @@ public class Drivetrain extends SubsystemBase {
   private final SwerveModule[] dt;
   SwerveDrivePoseEstimator pose_estimator;
   Field2d field;
+  CANBusStatus busUtilization;
   public Drivetrain() {
-    gyro = new Pigeon2(10);
+    gyro = new Pigeon2(0);
     set_gyro(0);
-
     this.dt = new SwerveModule[] {
       new SwerveModule(0, Constants.dt.mod0.drive_id, Constants.dt.mod0.turn_id, Constants.dt.mod0.can_coder, Constants.dt.mod0.turn_offset),
       new SwerveModule(1, Constants.dt.mod1.drive_id, Constants.dt.mod1.turn_id, Constants.dt.mod1.can_coder, Constants.dt.mod1.turn_offset),
@@ -95,5 +98,10 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("Drive Encoder 1", this.dt[1].get_drive_encoder());
     SmartDashboard.putNumber("Drive Encoder 2", this.dt[2].get_drive_encoder());
     SmartDashboard.putNumber("Drive Encoder 3", this.dt[3].get_drive_encoder());
+
+    SmartDashboard.putNumber("CanCoder Reading 0", this.dt[0].get_can_coder().getDegrees());
+    SmartDashboard.putNumber("CanCoder Reading 1", this.dt[1].get_can_coder().getDegrees());
+    SmartDashboard.putNumber("CanCoder Reading 2", this.dt[2].get_can_coder().getDegrees());
+    SmartDashboard.putNumber("CanCoder Reading 3", this.dt[3].get_can_coder().getDegrees());
   }
 }

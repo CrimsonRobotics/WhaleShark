@@ -36,7 +36,7 @@ public class Elevator extends SubsystemBase {
 
     //Gets the encoder that is plugged into the spark max controller
     //It isnt the encoder built into the neo motor
-    encoder = r_motor.getAlternateEncoder();
+    encoder = r_motor.getEncoder();
 
     //Creates spark max motor controller configurations
     r_motor_config = new SparkMaxConfig();
@@ -70,7 +70,7 @@ public class Elevator extends SubsystemBase {
     //this creates the shuffleboard tab for outputing elevator data onto shuffleboard
     elevator_tab = Shuffleboard.getTab("Climber");
     //puts the elevator current position onto the shuffleboard tab as "Position"
-    elevator_position = elevator_tab.add("Position", 0).getEntry();
+    elevator_position = elevator_tab.add("Climber Position", 0).getEntry();
   }
 
   //this will return the current position of the elevator motor
