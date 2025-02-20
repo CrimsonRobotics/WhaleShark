@@ -134,8 +134,16 @@ public final class Constants {
     public static final double ki = 0;
     public static final double kd = 0;
 
+    //position coversion factor stuff for climber motor
+    //gear ratio of gear box
+    //343 rotations of motor equals 1 rotation of the climber output shaft
+    public static final double gear_ratio = 343;
+    public static final double encoder_ticks = 1;
+    public static final double position_conversion_factor = 1 / (gear_ratio * encoder_ticks);
+
     //ready up position is the position that the climber will be at when it is ready to climb
-    public static final int ready_up_position = 0;
+    //this is in rotations of the motor
+    public static final double ready_up_position = 0.25;
     //this is the speed at which the robot will climb
     public static final int climb_voltage = 6;
 
