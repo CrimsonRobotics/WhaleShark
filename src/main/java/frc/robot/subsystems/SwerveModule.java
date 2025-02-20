@@ -117,7 +117,8 @@ public class SwerveModule {
 
     //returns can coder value
     public Rotation2d get_can_coder() {
-        return Rotation2d.fromDegrees(this.best_turn_encoder.getAbsolutePosition().getValue().magnitude());
+        //I multiply this by 360 because it is initially in a range of (-0.5, 0.5] and I want it in degrees.
+        return Rotation2d.fromDegrees(this.best_turn_encoder.getAbsolutePosition().getValue().magnitude() * 360);
     }
 
     //returns the current state of the module
