@@ -14,6 +14,7 @@ import frc.robot.commands.Drivetrain.Drive;
 import frc.robot.commands.Elevator.RunElevator;
 import frc.robot.commands.Intake.Extend;
 import frc.robot.commands.Intake.Retract;
+import frc.robot.commands.Intake.RunRoller;
 import frc.robot.commands.Operator.BargeScore;
 import frc.robot.commands.Operator.IntakeAlgae;
 import frc.robot.commands.Operator.Resting;
@@ -54,6 +55,8 @@ public class RobotContainer {
   //Creating Joystick Buttons
 
   //Right Driver Joystick
+  //Button 1
+  private final JoystickButton run_roller = new JoystickButton(r_drive, 1);
   //Button 2
   private final JoystickButton piston_extend = new JoystickButton(r_drive, 2);
   //Button 3
@@ -118,6 +121,7 @@ public class RobotContainer {
 
     //configuring buttons
     //right driver buttons
+    run_roller.whileTrue(new RunRoller(intake, r_drive));
     piston_extend.onTrue(new Extend(intake));
     piston_retract.onTrue(new Retract(intake));
     //left operator buttons
