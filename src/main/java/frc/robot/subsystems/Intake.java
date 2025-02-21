@@ -31,7 +31,7 @@ public class Intake extends SubsystemBase {
     //creates the solenoid for the intake going in and out
     //The pneumatics module type is REVPH(REV Pneumatics Hub is the pneumatics controller made by REV Robotics)
     //the channels are plugged into 0 and 1, but which is which needs to be checked
-    solenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, 0, 1);
+    solenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, 1, 0);
     //The intake motor is a NEO Vortex which is beinc controlled by a spark flex controller
     //neo vortex is brushless
     intake_motor = new SparkFlex(Constants.intake.motor_id, MotorType.kBrushless);
