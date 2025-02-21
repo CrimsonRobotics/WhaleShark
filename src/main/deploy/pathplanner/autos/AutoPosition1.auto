@@ -13,13 +13,13 @@
         {
           "type": "named",
           "data": {
-            "name": "Coral Deposit"
+            "name": null
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "Low Algae"
+            "name": null
           }
         },
         {
@@ -31,7 +31,7 @@
         {
           "type": "named",
           "data": {
-            "name": "Barge Score"
+            "name": null
           }
         },
         {
@@ -43,31 +43,13 @@
         {
           "type": "named",
           "data": {
-            "name": "High Algae"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "CoralToAlgae"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Barge Score"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "EndPos"
+            "name": null
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "Failed Tests",
   "choreoAuto": false
 }

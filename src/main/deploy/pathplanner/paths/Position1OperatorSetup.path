@@ -3,29 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.972,
-        "y": 7.06388319672131
+        "x": 7.672131147540983,
+        "y": 5.025973360655737
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.201514467560143,
-        "y": 7.162994796348117
+        "x": 7.968576676675346,
+        "y": 5.338057745554287
       },
       "isLocked": false,
-      "linkedName": "pos3_startpoit"
+      "linkedName": "AlgaeDropoffPos"
+    },
+    {
+      "anchor": {
+        "x": 6.36547131147541,
+        "y": 3.4555840163934426
+      },
+      "prevControl": {
+        "x": 6.9072994255468725,
+        "y": 4.145612182529148
+      },
+      "nextControl": {
+        "x": 6.211075282946049,
+        "y": 3.2589578066085805
+      },
+      "isLocked": false,
+      "linkedName": null
     },
     {
       "anchor": {
         "x": 5.238627049180328,
-        "y": 5.265727459016393
+        "y": 2.7602971311475404
       },
       "prevControl": {
-        "x": 4.951704415400943,
-        "y": 5.138418808728722
+        "x": 4.971866891048102,
+        "y": 2.620160314519099
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "pos3_end"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -42,10 +58,10 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -119.99999999999999
+    "rotation": 119.99999999999999
   },
   "reversed": false,
-  "folder": "Failed Tests",
+  "folder": "Position 1 Paths",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0

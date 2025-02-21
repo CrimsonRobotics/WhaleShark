@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.568461166855569,
-        "y": 5.130992180999784
+        "x": 8.359614128047978,
+        "y": 4.957044577982147
       },
       "isLocked": false,
       "linkedName": "CoralToAlgae"
     },
     {
       "anchor": {
-        "x": 5.873975409836065,
-        "y": 4.00701844262295
+        "x": 5.262602459016393,
+        "y": 5.205788934426229
       },
       "prevControl": {
-        "x": 5.631231949182405,
-        "y": 4.066814866511716
+        "x": 5.01359557452259,
+        "y": 5.2280503691214495
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,10 +42,10 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": -119.99999999999999
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Failed Tests",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0
