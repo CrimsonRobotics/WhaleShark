@@ -15,6 +15,7 @@ public class RunRoller extends Command {
   Joystick joystick;
   public RunRoller(Intake intake, Joystick joystick) {
     this.intake = intake;
+    this.joystick = joystick;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.intake);
   }
