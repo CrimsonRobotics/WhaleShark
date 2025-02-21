@@ -12,6 +12,8 @@ import frc.robot.commands.Climber.ClimbBack;
 import frc.robot.commands.Climber.ReadyUp;
 import frc.robot.commands.Drivetrain.Drive;
 import frc.robot.commands.Elevator.RunElevator;
+import frc.robot.commands.Intake.Extend;
+import frc.robot.commands.Intake.Retract;
 import frc.robot.commands.Operator.BargeScore;
 import frc.robot.commands.Operator.IntakeAlgae;
 import frc.robot.commands.Operator.Resting;
@@ -50,6 +52,12 @@ public class RobotContainer {
   private final Joystick r_operator = new Joystick(3);
   
   //Creating Joystick Buttons
+
+  //Right Driver Joystick
+  //Button 2
+  private final JoystickButton piston_extend = new JoystickButton(r_drive, 2);
+  //Button 3
+  private final JoystickButton piston_retract = new JoystickButton(r_drive, 3);
 
   //Left Operator Joystick
   //Button 1
@@ -109,6 +117,9 @@ public class RobotContainer {
 
 
     //configuring buttons
+    //right driver buttons
+    piston_extend.onTrue(new Extend(intake));
+    piston_retract.onTrue(new Retract(intake));
     //left operator buttons
     run_elevator.whileTrue(new RunElevator(elevator, l_operator));
     //climber_ready.onTrue(new ReadyUp(climber));
