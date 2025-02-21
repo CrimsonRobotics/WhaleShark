@@ -9,6 +9,8 @@ import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.Climber.Climb;
 import frc.robot.commands.Climber.ReadyUp;
+import frc.robot.commands.Elevator.RunToPosition;
+import frc.robot.commands.Intake.Shoot;
 import frc.robot.commands.Operator.BargeScore;
 import frc.robot.commands.Operator.IntakeAlgae;
 import frc.robot.commands.Operator.Resting;
@@ -20,6 +22,8 @@ import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Intake;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.events.EventTrigger;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -85,8 +89,30 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
+    //Uses the auto chooser varible and sets it to the autobuilder that we configured and it builds the auto chooser
     auto_chooser = AutoBuilder.buildAutoChooser();
+    //Puts the Auto Chooser on Smart Dash Board 
     SmartDashboard.putData("Auto Chooser",auto_chooser);
+
+    //Calls the Named Commands to be used in the path planner auto code
+    //Low algae named command
+    NamedCommands.registerCommand("Low Algae", new IntakeAlgae(elevator, intake, Constants.elevator.low_reef));
+    //High algae named command
+    NamedCommands.registerCommand("High Algae", new IntakeAlgae(elevator, intake, Constants.elevator.high_reef));
+    //Barge score named command
+    NamedCommands.registerCommand("Barge Score", new BargeScore(elevator, intake));
+    //Coral Deposit named command
+    NamedCommands.registerCommand("Coral Deposit", new Shoot(intake));
+
+    //Creates Event Triggers that activates at the trigger 
+    //event trigger for low algae
+    new EventTrigger("Low Algae").whileTrue(new IntakeAlgae(elevator, intake, Constants.elevator.low_reef));
+    //event trigger for high algae
+    new EventTrigger("High Algae").whileTrue(new IntakeAlgae(elevator, intake, Constants.elevator.high_reef));
+    //event trigger for barge scoring
+    new EventTrigger("Barge Score").whileTrue(new BargeScore(elevator, intake));
+    //event trigger for coral deposit
+    new EventTrigger("Coral Deposit").whileFalse(new Shoot(intake));
   }
 
   /**
@@ -130,6 +156,8 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
     //return Autos.exampleAuto(m_exampleSubsystem);
+    
+    //returns the auto that was selected in the smart dash board
     return auto_chooser.getSelected();
   }
 }

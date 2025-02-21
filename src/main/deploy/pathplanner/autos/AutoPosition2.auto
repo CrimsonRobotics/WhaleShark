@@ -1,0 +1,73 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Position2StartToCoral"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Coral Deposit"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Low Algae"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "CoralToAlgae2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Barge Score"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "AlgaeToCoral2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "High Algae"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "CoralToAlgae2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Barge Score"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "EndPos2"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

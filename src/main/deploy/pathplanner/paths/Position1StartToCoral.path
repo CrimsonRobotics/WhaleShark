@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.151639344262295,
+        "y": 5.0499487704918025
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 8.558437366470809,
+        "y": 5.22661279182307
+      },
+      "isLocked": false,
+      "linkedName": "Pos1Start"
+    },
+    {
+      "anchor": {
+        "x": 5.9219262295081965,
+        "y": 4.066956967213113
+      },
+      "prevControl": {
+        "x": 5.664283157703039,
+        "y": 3.956060346653591
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "BargeToCoral"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 180.0
+  },
+  "reversed": false,
+  "folder": null,
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 180.0
+  },
+  "useDefaultConstraints": true
+}
