@@ -2,20 +2,23 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.Climber;
+package frc.robot.commands.Elevator;
 
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants;
-import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Elevator;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class Climb extends Command {
-  /** Creates a new Climb. */
-  Climber climber;
-  public Climb(Climber climber) {
-    this.climber = climber;
+public class RunElevator extends Command {
+  /** Creates a new RunElevator. */
+  Elevator elevator;
+  Joystick joystick;
+  public RunElevator(Elevator elevator, Joystick joystick) {
+    this.elevator = elevator;
+    this.joystick = joystick;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(this.climber);
+    addRequirements(this.elevator);
   }
 
   // Called when the command is initially scheduled.
@@ -25,13 +28,13 @@ public class Climb extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    climber.run(Constants.climber.climb_voltage);
+    this.elevator.run(joystick.getX());
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    climber.run(0);
+    this.elevator.run(0);
   }
 
   // Returns true when the command should end.

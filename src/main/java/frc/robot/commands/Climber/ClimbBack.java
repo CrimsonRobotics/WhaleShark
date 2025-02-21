@@ -9,10 +9,10 @@ import frc.robot.Constants;
 import frc.robot.subsystems.Climber;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class Climb extends Command {
+public class ClimbBack extends Command {
   /** Creates a new Climb. */
   Climber climber;
-  public Climb(Climber climber) {
+  public ClimbBack(Climber climber) {
     this.climber = climber;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.climber);
@@ -25,7 +25,7 @@ public class Climb extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    climber.run(Constants.climber.climb_voltage);
+    climber.run(-Constants.climber.climb_voltage);
   }
 
   // Called once the command ends or is interrupted.

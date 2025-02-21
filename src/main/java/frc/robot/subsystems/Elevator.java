@@ -16,6 +16,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Elevator extends SubsystemBase {
@@ -38,6 +39,7 @@ public class Elevator extends SubsystemBase {
     //Gets the encoder that is plugged into the spark max controller
     //It isnt the encoder built into the neo motor
     encoder = r_motor.getEncoder();
+    encoder.setPosition(0);
 
     //Creates spark max motor controller configurations
     r_motor_config = new SparkMaxConfig();
@@ -46,19 +48,19 @@ public class Elevator extends SubsystemBase {
     //sets the right motor configf
     r_motor_config
       //idle mode is brake
-      .idleMode(IdleMode.kBrake)
+      .idleMode(IdleMode.kCoast)
       //motor is not inverted
-      .inverted(false);
+      .inverted(true);
     r_motor_config.encoder
       //sets the position conversion factor to the elevator position conversion factor from Constants
-      .positionConversionFactor(Constants.elevator.position_conversion_factor);
+      .positionConversionFactor(1);
     
     //sets the left motor config
     l_motor_config
       //idle mode is brake
-      .idleMode(IdleMode.kBrake)
+      .idleMode(IdleMode.kCoast)
       //motor is not inverted
-      .inverted(false);
+      .inverted(true);
     l_motor_config.encoder
       //sets the position conversion factor to the elevator position conversion factor from Constants
       .positionConversionFactor(Constants.elevator.position_conversion_factor);
@@ -92,6 +94,11 @@ public class Elevator extends SubsystemBase {
     return encoder.getVelocity();
   }
 
+  public void run(double speed) {
+    r_motor.set(speed);
+    l_motor.set(speed);
+  }
+
   //this will have the elevator move to a specific position
   //it is used for putting the elevator into various intake and scoring positions
   public void run_to_position(double position) {
@@ -107,7 +114,8 @@ public class Elevator extends SubsystemBase {
     // This method will be called once per scheduler run
     //this will put the current position of the climber onto shuffleboard continually
     elevator_position.setDouble(get_position());
-    //this will put the current velocity of the climber onto shuffleboard continually
+    ////this will put the current velocity of the climber onto shuffleboard continually
     elevator_velocity.setDouble(get_velocity());
+    SmartDashboard.putNumber("Elevator Position", get_position());
   }
 }

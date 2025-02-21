@@ -8,8 +8,10 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.Climber.Climb;
+import frc.robot.commands.Climber.ClimbBack;
 import frc.robot.commands.Climber.ReadyUp;
 import frc.robot.commands.Drivetrain.Drive;
+import frc.robot.commands.Elevator.RunElevator;
 import frc.robot.commands.Operator.BargeScore;
 import frc.robot.commands.Operator.IntakeAlgae;
 import frc.robot.commands.Operator.Resting;
@@ -50,6 +52,10 @@ public class RobotContainer {
   //Creating Joystick Buttons
 
   //Left Operator Joystick
+  //Button 1
+  private final JoystickButton run_elevator = new JoystickButton(l_operator, 1);
+  //Button 5
+  private final JoystickButton climb_back = new JoystickButton(l_operator, 5);
   //Button 6
   private final JoystickButton climber_ready = new JoystickButton(l_operator, 6);
   //Button 7
@@ -79,7 +85,7 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
-    drivetrain.setDefaultCommand(new Drive(drivetrain, l_drive, r_drive));
+    //drivetrain.setDefaultCommand(new Drive(drivetrain, l_drive, r_drive));
     configureBindings();
   }
 
@@ -104,16 +110,18 @@ public class RobotContainer {
 
     //configuring buttons
     //left operator buttons
-    climber_ready.onTrue(new ReadyUp(climber));
-    climb.whileTrue(new Climb(climber));
-    resting.onTrue(new InstantCommand(() -> elevator.setDefaultCommand(new Resting(elevator, intake))));
-    traveling.onTrue(new InstantCommand(() -> elevator.setDefaultCommand(new Traveling(elevator, intake))));
-    //right operator buttons
-    coral_intake.whileTrue(new IntakeAlgae(elevator, intake, Constants.elevator.coral));
-    ground_intake.whileTrue(new IntakeAlgae(elevator, intake, Constants.elevator.ground));
-    low_reef_intake.whileTrue(new IntakeAlgae(elevator, intake, Constants.elevator.low_reef));
-    high_reef_intake.whileTrue(new IntakeAlgae(elevator, intake, Constants.elevator.high_reef));
-    barge_score.whileTrue(new BargeScore(elevator, intake));
+    run_elevator.whileTrue(new RunElevator(elevator, l_operator));
+    //climber_ready.onTrue(new ReadyUp(climber));
+    //climb_back.whileTrue(new ClimbBack(climber));
+    //climb.whileTrue(new Climb(climber));
+    //resting.onTrue(new InstantCommand(() -> elevator.setDefaultCommand(new Resting(elevator, intake))));
+    //traveling.onTrue(new InstantCommand(() -> elevator.setDefaultCommand(new Traveling(elevator, intake))));
+    ////right operator buttons
+    //coral_intake.whileTrue(new IntakeAlgae(elevator, intake, Constants.elevator.coral));
+    //ground_intake.whileTrue(new IntakeAlgae(elevator, intake, Constants.elevator.ground));
+    //low_reef_intake.whileTrue(new IntakeAlgae(elevator, intake, Constants.elevator.low_reef));
+    //high_reef_intake.whileTrue(new IntakeAlgae(elevator, intake, Constants.elevator.high_reef));
+    //barge_score.whileTrue(new BargeScore(elevator, intake));
   }
 
   /**

@@ -152,13 +152,13 @@ public class SwerveModule {
             turn_speed = this.turn_pid.calculate(diff, 0);
         }
 
-        SmartDashboard.putNumber("Can_coder from module" + this.module_number, this.get_can_coder().getDegrees());
-        SmartDashboard.putNumber("Difference" + this.module_number, diff);
+        //SmartDashboard.putNumber("Can_coder from module" + this.module_number, this.get_can_coder().getDegrees());
+        //SmartDashboard.putNumber("Difference" + this.module_number, diff);
 
         //drive_speed = this.drive_pid.calculate(drive_encoder.getVelocity(), desired_state.speedMetersPerSecond);
         drive_speed = desired_state.speedMetersPerSecond / Constants.dt.max_speed;
 
         this.turn_motor.set(turn_speed);
-        this.drive_motor.set(drive_speed);
+        //this.drive_motor.set(drive_speed);
     }
 }

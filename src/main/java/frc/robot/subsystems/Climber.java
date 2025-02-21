@@ -34,6 +34,7 @@ public class Climber extends SubsystemBase {
 
     //gets the encoder from the motor
     encoder = motor.getEncoder();
+    encoder.setPosition(0);
 
     //creates and defines the spark max config
     config = new SparkMaxConfig();

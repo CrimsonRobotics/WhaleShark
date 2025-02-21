@@ -14,6 +14,7 @@ import com.revrobotics.spark.config.SparkFlexConfig;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
@@ -24,7 +25,9 @@ public class Intake extends SubsystemBase {
   SparkFlex intake_motor;
   SparkFlexConfig hold_config;
   SparkFlexConfig intake_config;
+  Compressor compressor;
   public Intake() {
+    compressor = new Compressor(PneumaticsModuleType.REVPH);
     //creates the solenoid for the intake going in and out
     //The pneumatics module type is REVPH(REV Pneumatics Hub is the pneumatics controller made by REV Robotics)
     //the channels are plugged into 0 and 1, but which is which needs to be checked
@@ -100,5 +103,9 @@ public class Intake extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putBoolean("Compressor Enabled", compressor.isEnabled());
+    SmartDashboard.putBoolean("Get Pressure Switch Value",compressor.getPressureSwitchValue());
+    SmartDashboard.putNumber("Current Pressure", compressor.getPressure());
+    SmartDashboard.putNumber("Compressor current", compressor.getCurrent());
   }
 }

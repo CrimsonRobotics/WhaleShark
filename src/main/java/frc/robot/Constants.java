@@ -29,14 +29,14 @@ public final class Constants {
       public static final Rotation2d turn_offset = Rotation2d.fromDegrees(67.3);
     }
     public static class mod1 {
-      public static final int drive_id = 47;
-      public static final int turn_id = 60;
+      public static final int drive_id = 60;
+      public static final int turn_id = 47;
       public static final int can_coder = 6;
       public static final Rotation2d turn_offset = Rotation2d.fromDegrees(271.2);
     }
     public static class mod2 {
-      public static final int drive_id = 38;
-      public static final int turn_id = 48;
+      public static final int drive_id = 48;
+      public static final int turn_id = 38;
       public static final int can_coder = 4;
       public static final Rotation2d turn_offset = Rotation2d.fromDegrees(103.8);
     }
@@ -112,16 +112,20 @@ public final class Constants {
     public static final double travel = 0;
 
     //conversion factors for the elevator
+    //stage position change to chain movement
+    public static final double stage_to_chain = 3;
+    //gear ratio in first gear box
+    public static final double gear_box_ratio = 5;
     //gear ratio after encoder
     //58 rotations of encoder shaft equals 16 rotations of output shaft
     public static final double  gear_ratio = 58 / 16;
     //encoder ticks per rotation of shaft
     public static final double encoder_ticks = 1;
     //diameter of sprocket with chain in meters
-    public static final double diameter = Units.inchesToMeters(7);
+    public static final double diameter = Units.inchesToMeters(1.751);
     //rotations of output shaft to meters of elevator movement
     public static final double rotations_to_meters = diameter * Math.PI;
-    public static final double position_conversion_factor = rotations_to_meters / (gear_ratio * encoder_ticks);
+    public static final double position_conversion_factor = stage_to_chain * rotations_to_meters / (gear_box_ratio * gear_ratio * encoder_ticks);
     
 
   }
@@ -145,7 +149,7 @@ public final class Constants {
     //this is in rotations of the motor
     public static final double ready_up_position = 0.25;
     //this is the speed at which the robot will climb
-    public static final int climb_voltage = 6;
+    public static final double climb_voltage = 1.5;
 
 
   }
