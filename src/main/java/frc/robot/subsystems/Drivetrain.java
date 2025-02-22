@@ -94,16 +94,5 @@ public class Drivetrain extends SubsystemBase {
     field.setRobotPose(pose_estimator.getEstimatedPosition());
     SmartDashboard.putData("Field", field);
     SmartDashboard.putNumber("Gyro Yaw", get_yaw().getDegrees());
-    //SmartDashboard.putNumber("Drive Encoder 0", this.dt[0].get_drive_encoder());
-    //SmartDashboard.putNumber("Drive Encoder 1", this.dt[1].get_drive_encoder());
-    //SmartDashboard.putNumber("Drive Encoder 2", this.dt[2].get_drive_encoder());
-    //SmartDashboard.putNumber("Drive Encoder 3", this.dt[3].get_drive_encoder());
-//
-    SmartDashboard.putNumber("CanCoder Reading 0", this.dt[0].get_can_coder().getDegrees());
-    SmartDashboard.putNumber("CanCoder Reading 1", this.dt[1].get_can_coder().getDegrees());
-    SmartDashboard.putNumber("CanCoder Reading 2", this.dt[2].get_can_coder().getDegrees());
-    SmartDashboard.putNumber("CanCoder Reading 3", this.dt[3].get_can_coder().getDegrees());
-    SmartDashboard.putNumber("mod 0 drive current", this.dt[0].get_current());
-    SmartDashboard.putNumber("Mod 3 drive current", this.dt[3].get_current());
   }
 }
