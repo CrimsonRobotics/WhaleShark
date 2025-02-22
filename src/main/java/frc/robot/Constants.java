@@ -103,13 +103,13 @@ public final class Constants {
     public static final double ki = 0;
     public static final double kd = 0;
     //height values of the elvator
-    public static final double low_reef = 0;
-    public static final double high_reef = 0;
-    public static final double coral = 0;
-    public static final double ground = 0;
-    public static final double rest = 0;
-    public static final double barge = 0;
-    public static final double travel = 0;
+    public static final double low_reef = 0.71;
+    public static final double high_reef = 42.375;
+    public static final double coral = 11.375;
+    public static final double ground = .019;
+    public static final double rest = .019;
+    public static final double barge = 2.207;
+    public static final double travel = .019;
 
     //conversion factors for the elevator
     //stage position change to chain movement
@@ -126,8 +126,11 @@ public final class Constants {
     //rotations of output shaft to meters of elevator movement
     public static final double rotations_to_meters = diameter * Math.PI;
     public static final double position_conversion_factor = Units.inchesToMeters(35.625) / 39.1663;
+    public static final double velocity_conversion_factor = position_conversion_factor / 60;
     
 
+    //feed forward input amount
+    public static final double feed_forward_amount = 0.055;
   }
 
   public static class climber {
@@ -161,7 +164,7 @@ public final class Constants {
 
     //intake motor spin speeds
     public static final double hold_speed = 0.1;
-    public static final double intake_speed = 0.5;
+    public static final double intake_speed = 0.8;
     public static final double shoot_speed = -0.5;
     public static final double rest_speed = 0.1;
 

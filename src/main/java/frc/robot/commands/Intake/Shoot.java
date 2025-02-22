@@ -21,8 +21,6 @@ public class Shoot extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    //pulls pistons in
-    this.intake.retract();
     //configures spark flex to shoot algae(same configuration as intaking algae)
     this.intake.configure(Constants.intake.state.INTAKE);
   }
@@ -36,7 +34,9 @@ public class Shoot extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    this.intake.run(0);
+  }
 
   // Returns true when the command should end.
   @Override

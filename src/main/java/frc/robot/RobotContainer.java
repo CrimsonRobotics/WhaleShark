@@ -11,10 +11,15 @@ import frc.robot.commands.Climber.Climb;
 import frc.robot.commands.Climber.ClimbBack;
 import frc.robot.commands.Climber.ReadyUp;
 import frc.robot.commands.Drivetrain.Drive;
+import frc.robot.commands.Elevator.HoldPosition;
 import frc.robot.commands.Elevator.RunElevator;
+import frc.robot.commands.Elevator.RunToPosition;
 import frc.robot.commands.Intake.Extend;
+import frc.robot.commands.Intake.Intaking;
+import frc.robot.commands.Intake.Rest;
 import frc.robot.commands.Intake.Retract;
 import frc.robot.commands.Intake.RunRoller;
+import frc.robot.commands.Intake.Shoot;
 import frc.robot.commands.Operator.BargeScore;
 import frc.robot.commands.Operator.IntakeAlgae;
 import frc.robot.commands.Operator.Resting;
@@ -54,6 +59,8 @@ public class RobotContainer {
   private final Joystick r_operator = new Joystick(3);
   
   //Creating Joystick Buttons
+  //Left Driver Joystick
+  private final JoystickButton reset_gyro = new JoystickButton(l_drive, 1);
 
   //Right Driver Joystick
   //Button 1
@@ -66,8 +73,10 @@ public class RobotContainer {
   //Left Operator Joystick
   //Button 1
   private final JoystickButton run_elevator = new JoystickButton(l_operator, 1);
+  //Button 4
+  private final JoystickButton shoot = new JoystickButton(l_operator, 4);
   //Button 5
-  private final JoystickButton climb_back = new JoystickButton(l_operator, 5);
+  private final JoystickButton intake_solo = new JoystickButton(l_operator, 5);
   //Button 6
   private final JoystickButton climber_ready = new JoystickButton(l_operator, 6);
   //Button 7
@@ -96,6 +105,8 @@ public class RobotContainer {
   private final JoystickButton high_reef_intake = new JoystickButton(r_operator, 15);
   //Button 16
   private final JoystickButton barge_score = new JoystickButton(r_operator, 16);
+  //Button 5
+  private final JoystickButton lr_height = new JoystickButton(r_operator, 5);
 
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -105,7 +116,8 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
-    //drivetrain.setDefaultCommand(new Drive(drivetrain, l_drive, r_drive));
+    //intake.setDefaultCommand(new Rest(intake));
+    drivetrain.setDefaultCommand(new Drive(drivetrain, l_drive, r_drive));
     configureBindings();
   }
 
@@ -129,23 +141,27 @@ public class RobotContainer {
 
 
     //configuring buttons
+    //left driver buttons
+    reset_gyro.onTrue(new InstantCommand(() -> drivetrain.set_gyro(-90)));
     //right driver buttons
-    run_roller.whileTrue(new RunRoller(intake, r_drive));
-    piston_extend.onTrue(new Extend(intake));
-    piston_retract.onTrue(new Retract(intake));
+    //run_roller.whileTrue(new RunRoller(intake, r_drive));
+    //piston_extend.onTrue(new Extend(intake));
+    //piston_retract.onTrue(new Retract(intake));
     //left operator buttons
     //run_elevator.whileTrue(new RunElevator(elevator, l_operator));
     //climber_ready.onTrue(new ReadyUp(climber));
-    //climb_back.whileTrue(new ClimbBack(climber));
-    //climb.whileTrue(new Climb(climber));
+    //intake_solo.whileTrue(new Intaking(intake));
+    //shoot.whileTrue(new Shoot(intake));
+    //sclimb.whileTrue(new Climb(climber));
     //resting.onTrue(new InstantCommand(() -> elevator.setDefaultCommand(new Resting(elevator, intake))));
     //traveling.onTrue(new InstantCommand(() -> elevator.setDefaultCommand(new Traveling(elevator, intake))));
 
-    elevator_sysid_quas_for.whileTrue(elevator.sys_id_quas(SysIdRoutine.Direction.kForward));
-    elevator_sysid_quas_rev.whileTrue(elevator.sys_id_quas(SysIdRoutine.Direction.kReverse));
-    elevator_sysid_dyna_for.whileTrue(elevator.sys_id_dynamic(SysIdRoutine.Direction.kForward));
-    elevator_sysid_dyna_rev.whileTrue(elevator.sys_id_dynamic(SysIdRoutine.Direction.kReverse));
+    //elevator_sysid_quas_for.whileTrue(elevator.sys_id_quas(SysIdRoutine.Direction.kForward));
+    //elevator_sysid_quas_rev.whileTrue(elevator.sys_id_quas(SysIdRoutine.Direction.kReverse));
+    //elevator_sysid_dyna_for.whileTrue(elevator.sys_id_dynamic(SysIdRoutine.Direction.kForward));
+    //elevator_sysid_dyna_rev.whileTrue(elevator.sys_id_dynamic(SysIdRoutine.Direction.kReverse));
     ////right operator buttons
+    //lr_height.whileTrue(new HoldPosition(elevator, Constants.elevator.low_reef));
     //coral_intake.whileTrue(new IntakeAlgae(elevator, intake, Constants.elevator.coral));
     //ground_intake.whileTrue(new IntakeAlgae(elevator, intake, Constants.elevator.ground));
     //low_reef_intake.whileTrue(new IntakeAlgae(elevator, intake, Constants.elevator.low_reef));

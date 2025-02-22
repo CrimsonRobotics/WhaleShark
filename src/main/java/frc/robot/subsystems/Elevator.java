@@ -9,14 +9,19 @@ import com.revrobotics.spark.SparkMax;
 
 import static edu.wpi.first.units.Units.Meters;
 import static edu.wpi.first.units.Units.MetersPerSecond;
+import static edu.wpi.first.units.Units.Second;
+import static edu.wpi.first.units.Units.Seconds;
 import static edu.wpi.first.units.Units.Volts;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import frc.robot.Constants;
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.units.measure.MutDistance;
@@ -44,6 +49,7 @@ public class Elevator extends SubsystemBase {
   GenericEntry elevator_position;
   SysIdRoutine routine;
   GenericEntry elevator_velocity;
+  ElevatorFeedforward feedforward;
   public Elevator() {
     //Creates spark max motor controllers
     r_motor = new SparkMax(Constants.elevator.r_motor_id, MotorType.kBrushless);
@@ -61,22 +67,27 @@ public class Elevator extends SubsystemBase {
     //sets the right motor configf
     r_motor_config
       //idle mode is brake
-      .idleMode(IdleMode.kCoast)
+      .idleMode(IdleMode.kBrake)
+      .voltageCompensation(12)
       //motor is not inverted
       .inverted(true);
     r_motor_config.encoder
       //sets the position conversion factor to the elevator position conversion factor from Constants
-      .positionConversionFactor(1);
+      .positionConversionFactor(Constants.elevator.position_conversion_factor)
+      .velocityConversionFactor(Constants.elevator.velocity_conversion_factor);
+
     
     //sets the left motor config
     l_motor_config
       //idle mode is brake
-      .idleMode(IdleMode.kCoast)
+      .idleMode(IdleMode.kBrake)
+      .voltageCompensation(12)
       //motor is not inverted
       .inverted(true);
     l_motor_config.encoder
       //sets the position conversion factor to the elevator position conversion factor from Constants
-      .positionConversionFactor(Constants.elevator.position_conversion_factor);
+      .positionConversionFactor(Constants.elevator.position_conversion_factor)
+      .velocityConversionFactor(Constants.elevator.position_conversion_factor);
     
     //configures the motor controllers with the config s
     //when this is run all old settings on spark max are reset to default
@@ -88,6 +99,8 @@ public class Elevator extends SubsystemBase {
     
     //this creates the pidcontroller that is used when putting the climber in the ready position
     pid = new PIDController(Constants.elevator.kp, Constants.elevator.ki, Constants.elevator.kd);
+
+    feedforward = new ElevatorFeedforward(0, 0, 0);
 
     //this creates the shuffleboard tab for outputing elevator data onto shuffleboard
     elevator_tab = Shuffleboard.getTab("Elevator");
@@ -108,7 +121,7 @@ public class Elevator extends SubsystemBase {
 
 
     routine = new SysIdRoutine(
-      new SysIdRoutine.Config(), 
+      new SysIdRoutine.Config( Volts.of(1).per(Second), Volts.of(3.5), Seconds.of(10)), 
       new SysIdRoutine.Mechanism(
         voltage -> {
           set_voltage(voltage);
@@ -135,18 +148,21 @@ public class Elevator extends SubsystemBase {
   }
 
   public void run(double speed) {
-    r_motor.set(speed);
-    l_motor.set(speed);
+    r_motor.set(speed + Constants.elevator.feed_forward_amount);
+    l_motor.set(speed + Constants.elevator.feed_forward_amount);
   }
 
   //this will have the elevator move to a specific position
   //it is used for putting the elevator into various intake and scoring positions
   public void run_to_position(double position) {
     //this calculates the voltage that needs to be applied using the pid controller, the current position, and the desired position(which is passed in as a parameter)
-    voltage = pid.calculate(get_position(), position);
+    voltage = MathUtil.clamp(pid.calculate(get_position(), position), -0.4, 0.4);
+    SmartDashboard.putNumber("Speed Elevator", voltage);
+    SmartDashboard.putNumber("Position set", position);
+    SmartDashboard.putNumber("Curernt Position RN PID", get_position());
     //sets the voltage to the motors
-    r_motor.setVoltage(voltage);
-    l_motor.setVoltage(voltage);
+    r_motor.set(voltage + Constants.elevator.feed_forward_amount);
+    l_motor.set(voltage + Constants.elevator.feed_forward_amount);
   }
 
   //system idenfitication stuff below
