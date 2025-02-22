@@ -30,7 +30,7 @@ public final class Constants {
     }
     public static class mod1 {
       public static final int drive_id = 60;
-      public static final int turn_id = 47;
+      public static final int turn_id = 24;
       public static final int can_coder = 6;
       public static final Rotation2d turn_offset = Rotation2d.fromDegrees(271.2);
     }
@@ -78,10 +78,10 @@ public final class Constants {
 
     //front of robot is postive x and back of robot is negative x
     //left of robot is positive y and right of robot is negative y
-    public static final Translation2d front_right = new Translation2d(robot_length / 2, -robot_width / 2);
-    public static final Translation2d back_right = new Translation2d(-robot_length / 2, -robot_width / 2);
-    public static final Translation2d back_left = new Translation2d(-robot_length / 2, robot_width / 2);
-    public static final Translation2d front_left = new Translation2d(robot_length / 2, robot_width / 2);
+    public static final Translation2d front_right = new Translation2d(-robot_length / 2, -robot_width / 2);
+    public static final Translation2d back_right = new Translation2d(-robot_length / 2, robot_width / 2);
+    public static final Translation2d back_left = new Translation2d(robot_length / 2, robot_width / 2);
+    public static final Translation2d front_left = new Translation2d(robot_length / 2, -robot_width / 2);
     //swerve drice kinematics
     public static final SwerveDriveKinematics swerve_map = new SwerveDriveKinematics(
       front_right,
@@ -125,7 +125,7 @@ public final class Constants {
     public static final double diameter = Units.inchesToMeters(1.751);
     //rotations of output shaft to meters of elevator movement
     public static final double rotations_to_meters = diameter * Math.PI;
-    public static final double position_conversion_factor = stage_to_chain * rotations_to_meters / (gear_box_ratio * gear_ratio * encoder_ticks);
+    public static final double position_conversion_factor = Units.inchesToMeters(35.625) / 39.1663;
     
 
   }
@@ -156,8 +156,8 @@ public final class Constants {
 
   public static class intake {
     public static final int motor_id = 23;
-    public static final int hold_current_limit = 10;
-    public static final int intake_current_limit = 40;
+    public static final int hold_current_limit = 60;
+    public static final int intake_current_limit = 60;
 
     //intake motor spin speeds
     public static final double hold_speed = 0.1;

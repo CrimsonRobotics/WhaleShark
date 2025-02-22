@@ -96,7 +96,7 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
-    //drivetrain.setDefaultCommand(new Drive(drivetrain, l_drive, r_drive));
+    drivetrain.setDefaultCommand(new Drive(drivetrain, l_drive, r_drive));
     configureBindings();
   }
 
@@ -121,11 +121,11 @@ public class RobotContainer {
 
     //configuring buttons
     //right driver buttons
-    run_roller.whileTrue(new RunRoller(intake, r_drive));
-    piston_extend.onTrue(new Extend(intake));
-    piston_retract.onTrue(new Retract(intake));
+    //run_roller.whileTrue(new RunRoller(intake, r_drive));
+    //piston_extend.onTrue(new Extend(intake));
+    //piston_retract.onTrue(new Retract(intake));
     //left operator buttons
-    run_elevator.whileTrue(new RunElevator(elevator, l_operator));
+    //run_elevator.whileTrue(new RunElevator(elevator, l_operator));
     //climber_ready.onTrue(new ReadyUp(climber));
     //climb_back.whileTrue(new ClimbBack(climber));
     //climb.whileTrue(new Climb(climber));

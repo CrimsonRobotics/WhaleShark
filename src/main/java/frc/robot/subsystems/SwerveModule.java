@@ -115,6 +115,10 @@ public class SwerveModule {
         return this.drive_encoder.getPosition();
     }
 
+    public double get_current() {
+        return this.drive_motor.getBusVoltage();
+    }
+
     //returns can coder value
     public Rotation2d get_can_coder() {
         //I multiply this by 360 because it is initially in a range of (-0.5, 0.5] and I want it in degrees.
@@ -159,6 +163,6 @@ public class SwerveModule {
         drive_speed = desired_state.speedMetersPerSecond / Constants.dt.max_speed;
 
         this.turn_motor.set(turn_speed);
-        //this.drive_motor.set(drive_speed);
+        this.drive_motor.set(drive_speed);
     }
 }
