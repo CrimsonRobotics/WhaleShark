@@ -29,55 +29,65 @@ public class Climber extends SubsystemBase {
   ShuffleboardTab climber_tab;
   GenericEntry climber_position;
   public Climber() {
-    //creates the climb motor using the motor id from Constants
+    /**creates the climb motor using the motor id from Constants. */
     motor = new SparkMax(Constants.climber.motor_id, MotorType.kBrushless);
 
-    //gets the encoder from the motor
+    /**gets the encoder from the motor */
     encoder = motor.getEncoder();
     encoder.setPosition(0);
 
-    //creates and defines the spark max config
+    /**creates and defines the spark max config */
     config = new SparkMaxConfig();
     config
-      //idle mode is brake
+      /**idle mode is brake */
       .idleMode(IdleMode.kBrake)
-      //motor is not inverted
+      /**motor is not inverted */
       .inverted(false);
     config.encoder
       .positionConversionFactor(Constants.climber.position_conversion_factor);
 
-    //configures the motor with the config 
-    //when this is run all old settings on spark max are reset to default
-    //then config is applied
-    //persist means that if robot is power cycled, the settings will remain
+    /**
+     * configures the motor with the config
+     * when this is run all old settings on spark max are reset to default
+     * then config is applied
+     * persist means that if robot is power cycled, the settings will remain
+     */
     motor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
-    //this creates the pidcontroller that is used when putting the climber in the ready position
+    /**this creates the pidcontroller that is used when putting the climber in the ready position */
     pid = new PIDController(Constants.climber.kp, Constants.climber.ki, Constants.climber.kd);
 
-    //this creates the shuffleboard tab for outputing climber data onto shuffleboard
+    /**this creates the shuffleboard tab for outputing climber data onto shuffleboard */
     climber_tab = Shuffleboard.getTab("Climber");
-    //puts the climber current position onto the shuffleboard tab as "Position"
+    /**puts the climber current position onto the shuffleboard tab as "Position" */
     climber_position = climber_tab.add("Position", 0).getEntry();
   }
 
-  //this will return the current position of the climb motor
-  //it is used for putting the climber in the ready position
+  /**
+   * @return this will return the current position of the climb motor in rotations
+   * it is used for putting the climber in the ready position
+   */
   public double get_position() {
     return encoder.getPosition();
   }
 
-  //this will have the climber move to a specific position
-  //it is used for putting the climber in the ready position
+  /**
+   * this will have the climber move to a specific position
+   * it is used for putting the climber in the ready position
+   * @param position the desired position in rotations to move the climber to
+   */
   public void run_to_position(double position) {
-    //this calculates the voltage that needs to be applied using the pid controller, the current position, and the desired position(which is passed in as a parameter)
+    /**this calculates the voltage that needs to be applied using the pid controller, the current position, and the desired position(which is passed in as a parameter) */
     voltage = pid.calculate(get_position(), position);
-    //sets the voltage to the motor
+    /**sets the voltage to the motor */
     motor.setVoltage(voltage);
   }
 
-  //this will just run the motor at a constants voltage
-  //it is used for actually climbing at the end of the match, after the climber is put in ready position
+  /**
+   * this will just run the motor at a constants voltage
+   * it is used for actually climbing at the end of the match, after the climber is put in ready position
+   * @param speed speed at which to spin the motor
+   */
   public void run(double speed) {
     motor.setVoltage(speed);
   }
@@ -85,7 +95,7 @@ public class Climber extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    //this will put the current position of the climber onto shuffleboard continually
+    /**this will put the current position of the climber onto shuffleboard continually */
     climber_position.setDouble(get_position());
   }
 }
