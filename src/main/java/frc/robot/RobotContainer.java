@@ -141,7 +141,7 @@ public class RobotContainer {
 
     //configuring buttons
     //left driver buttons
-    reset_gyro.onTrue(new InstantCommand(() -> drivetrain.set_gyro(-90)));
+    reset_gyro.onTrue(new InstantCommand(() -> drivetrain.set_gyro(0)));
 
     //right driver buttons
     //run_roller.whileTrue(new RunRoller(intake, r_drive));
