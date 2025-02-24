@@ -4,7 +4,9 @@
 
 package frc.robot.commands.Operator;
 
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.commands.Elevator.HoldPosition;
 import frc.robot.commands.Intake.Rest;
@@ -28,7 +30,10 @@ public class Resting extends ParallelCommandGroup {
     //these commands will both happen at the same time
     addCommands(
       //the elevator will hold positiot at rest height
-      new HoldPosition(this.elevator, Constants.elevator.rest),
+      Commands.sequence(
+        new WaitCommand(1),
+        new HoldPosition(this.elevator, Constants.elevator.rest)
+      ),
       //the intake will go into rest state
       new Rest(this.intake)
     );
