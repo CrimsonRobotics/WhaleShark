@@ -82,7 +82,10 @@ public final class Constants {
     public static final Translation2d back_right = new Translation2d(-robot_length / 2, -robot_width / 2);
     public static final Translation2d back_left = new Translation2d(-robot_length / 2, robot_width / 2);
     public static final Translation2d front_left = new Translation2d(robot_length / 2, robot_width / 2);
-    //swerve drice kinematics
+    /** swerve drice kinematics
+     * We create the kinematics in the order that we pass the module states into the kinematics
+     * Our modules are ordered 0, 1, 2, and 3 going in a U shape starting at the front right and ending at the front left module
+    */
     public static final SwerveDriveKinematics swerve_map = new SwerveDriveKinematics(
       front_right,
       back_right,
