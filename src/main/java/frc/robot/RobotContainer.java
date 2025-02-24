@@ -23,7 +23,6 @@ import frc.robot.commands.Intake.Shoot;
 import frc.robot.commands.Operator.BargeScore;
 import frc.robot.commands.Operator.IntakeAlgae;
 import frc.robot.commands.Operator.Resting;
-import frc.robot.commands.Operator.Traveling;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Elevator;
@@ -143,10 +142,12 @@ public class RobotContainer {
     //configuring buttons
     //left driver buttons
     reset_gyro.onTrue(new InstantCommand(() -> drivetrain.set_gyro(-90)));
+
     //right driver buttons
     //run_roller.whileTrue(new RunRoller(intake, r_drive));
     //piston_extend.onTrue(new Extend(intake));
     //piston_retract.onTrue(new Retract(intake));
+
     //left operator buttons
     //run_elevator.whileTrue(new RunElevator(elevator, l_operator));
     //climber_ready.onTrue(new ReadyUp(climber));
@@ -154,12 +155,13 @@ public class RobotContainer {
     //shoot.whileTrue(new Shoot(intake));
     //sclimb.whileTrue(new Climb(climber));
     //resting.onTrue(new InstantCommand(() -> elevator.setDefaultCommand(new Resting(elevator, intake))));
-    //traveling.onTrue(new InstantCommand(() -> elevator.setDefaultCommand(new Traveling(elevator, intake))));
 
+    //system identification commands
     //elevator_sysid_quas_for.whileTrue(elevator.sys_id_quas(SysIdRoutine.Direction.kForward));
     //elevator_sysid_quas_rev.whileTrue(elevator.sys_id_quas(SysIdRoutine.Direction.kReverse));
     //elevator_sysid_dyna_for.whileTrue(elevator.sys_id_dynamic(SysIdRoutine.Direction.kForward));
     //elevator_sysid_dyna_rev.whileTrue(elevator.sys_id_dynamic(SysIdRoutine.Direction.kReverse));
+
     ////right operator buttons
     //lr_height.whileTrue(new HoldPosition(elevator, Constants.elevator.low_reef));
     //coral_intake.whileTrue(new IntakeAlgae(elevator, intake, Constants.elevator.coral));
