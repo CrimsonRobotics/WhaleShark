@@ -182,5 +182,16 @@ public final class Constants {
       INTAKE
     }
   }
+
+  public static class Vision {
+    public static class barge {
+      public static final double x = 0;
+      public static final double y = Units.feetToMeters(2);
+      public static final double z = Units.feetToMeters(1);
+      public static final double kp = 0.1;
+      public static final double ki = 0.1;
+      public static final double kd = 0.1;
+    }
+  }
   
 }
