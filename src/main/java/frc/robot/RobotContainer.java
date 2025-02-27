@@ -72,7 +72,7 @@ public class RobotContainer {
 
   //Left Operator Joystick
   //Button 1
-  private final JoystickButton shoot_button = new JoystickButton(l_operator, 1);
+  private final JoystickButton shoot_button = new JoystickButton(l_operator, 3);
   //Button 4
   private final JoystickButton intake_button = new JoystickButton(l_operator, 4);
   //Button 5

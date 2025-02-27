@@ -103,7 +103,7 @@ public class Elevator extends SubsystemBase {
     pid = new PIDController(Constants.elevator.kp, Constants.elevator.ki, Constants.elevator.kd);
 
     feedforward = new ElevatorFeedforward(0, 0, 0);
-    speed_limiter = new SlewRateLimiter(1);
+    speed_limiter = new SlewRateLimiter(1.25);
 
     //this creates the shuffleboard tab for outputing elevator data onto shuffleboard
     elevator_tab = Shuffleboard.getTab("Elevator");
