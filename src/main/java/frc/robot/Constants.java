@@ -131,6 +131,10 @@ public final class Constants {
 
     //feed forward input amount
     public static final double feed_forward_amount = 0.035;
+
+    //elevator speeds
+    public static final double high_speed = 1;
+    public static final double slow_speed = 0.5;
   }
 
   public static class climber {

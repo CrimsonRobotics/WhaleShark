@@ -15,9 +15,11 @@ public class RunElevator extends Command {
   /** Creates a new RunElevator. */
   Elevator elevator;
   Joystick joystick;
-  public RunElevator(Elevator elevator, Joystick joystick) {
+  double max_speed;
+  public RunElevator(Elevator elevator, Joystick joystick, double max_speed) {
     this.elevator = elevator;
     this.joystick = joystick;
+    this.max_speed = max_speed;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.elevator);
   }
@@ -30,7 +32,7 @@ public class RunElevator extends Command {
   @Override
   public void execute() {
     SmartDashboard.putNumber("Applied Input from", joystick.getX());
-    this.elevator.run(joystick.getX());
+    this.elevator.run(joystick.getX() * this.max_speed);
   }
 
   // Called once the command ends or is interrupted.
