@@ -32,7 +32,7 @@ public class Rest extends Command {
   @Override
   public void execute() {
     //slowly spins the motor inwards 
-    //this.intake.run(Constants.intake.rest_speed);
+    this.intake.run(Constants.intake.rest_speed);
   }
 
   // Called once the command ends or is interrupted.
