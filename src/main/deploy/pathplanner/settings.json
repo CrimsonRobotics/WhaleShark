@@ -4,12 +4,14 @@
   "holonomicMode": true,
   "pathFolders": [
     "Failed Tests",
-    "Position 3 Paths",
+    "not in middle paths",
     "Position 1 Paths",
-    "Position 2 Paths"
+    "Position 2 Paths",
+    "Position 3 Paths"
   ],
   "autoFolders": [
-    "Failed Tests",
+    "Forward Paths",
+    "Not on Blue side of barge",
     "ReefScape Auto Paths"
   ],
   "defaultMaxVel": 3.0,

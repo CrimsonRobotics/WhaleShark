@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.316130985887296,
-        "y": 4.964292138530152
+        "x": 6.3669722230308015,
+        "y": 4.959616097470832
       },
       "isLocked": false,
       "linkedName": "AlgaeDropoffPos"
@@ -20,8 +20,8 @@
         "y": 5.217776639344262
       },
       "prevControl": {
-        "x": 4.953165175358545,
-        "y": 5.233599699215394
+        "x": 7.259516056654258,
+        "y": 4.827530501178867
       },
       "nextControl": null,
       "isLocked": false,

@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "pos3_start_coral"
+            "pathName": "not_pos1"
           }
         },
         {
@@ -19,37 +19,13 @@
         {
           "type": "named",
           "data": {
-            "name": "Low Algae"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "pos3_coraltoAlge"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Barge Score"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "pos3_score2"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
             "name": "High Algae"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "pos3_coraltoAlge"
+            "pathName": "not_pos2"
           }
         },
         {
@@ -61,13 +37,37 @@
         {
           "type": "path",
           "data": {
-            "pathName": "pos3_end"
+            "pathName": "not_pos3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Low Algae"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "not_pos4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Barge Score"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "not_op_setup"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "Failed Tests",
+  "folder": "Not on Blue side of barge",
   "choreoAuto": false
 }

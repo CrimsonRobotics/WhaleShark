@@ -87,10 +87,16 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    //Creates a boolean variable
+    boolean is_comp = true;
     // Configure the trigger bindings
     configureBindings();
     //Uses the auto chooser varible and sets it to the autobuilder that we configured and it builds the auto chooser
-    auto_chooser = AutoBuilder.buildAutoChooser();
+    auto_chooser = AutoBuilder.buildAutoChooserWithOptionsModifier(
+      (stream) -> is_comp
+        ? stream.filter(auto -> auto.getName().startsWith("Forward"))
+        : stream
+    );
     //Puts the Auto Chooser on Smart Dash Board 
     SmartDashboard.putData("Auto Chooser",auto_chooser);
 

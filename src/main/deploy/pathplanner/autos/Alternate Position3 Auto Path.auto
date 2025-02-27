@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Position2StartToCoral"
+            "pathName": "Position3AlternateStart"
           }
         },
         {
@@ -19,37 +19,13 @@
         {
           "type": "named",
           "data": {
-            "name": "Low Algae"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "CoralToAlgae2"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Barge Score"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "AlgaeToCoral2"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
             "name": "High Algae"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "CoralToAlgae2"
+            "pathName": "Position3AlgaeDropoff2"
           }
         },
         {
@@ -61,13 +37,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "EndPos2"
+            "pathName": "Position3OperatorSetup"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "Failed Tests",
+  "folder": "ReefScape Auto Paths",
   "choreoAuto": false
 }
