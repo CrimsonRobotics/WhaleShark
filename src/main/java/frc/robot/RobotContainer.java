@@ -11,6 +11,7 @@ import frc.robot.commands.Climber.Climb;
 import frc.robot.commands.Climber.ClimbBack;
 import frc.robot.commands.Climber.ReadyUp;
 import frc.robot.commands.Drivetrain.Drive;
+import frc.robot.commands.Elevator.ElevatorNothing;
 import frc.robot.commands.Elevator.HoldPosition;
 import frc.robot.commands.Elevator.RunElevator;
 import frc.robot.commands.Elevator.RunToPosition;
@@ -71,7 +72,7 @@ public class RobotContainer {
   private final JoystickButton piston_retract = new JoystickButton(r_drive, 3);
 
   //Left Operator Joystick
-  //Button 1
+  //Button 3
   private final JoystickButton shoot_button = new JoystickButton(l_operator, 3);
   //Button 4
   private final JoystickButton intake_button = new JoystickButton(l_operator, 4);
@@ -97,8 +98,8 @@ public class RobotContainer {
   //Right Operator Joystick
   //Button 1
   private final JoystickButton run_elevator = new JoystickButton(r_operator, 1);
-  //Button 2
-  private final JoystickButton run_elevator_slow = new JoystickButton(r_operator, 2);
+  //Button 3
+  private final JoystickButton run_elevator_slow = new JoystickButton(r_operator, 3);
   //Button 12
   private final JoystickButton coral_intake = new JoystickButton(r_operator, 12);
   //Button 13
@@ -121,8 +122,8 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     elevator.setDefaultCommand(new RunElevator(elevator, r_operator, 0));
-    drivetrain.setDefaultCommand(new Drive(drivetrain, l_drive, r_drive));
-    intake.setDefaultCommand(new Rest(intake));
+    //drivetrain.setDefaultCommand(new Drive(drivetrain, l_drive, r_drive));
+    //intake.setDefaultCommand(new Rest(intake));
     configureBindings();
   }
 
@@ -155,8 +156,8 @@ public class RobotContainer {
     //piston_retract.onTrue(new Retract(intake));
 
     //left operator buttons
-    intake_button.whileTrue(new Intaking(intake));
-    shoot_button.whileTrue(new Shoot(intake));
+    //intake_button.whileTrue(new Intaking(intake));
+    //shoot_button.whileTrue(new Shoot(intake));
 
     //climber_ready.onTrue(new ReadyUp(climber));
     //intake_solo.whileTrue(new Intaking(intake));
@@ -173,7 +174,11 @@ public class RobotContainer {
     ////right operator buttons
     //lr_height.whileTrue(new HoldPosition(elevator, Constants.elevator.low_reef));
     
-    run_elevator.whileTrue(new RunElevator(elevator, r_operator, Constants.elevator.high_speed));
+    //run_elevator.whileTrue(new RunElevator(elevator, r_operator, Constants.elevator.high_speed));
+    run_elevator.onTrue(new InstantCommand(() -> elevator.setDefaultCommand(new RunElevator(elevator, r_operator, Constants.elevator.high_speed))));
+    run_elevator.onFalse(new InstantCommand(() -> elevator.setDefaultCommand(new RunElevator(elevator, r_operator, 0))));
+    run_elevator.onTrue(new ElevatorNothing(elevator));
+    run_elevator.onFalse(new ElevatorNothing(elevator));
     run_elevator_slow.whileTrue(new RunElevator(elevator, r_operator, Constants.elevator.slow_speed));
     //coral_intake.whileTrue(new IntakeAlgae(elevator, intake, Constants.elevator.coral));
     //ground_intake.whileTrue(new IntakeAlgae(elevator, intake, Constants.elevator.ground));

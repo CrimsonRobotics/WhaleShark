@@ -4,22 +4,15 @@
 
 package frc.robot.commands.Elevator;
 
-import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Elevator;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class RunElevator extends Command {
-  /** Creates a new RunElevator. */
+public class ElevatorNothing extends Command {
+  /** Creates a new ElevatorNothing. */
   Elevator elevator;
-  Joystick joystick;
-  double max_speed;
-  public RunElevator(Elevator elevator, Joystick joystick, double max_speed) {
+  public ElevatorNothing(Elevator elevator) {
     this.elevator = elevator;
-    this.joystick = joystick;
-    this.max_speed = max_speed;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.elevator);
   }
@@ -30,21 +23,15 @@ public class RunElevator extends Command {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    SmartDashboard.putNumber("Applied Input from", joystick.getX());
-    SmartDashboard.putNumber("MAx Speed Elevator", this.max_speed);
-    this.elevator.run(joystick.getX() * this.max_speed);
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    this.elevator.run(0);
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }
