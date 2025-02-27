@@ -104,7 +104,7 @@ public final class Constants {
     public static final double kd = 0.01;
     //height values of the elvator
     public static final double low_reef = 0.71;
-    public static final double high_reef = 42.375;
+    public static final double high_reef = 1.8;
     public static final double coral = 11.375;
     public static final double ground = .019;
     public static final double rest = .019;
@@ -163,14 +163,14 @@ public final class Constants {
 
   public static class intake {
     public static final int motor_id = 10;
-    public static final int hold_current_limit = 10;
+    public static final int hold_current_limit = 60;
     public static final int intake_current_limit = 60;
 
     //intake motor spin speeds
     public static final double hold_speed = 0.1;
-    public static final double intake_speed = 0.8;
+    public static final double intake_speed = 1;
     public static final double shoot_speed = -0.5;
-    public static final double rest_speed = 0.1;
+    public static final double rest_speed = 0.2;
 
     //enum for configs
     //an enum is a variable that you create with set values you define
