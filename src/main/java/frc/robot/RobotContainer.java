@@ -96,7 +96,7 @@ public class RobotContainer {
   //Button 1
   private final JoystickButton run_elevator = new JoystickButton(r_operator, 1);
   //Button 2
-  private final JoystickButton run_elevaotr_slow = new JoystickButton(r_operator, 2);
+  private final JoystickButton run_elevator_slow = new JoystickButton(r_operator, 2);
   //Button 12
   private final JoystickButton coral_intake = new JoystickButton(r_operator, 12);
   //Button 13
@@ -118,7 +118,7 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
-    //intake.setDefaultCommand(new Rest(intake));
+    elevator.setDefaultCommand(new RunElevator(elevator, r_operator, 0));
     drivetrain.setDefaultCommand(new Drive(drivetrain, l_drive, r_drive));
     intake.setDefaultCommand(new Rest(intake));
     configureBindings();
@@ -172,7 +172,7 @@ public class RobotContainer {
     //lr_height.whileTrue(new HoldPosition(elevator, Constants.elevator.low_reef));
     
     run_elevator.whileTrue(new RunElevator(elevator, r_operator, Constants.elevator.high_speed));
-    run_elevaotr_slow.whileTrue(new RunElevator(elevator, r_drive, Constants.elevator.slow_speed));
+    run_elevator_slow.whileTrue(new RunElevator(elevator, r_operator, Constants.elevator.slow_speed));
     //coral_intake.whileTrue(new IntakeAlgae(elevator, intake, Constants.elevator.coral));
     //ground_intake.whileTrue(new IntakeAlgae(elevator, intake, Constants.elevator.ground));
     //low_reef_intake.whileTrue(new IntakeAlgae(elevator, intake, Constants.elevator.low_reef));
