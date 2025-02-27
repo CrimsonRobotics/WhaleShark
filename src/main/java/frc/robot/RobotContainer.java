@@ -70,10 +70,9 @@ public class RobotContainer {
   private final JoystickButton piston_retract = new JoystickButton(r_drive, 3);
 
   //Left Operator Joystick
-  //Button 1
-  private final JoystickButton run_elevator = new JoystickButton(l_operator, 1);
+  private final JoystickButton shoot_button = new JoystickButton(l_operator, 1);
   //Button 4
-  private final JoystickButton shoot = new JoystickButton(l_operator, 4);
+  private final JoystickButton intake_button = new JoystickButton(l_operator, 4);
   //Button 5
   private final JoystickButton intake_solo = new JoystickButton(l_operator, 5);
   //Button 6
@@ -95,9 +94,9 @@ public class RobotContainer {
 
   //Right Operator Joystick
   //Button 1
-  private final JoystickButton shoot_intake = new JoystickButton(r_operator, 1);
+  private final JoystickButton run_elevator = new JoystickButton(r_operator, 1);
   //Button 2
-  private final JoystickButton intake_intake = new JoystickButton(r_operator, 2);
+  private final JoystickButton run_elevaotr_slow = new JoystickButton(r_operator, 2);
   //Button 12
   private final JoystickButton coral_intake = new JoystickButton(r_operator, 12);
   //Button 13
@@ -150,11 +149,13 @@ public class RobotContainer {
 
     //right driver buttons
     //run_roller.whileTrue(new RunRoller(intake, r_drive));
-    piston_extend.onTrue(new Extend(intake));
-    piston_retract.onTrue(new Retract(intake));
+    //piston_extend.onTrue(new Extend(intake));
+    //piston_retract.onTrue(new Retract(intake));
 
     //left operator buttons
-    run_elevator.whileTrue(new RunElevator(elevator, l_operator));
+    intake_button.whileTrue(new Intaking(intake));
+    shoot_button.whileTrue(new Shoot(intake));
+
     //climber_ready.onTrue(new ReadyUp(climber));
     //intake_solo.whileTrue(new Intaking(intake));
     //shoot.whileTrue(new Shoot(intake));
@@ -168,9 +169,10 @@ public class RobotContainer {
     //elevator_sysid_dyna_rev.whileTrue(elevator.sys_id_dynamic(SysIdRoutine.Direction.kReverse));
 
     ////right operator buttons
-    lr_height.whileTrue(new HoldPosition(elevator, Constants.elevator.low_reef));
-    shoot_intake.whileTrue(new Shoot(intake));
-    intake_intake.whileTrue(new Intaking(intake));
+    //lr_height.whileTrue(new HoldPosition(elevator, Constants.elevator.low_reef));
+    
+    run_elevator.whileTrue(new RunElevator(elevator, r_operator, Constants.elevator.high_speed));
+    run_elevaotr_slow.whileTrue(new RunElevator(elevator, r_drive, Constants.elevator.slow_speed));
     //coral_intake.whileTrue(new IntakeAlgae(elevator, intake, Constants.elevator.coral));
     //ground_intake.whileTrue(new IntakeAlgae(elevator, intake, Constants.elevator.ground));
     //low_reef_intake.whileTrue(new IntakeAlgae(elevator, intake, Constants.elevator.low_reef));
