@@ -162,7 +162,7 @@ public final class Constants {
   }
 
   public static class intake {
-    public static final int motor_id = 23;
+    public static final int motor_id = 10;
     public static final int hold_current_limit = 10;
     public static final int intake_current_limit = 60;
 
