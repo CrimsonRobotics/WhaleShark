@@ -25,6 +25,7 @@ public class Rest extends Command {
     this.intake.extend();
     //configures spark flex to hold algae
     //this.intake.configure(Constants.intake.state.HOLD);
+    this.intake.run(0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
