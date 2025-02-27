@@ -23,6 +23,7 @@ import frc.robot.Constants;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.units.measure.MutDistance;
 import edu.wpi.first.units.measure.MutLinearVelocity;
@@ -50,6 +51,7 @@ public class Elevator extends SubsystemBase {
   SysIdRoutine routine;
   GenericEntry elevator_velocity;
   ElevatorFeedforward feedforward;
+  SlewRateLimiter speed_limiter;
   public Elevator() {
     //Creates spark max motor controllers
     r_motor = new SparkMax(Constants.elevator.r_motor_id, MotorType.kBrushless);
@@ -101,6 +103,7 @@ public class Elevator extends SubsystemBase {
     pid = new PIDController(Constants.elevator.kp, Constants.elevator.ki, Constants.elevator.kd);
 
     feedforward = new ElevatorFeedforward(0, 0, 0);
+    speed_limiter = new SlewRateLimiter(1);
 
     //this creates the shuffleboard tab for outputing elevator data onto shuffleboard
     elevator_tab = Shuffleboard.getTab("Elevator");
@@ -147,7 +150,8 @@ public class Elevator extends SubsystemBase {
     return encoder.getVelocity();
   }
 
-  public void run(double speed) {
+  public void run(double speed_imp) {
+    double speed = speed_limiter.calculate(speed_imp);
     r_motor.set(speed + Constants.elevator.feed_forward_amount);
     l_motor.set(speed + Constants.elevator.feed_forward_amount);
   }
@@ -156,13 +160,16 @@ public class Elevator extends SubsystemBase {
   //it is used for putting the elevator into various intake and scoring positions
   public void run_to_position(double position) {
     //this calculates the voltage that needs to be applied using the pid controller, the current position, and the desired position(which is passed in as a parameter)
-    voltage = MathUtil.clamp(pid.calculate(get_position(), position), -0.4, 0.4);
-    SmartDashboard.putNumber("Speed Elevator", voltage);
+    voltage = MathUtil.clamp(pid.calculate(get_position(), position), -0.5, 0.5);
     SmartDashboard.putNumber("Position set", position);
     SmartDashboard.putNumber("Curernt Position RN PID", get_position());
     //sets the voltage to the motors
+    //MathUtil.clamp(voltage, -0.5, 0.5);
+    double speed = speed_limiter.calculate(voltage);
     r_motor.set(voltage + Constants.elevator.feed_forward_amount);
     l_motor.set(voltage + Constants.elevator.feed_forward_amount);
+    SmartDashboard.putNumber("Speed forElevator JOhb", speed);
+    SmartDashboard.putNumber("Speed Elevator", voltage);
   }
 
   //system idenfitication stuff below

@@ -94,6 +94,10 @@ public class RobotContainer {
   private final JoystickButton elevator_sysid_dyna_rev = new JoystickButton(l_operator, 16);
 
   //Right Operator Joystick
+  //Button 1
+  private final JoystickButton shoot_intake = new JoystickButton(r_operator, 1);
+  //Button 2
+  private final JoystickButton intake_intake = new JoystickButton(r_operator, 2);
   //Button 12
   private final JoystickButton coral_intake = new JoystickButton(r_operator, 12);
   //Button 13
@@ -117,6 +121,7 @@ public class RobotContainer {
     // Configure the trigger bindings
     //intake.setDefaultCommand(new Rest(intake));
     drivetrain.setDefaultCommand(new Drive(drivetrain, l_drive, r_drive));
+    intake.setDefaultCommand(new Rest(intake));
     configureBindings();
   }
 
@@ -145,11 +150,11 @@ public class RobotContainer {
 
     //right driver buttons
     //run_roller.whileTrue(new RunRoller(intake, r_drive));
-    //piston_extend.onTrue(new Extend(intake));
-    //piston_retract.onTrue(new Retract(intake));
+    piston_extend.onTrue(new Extend(intake));
+    piston_retract.onTrue(new Retract(intake));
 
     //left operator buttons
-    //run_elevator.whileTrue(new RunElevator(elevator, l_operator));
+    run_elevator.whileTrue(new RunElevator(elevator, l_operator));
     //climber_ready.onTrue(new ReadyUp(climber));
     //intake_solo.whileTrue(new Intaking(intake));
     //shoot.whileTrue(new Shoot(intake));
@@ -163,7 +168,9 @@ public class RobotContainer {
     //elevator_sysid_dyna_rev.whileTrue(elevator.sys_id_dynamic(SysIdRoutine.Direction.kReverse));
 
     ////right operator buttons
-    //lr_height.whileTrue(new HoldPosition(elevator, Constants.elevator.low_reef));
+    lr_height.whileTrue(new HoldPosition(elevator, Constants.elevator.low_reef));
+    shoot_intake.whileTrue(new Shoot(intake));
+    intake_intake.whileTrue(new Intaking(intake));
     //coral_intake.whileTrue(new IntakeAlgae(elevator, intake, Constants.elevator.coral));
     //ground_intake.whileTrue(new IntakeAlgae(elevator, intake, Constants.elevator.ground));
     //low_reef_intake.whileTrue(new IntakeAlgae(elevator, intake, Constants.elevator.low_reef));

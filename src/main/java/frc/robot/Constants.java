@@ -99,9 +99,9 @@ public final class Constants {
     public static final int r_motor_id = 41;
     public static final int l_motor_id = 40;
     //run to position pid values
-    public static final double kp = 0.1;
-    public static final double ki = 0;
-    public static final double kd = 0;
+    public static final double kp = 0.4;
+    public static final double ki = .04;
+    public static final double kd = 0.01;
     //height values of the elvator
     public static final double low_reef = 0.71;
     public static final double high_reef = 42.375;
@@ -130,7 +130,7 @@ public final class Constants {
     
 
     //feed forward input amount
-    public static final double feed_forward_amount = 0.055;
+    public static final double feed_forward_amount = 0.035;
   }
 
   public static class climber {

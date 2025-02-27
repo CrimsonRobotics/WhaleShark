@@ -107,5 +107,6 @@ public class Intake extends SubsystemBase {
     SmartDashboard.putBoolean("Get Pressure Switch Value",compressor.getPressureSwitchValue());
     SmartDashboard.putNumber("Current Pressure", compressor.getPressure());
     SmartDashboard.putNumber("Compressor current", compressor.getCurrent());
+    SmartDashboard.putNumber("Current sparkflex", intake_motor.getOutputCurrent());
   }
 }
