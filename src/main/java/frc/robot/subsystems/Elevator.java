@@ -164,12 +164,7 @@ public class Elevator extends SubsystemBase {
     SmartDashboard.putNumber("Position set", position);
     SmartDashboard.putNumber("Curernt Position RN PID", get_position());
     //sets the voltage to the motors
-    //MathUtil.clamp(voltage, -0.5, 0.5);
-    double speed = speed_limiter.calculate(voltage);
-    r_motor.set(voltage + Constants.elevator.feed_forward_amount);
-    l_motor.set(voltage + Constants.elevator.feed_forward_amount);
-    SmartDashboard.putNumber("Speed forElevator JOhb", speed);
-    SmartDashboard.putNumber("Speed Elevator", voltage);
+    run(voltage);
   }
 
   //system idenfitication stuff below

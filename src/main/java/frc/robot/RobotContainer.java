@@ -123,7 +123,7 @@ public class RobotContainer {
     // Configure the trigger bindings
     elevator.setDefaultCommand(new RunElevator(elevator, r_operator, 0));
     //drivetrain.setDefaultCommand(new Drive(drivetrain, l_drive, r_drive));
-    //intake.setDefaultCommand(new Rest(intake));
+    intake.setDefaultCommand(new Rest(intake));
     configureBindings();
   }
 
@@ -156,8 +156,8 @@ public class RobotContainer {
     //piston_retract.onTrue(new Retract(intake));
 
     //left operator buttons
-    //intake_button.whileTrue(new Intaking(intake));
-    //shoot_button.whileTrue(new Shoot(intake));
+    intake_button.whileTrue(new Intaking(intake));
+    shoot_button.whileTrue(new Shoot(intake));
 
     //climber_ready.onTrue(new ReadyUp(climber));
     //intake_solo.whileTrue(new Intaking(intake));
@@ -172,7 +172,7 @@ public class RobotContainer {
     //elevator_sysid_dyna_rev.whileTrue(elevator.sys_id_dynamic(SysIdRoutine.Direction.kReverse));
 
     ////right operator buttons
-    //lr_height.whileTrue(new HoldPosition(elevator, Constants.elevator.low_reef));
+    lr_height.whileTrue(new HoldPosition(elevator, Constants.elevator.low_reef));
     
     //run_elevator.whileTrue(new RunElevator(elevator, r_operator, Constants.elevator.high_speed));
     run_elevator.onTrue(new InstantCommand(() -> elevator.setDefaultCommand(new RunElevator(elevator, r_operator, Constants.elevator.high_speed))));
