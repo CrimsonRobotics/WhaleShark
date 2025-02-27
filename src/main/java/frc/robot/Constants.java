@@ -96,7 +96,7 @@ public final class Constants {
   }
 
   public static class elevator {
-    public static final int r_motor_id = 41;
+    public static final int r_motor_id = 30;
     public static final int l_motor_id = 40;
     //run to position pid values
     public static final double kp = 0.4;
