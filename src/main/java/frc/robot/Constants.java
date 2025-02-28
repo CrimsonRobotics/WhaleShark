@@ -100,8 +100,8 @@ public final class Constants {
     public static final int l_motor_id = 40;
     //run to position pid values
     public static final double kp = 0.4;
-    public static final double ki = 0.04;
-    public static final double kd = .01;
+    public static final double ki = 4;
+    public static final double kd = 0;
     //height values of the elvator
     public static final double low_reef = 0.71;
     public static final double high_reef = 1.08;
@@ -166,7 +166,7 @@ public final class Constants {
 
     //intake motor spin speeds
     public static final double hold_speed = 0.1;
-    public static final double intake_speed = 1;
+    public static final double intake_speed = 0.8;
     public static final double shoot_speed = -0.2;
     public static final double rest_speed = 0.2;
 
