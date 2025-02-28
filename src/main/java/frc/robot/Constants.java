@@ -104,12 +104,10 @@ public final class Constants {
     public static final double kd = 0.01;
     //height values of the elvator
     public static final double low_reef = 0.71;
-    public static final double high_reef = 1.8;
-    public static final double coral = 11.375;
-    public static final double ground = .019;
-    public static final double rest = .019;
-    public static final double barge = 2.207;
-    public static final double travel = .019;
+    public static final double high_reef = 1.08;
+    public static final double coral = 0.33;
+    public static final double ground = .03;
+    public static final double barge = 2.12;
 
     //conversion factors for the elevator
     //stage position change to chain movement
