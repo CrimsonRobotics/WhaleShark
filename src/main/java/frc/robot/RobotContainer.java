@@ -65,12 +65,6 @@ public class RobotContainer {
   private final JoystickButton slow_drive = new JoystickButton(l_drive, 4);
 
   //Right Driver Joystick
-  //Button 1
-  private final JoystickButton run_roller = new JoystickButton(r_drive, 1);
-  //Button 2
-  private final JoystickButton piston_extend = new JoystickButton(r_drive, 2);
-  //Button 3
-  private final JoystickButton piston_retract = new JoystickButton(r_drive, 3);
 
   //Left Operator Joystick
   //Button 1
