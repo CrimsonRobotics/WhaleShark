@@ -171,9 +171,9 @@ public class Elevator extends SubsystemBase {
     run(voltage);
   }
 
-  public void p_to_position(double position) {
+  public void p_to_position(double position, double i_add) {
     speed = MathUtil.clamp(p_pid.calculate(get_position(), position), -0.5, 0.5);
-    run(speed);
+    run(speed + i_add);
   }
 
   //system idenfitication stuff below
