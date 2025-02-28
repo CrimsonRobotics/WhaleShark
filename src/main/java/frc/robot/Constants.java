@@ -99,16 +99,16 @@ public final class Constants {
     public static final int r_motor_id = 30;
     public static final int l_motor_id = 40;
     //run to position pid values
-    public static final double kp = 0.4;
-    public static final double ki = .04;
-    public static final double kd = 0.01;
+    public static final double kp = 2;
+    public static final double ki = 4;
+    public static final double kd = .08;
     //height values of the elvator
     public static final double low_reef = 0.71;
-    public static final double high_reef = 1.8;
-    public static final double coral = 11.375;
-    public static final double ground = .019;
+    public static final double high_reef = 1.08;
+    public static final double coral = 0.33;
+    public static final double ground = .03;
     public static final double rest = .019;
-    public static final double barge = 2.207;
+    public static final double barge = 2.12;
     public static final double travel = .019;
 
     //conversion factors for the elevator

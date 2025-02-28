@@ -13,6 +13,7 @@ import frc.robot.commands.Climber.ReadyUp;
 import frc.robot.commands.Drivetrain.Drive;
 import frc.robot.commands.Elevator.ElevatorNothing;
 import frc.robot.commands.Elevator.HoldPosition;
+import frc.robot.commands.Elevator.PRunToPosition;
 import frc.robot.commands.Elevator.RunElevator;
 import frc.robot.commands.Elevator.RunToPosition;
 import frc.robot.commands.Intake.Extend;
@@ -97,21 +98,13 @@ public class RobotContainer {
 
   //Right Operator Joystick
   //Button 1
-  private final JoystickButton run_elevator = new JoystickButton(r_operator, 1);
+  private final JoystickButton shoot_intake = new JoystickButton(r_operator, 1);
+  //Button 2
+  private final JoystickButton barge_elevator_control = new JoystickButton(r_operator, 2);
   //Button 3
-  private final JoystickButton run_elevator_slow = new JoystickButton(r_operator, 3);
-  //Button 12
-  private final JoystickButton coral_intake = new JoystickButton(r_operator, 12);
-  //Button 13
-  private final JoystickButton ground_intake = new JoystickButton(r_operator, 13);
-  //Button 14
-  private final JoystickButton low_reef_intake = new JoystickButton(r_operator, 14);
-  //Button 15
-  private final JoystickButton high_reef_intake = new JoystickButton(r_operator, 15);
-  //Button 16
-  private final JoystickButton barge_score = new JoystickButton(r_operator, 16);
-  //Button 5
-  private final JoystickButton lr_height = new JoystickButton(r_operator, 5);
+  private final JoystickButton run_elevator = new JoystickButton(r_operator, 3);
+  
+
 
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -123,7 +116,7 @@ public class RobotContainer {
     // Configure the trigger bindings
     elevator.setDefaultCommand(new RunElevator(elevator, r_operator, 0));
     //drivetrain.setDefaultCommand(new Drive(drivetrain, l_drive, r_drive));
-    intake.setDefaultCommand(new Rest(intake));
+    //intake.setDefaultCommand(new Rest(intake));
     configureBindings();
   }
 
@@ -156,8 +149,8 @@ public class RobotContainer {
     //piston_retract.onTrue(new Retract(intake));
 
     //left operator buttons
-    intake_button.whileTrue(new Intaking(intake));
-    shoot_button.whileTrue(new Shoot(intake));
+    //intake_button.whileTrue(new Intaking(intake));
+    //shoot_button.whileTrue(new Shoot(intake));
 
     //climber_ready.onTrue(new ReadyUp(climber));
     //intake_solo.whileTrue(new Intaking(intake));
@@ -172,19 +165,10 @@ public class RobotContainer {
     //elevator_sysid_dyna_rev.whileTrue(elevator.sys_id_dynamic(SysIdRoutine.Direction.kReverse));
 
     ////right operator buttons
-    lr_height.whileTrue(new HoldPosition(elevator, Constants.elevator.low_reef));
+    shoot_intake.whileTrue(new Shoot(intake));
+    barge_elevator_control.whileTrue(new PRunToPosition(elevator, Constants.elevator.barge, r_operator));    
     
-    //run_elevator.whileTrue(new RunElevator(elevator, r_operator, Constants.elevator.high_speed));
-    run_elevator.onTrue(new InstantCommand(() -> elevator.setDefaultCommand(new RunElevator(elevator, r_operator, Constants.elevator.high_speed))));
-    run_elevator.onFalse(new InstantCommand(() -> elevator.setDefaultCommand(new RunElevator(elevator, r_operator, 0))));
-    run_elevator.onTrue(new ElevatorNothing(elevator));
-    run_elevator.onFalse(new ElevatorNothing(elevator));
-    run_elevator_slow.whileTrue(new RunElevator(elevator, r_operator, Constants.elevator.slow_speed));
-    //coral_intake.whileTrue(new IntakeAlgae(elevator, intake, Constants.elevator.coral));
-    //ground_intake.whileTrue(new IntakeAlgae(elevator, intake, Constants.elevator.ground));
-    //low_reef_intake.whileTrue(new IntakeAlgae(elevator, intake, Constants.elevator.low_reef));
-    //high_reef_intake.whileTrue(new IntakeAlgae(elevator, intake, Constants.elevator.high_reef));
-    //barge_score.whileTrue(new BargeScore(elevator, intake));
+    run_elevator.whileTrue(new RunElevator(elevator, r_operator, Constants.elevator.high_speed));
   }
 
   /**
