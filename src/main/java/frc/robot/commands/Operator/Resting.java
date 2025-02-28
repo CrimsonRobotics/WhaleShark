@@ -32,7 +32,7 @@ public class Resting extends ParallelCommandGroup {
       //the elevator will hold positiot at rest height
       Commands.sequence(
         new WaitCommand(1),
-        new HoldPosition(this.elevator, Constants.elevator.rest)
+        new HoldPosition(this.elevator, Constants.elevator.ground)
       ),
       //the intake will go into rest state
       new Rest(this.intake)
