@@ -24,7 +24,7 @@ public class DriveTime extends ParallelRaceGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new WaitCommand(this.seconds),
-      new DriveDouble(this.drivetrain, 0, 0.5, 0, 1)
+      new DriveDouble(this.drivetrain, 0, 0.25, 0, 1)
     );
   }
 }

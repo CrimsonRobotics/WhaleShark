@@ -83,6 +83,8 @@ public class RobotContainer {
   private final JoystickButton barge_elevator_control = new JoystickButton(r_operator, 2);
   //Button 3
   private final JoystickButton run_elevator = new JoystickButton(r_operator, 3);
+  //Buttom 8
+  private final JoystickButton intake_only = new JoystickButton(r_operator, 8);
   
 
 
@@ -140,6 +142,7 @@ public class RobotContainer {
     shoot_intake.whileTrue(new Shoot(intake));
     barge_elevator_control.whileTrue(new PRunToPosition(elevator, Constants.elevator.barge, r_operator));
     run_elevator.whileTrue(new RunElevator(elevator, r_operator, Constants.elevator.high_speed));
+    intake_only.whileTrue(new Intaking(intake));
   }
 
   /**

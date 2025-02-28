@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 public final class AutoFile {
   /** Example static factory for an autonomous command. */
   public static Command Leave(Drivetrain drivetrain) {
-    return new DriveTime(drivetrain, 2);
+    return new DriveTime(drivetrain, 1.5);
   }
 
   private AutoFile() {

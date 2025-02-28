@@ -29,7 +29,7 @@ public class AlgaeIntake extends ParallelCommandGroup {
 
     addCommands(
       Commands.sequence(
-        new WaitCommand(1),
+        new WaitCommand(.1),
         new Intaking(this.intake)
       ),
       new HoldPosition(this.elevator, this.position)

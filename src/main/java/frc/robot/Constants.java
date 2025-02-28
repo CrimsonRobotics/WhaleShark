@@ -99,8 +99,8 @@ public final class Constants {
     public static final int r_motor_id = 30;
     public static final int l_motor_id = 40;
     //run to position pid values
-    public static final double kp = 0.4;
-    public static final double ki = 4;
+    public static final double kp = 4;
+    public static final double ki = 0.4;
     public static final double kd = 0;
     //height values of the elvator
     public static final double low_reef = 0.71;
