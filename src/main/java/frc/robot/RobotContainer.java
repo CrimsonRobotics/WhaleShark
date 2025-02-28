@@ -15,7 +15,6 @@ import frc.robot.commands.Elevator.ElevatorNothing;
 import frc.robot.commands.Elevator.HoldPosition;
 import frc.robot.commands.Elevator.PRunToPosition;
 import frc.robot.commands.Elevator.RunElevator;
-import frc.robot.commands.Elevator.RunToPosition;
 import frc.robot.commands.Intake.Extend;
 import frc.robot.commands.Intake.Intaking;
 import frc.robot.commands.Intake.Rest;
@@ -23,8 +22,6 @@ import frc.robot.commands.Intake.Retract;
 import frc.robot.commands.Intake.RunRoller;
 import frc.robot.commands.Intake.Shoot;
 import frc.robot.commands.Operator.AlgaeIntake;
-import frc.robot.commands.Operator.BargeScore;
-import frc.robot.commands.Operator.IntakeAlgae;
 import frc.robot.commands.Operator.Resting;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
@@ -102,8 +99,8 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     elevator.setDefaultCommand(new RunElevator(elevator, r_operator, 0));
-    //drivetrain.setDefaultCommand(new Drive(drivetrain, l_drive, r_drive));
-    //intake.setDefaultCommand(new Rest(intake));
+    drivetrain.setDefaultCommand(new Drive(drivetrain, l_drive, r_drive));
+    intake.setDefaultCommand(new Rest(intake));
     configureBindings();
   }
 
