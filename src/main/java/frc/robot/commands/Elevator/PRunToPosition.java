@@ -29,7 +29,7 @@ public class PRunToPosition extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    this.elevator.p_to_position(this.position, this.joystick.getX());
+    this.elevator.p_to_position(this.position, this.joystick.getX() * 0.1);
   }
 
   // Called once the command ends or is interrupted.
