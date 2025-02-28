@@ -181,5 +181,10 @@ public final class Constants {
       INTAKE
     }
   }
+
+  public static class driver {
+    public static final double normal_speed = 1;
+    public static final double slow_speed = 0.5;
+  }
   
 }
