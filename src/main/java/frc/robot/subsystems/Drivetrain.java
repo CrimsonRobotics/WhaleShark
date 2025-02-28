@@ -31,7 +31,7 @@ public class Drivetrain extends SubsystemBase {
   CANBusStatus busUtilization;
   public Drivetrain() {
     gyro = new Pigeon2(0);
-    set_gyro(-90);
+    set_gyro(90);
     this.dt = new SwerveModule[] {
       new SwerveModule(0, Constants.dt.mod0.drive_id, Constants.dt.mod0.turn_id, Constants.dt.mod0.can_coder, Constants.dt.mod0.turn_offset),
       new SwerveModule(1, Constants.dt.mod1.drive_id, Constants.dt.mod1.turn_id, Constants.dt.mod1.can_coder, Constants.dt.mod1.turn_offset),
