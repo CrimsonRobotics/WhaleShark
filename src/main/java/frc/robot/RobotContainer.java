@@ -59,10 +59,10 @@ public class RobotContainer {
   
   //Creating Joystick Buttons
   //Left Driver Joystick
+  //Button 1
+  private final JoystickButton slow_drive = new JoystickButton(l_drive, 1);
   //Button 2
   private final JoystickButton reset_gyro = new JoystickButton(l_drive, 2);
-  //Button ?
-  private final JoystickButton slow_drive = new JoystickButton(l_drive, 4);
 
   //Right Driver Joystick
 
