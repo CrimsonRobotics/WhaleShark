@@ -22,6 +22,7 @@ import frc.robot.commands.Intake.Rest;
 import frc.robot.commands.Intake.Retract;
 import frc.robot.commands.Intake.RunRoller;
 import frc.robot.commands.Intake.Shoot;
+import frc.robot.commands.Operator.AlgaeIntake;
 import frc.robot.commands.Operator.BargeScore;
 import frc.robot.commands.Operator.IntakeAlgae;
 import frc.robot.commands.Operator.Resting;
@@ -73,28 +74,14 @@ public class RobotContainer {
   private final JoystickButton piston_retract = new JoystickButton(r_drive, 3);
 
   //Left Operator Joystick
+  //Button 1
+  private final JoystickButton ground_intake = new JoystickButton(l_operator, 1);
+  //Button 2
+  private final JoystickButton low_reef_intake = new JoystickButton(l_operator, 2);
   //Button 3
-  private final JoystickButton shoot_button = new JoystickButton(l_operator, 3);
+  private final JoystickButton high_reef_intake = new JoystickButton(l_operator, 3);
   //Button 4
-  private final JoystickButton intake_button = new JoystickButton(l_operator, 4);
-  //Button 5
-  private final JoystickButton intake_solo = new JoystickButton(l_operator, 5);
-  //Button 6
-  private final JoystickButton climber_ready = new JoystickButton(l_operator, 6);
-  //Button 7
-  private final JoystickButton climb = new JoystickButton(l_operator, 7);
-  //Button 8
-  private final JoystickButton resting = new JoystickButton(l_operator, 8);
-  //Button 9
-  private final JoystickButton traveling = new JoystickButton(l_operator, 9);
-  //Button 11
-  private final JoystickButton elevator_sysid_quas_for = new JoystickButton(l_operator, 11);
-  //Button 12
-  private final JoystickButton elevator_sysid_quas_rev = new JoystickButton(l_operator, 12);
-  //Button 15
-  private final JoystickButton elevator_sysid_dyna_for = new JoystickButton(l_operator, 15);
-  //Button 16
-  private final JoystickButton elevator_sysid_dyna_rev = new JoystickButton(l_operator, 16);
+  private final JoystickButton coral_intake = new JoystickButton(l_operator, 4);
 
   //Right Operator Joystick
   //Button 1
@@ -149,25 +136,15 @@ public class RobotContainer {
     //piston_retract.onTrue(new Retract(intake));
 
     //left operator buttons
-    //intake_button.whileTrue(new Intaking(intake));
-    //shoot_button.whileTrue(new Shoot(intake));
+    ground_intake.whileTrue(new AlgaeIntake(elevator, intake, Constants.elevator.ground));
+    low_reef_intake.whileTrue(new AlgaeIntake(elevator, intake, Constants.elevator.low_reef));
+    high_reef_intake.whileTrue(new AlgaeIntake(elevator, intake, Constants.elevator.high_reef));
+    coral_intake.whileTrue(new AlgaeIntake(elevator, intake, Constants.elevator.coral));
 
-    //climber_ready.onTrue(new ReadyUp(climber));
-    //intake_solo.whileTrue(new Intaking(intake));
-    //shoot.whileTrue(new Shoot(intake));
-    //sclimb.whileTrue(new Climb(climber));
-    //resting.onTrue(new InstantCommand(() -> elevator.setDefaultCommand(new Resting(elevator, intake))));
-
-    //system identification commands
-    //elevator_sysid_quas_for.whileTrue(elevator.sys_id_quas(SysIdRoutine.Direction.kForward));
-    //elevator_sysid_quas_rev.whileTrue(elevator.sys_id_quas(SysIdRoutine.Direction.kReverse));
-    //elevator_sysid_dyna_for.whileTrue(elevator.sys_id_dynamic(SysIdRoutine.Direction.kForward));
-    //elevator_sysid_dyna_rev.whileTrue(elevator.sys_id_dynamic(SysIdRoutine.Direction.kReverse));
 
     ////right operator buttons
     shoot_intake.whileTrue(new Shoot(intake));
-    barge_elevator_control.whileTrue(new PRunToPosition(elevator, Constants.elevator.barge, r_operator));    
-    
+    barge_elevator_control.whileTrue(new PRunToPosition(elevator, Constants.elevator.barge, r_operator));
     run_elevator.whileTrue(new RunElevator(elevator, r_operator, Constants.elevator.high_speed));
   }
 
