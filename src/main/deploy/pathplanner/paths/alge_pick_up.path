@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.151639344262295,
-        "y": 5.0499487704918025
+        "x": 7.492315573770492,
+        "y": 4.030993852459016
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.558437366470809,
-        "y": 5.22661279182307
+        "x": 7.898201914948012,
+        "y": 4.023337612717274
       },
       "isLocked": false,
-      "linkedName": "Pos1Start"
+      "linkedName": "mid_start_point"
     },
     {
       "anchor": {
-        "x": 5.9219262295081965,
-        "y": 4.066956967213113
+        "x": 5.993852459016393,
+        "y": 4.030993852459016
       },
       "prevControl": {
-        "x": 5.664283157703039,
-        "y": 3.956060346653591
+        "x": 5.6938985848795785,
+        "y": 4.033821913593626
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "BargeToCoral"
+      "linkedName": "mid_end_point"
     }
   ],
   "rotationTargets": [],
@@ -33,10 +33,10 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
-    "maxAngularVelocity": 540.0,
-    "maxAngularAcceleration": 720.0,
+    "maxVelocity": 4.0,
+    "maxAcceleration": 1.0,
+    "maxAngularVelocity": 7.0,
+    "maxAngularAcceleration": 1.0,
     "nominalVoltage": 12.0,
     "unlimited": false
   },
@@ -45,7 +45,7 @@
     "rotation": 180.0
   },
   "reversed": false,
-  "folder": "Failed Tests",
+  "folder": "middle paths",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 180.0

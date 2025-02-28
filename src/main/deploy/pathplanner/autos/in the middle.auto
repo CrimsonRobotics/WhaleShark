@@ -1,0 +1,31 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "alge_pick_up"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Low Algae"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "alge_drop_off"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "Not on Blue side of barge",
+  "choreoAuto": false
+}

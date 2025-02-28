@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Position1Start"
+            "pathName": "Position3Start"
           }
         },
         {
@@ -25,7 +25,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Position1AlgaeDropoff1"
+            "pathName": "Position3AlgaeDropoff1"
           }
         },
         {
@@ -37,19 +37,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Position1AlgaeIntake"
+            "pathName": "Position3AlgaeIntake"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "High Score"
+            "name": "High Algae"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Position1AlgaeDropoff2"
+            "pathName": "Position3AlgaeDropoff2"
           }
         },
         {
@@ -61,13 +61,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Position1OperatorSetup"
+            "pathName": "Position3OperatorSetup"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "ReefScape Auto Paths",
+  "folder": "Reefscape Auto Paths",
   "choreoAuto": false
 }

@@ -162,7 +162,6 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
     //return Autos.exampleAuto(m_exampleSubsystem);
-    
     //returns the auto that was selected in the smart dash board
     return auto_chooser.getSelected();
   }
