@@ -45,7 +45,9 @@ public class Elevator extends SubsystemBase {
   SparkMaxConfig r_motor_config;
   RelativeEncoder encoder;
   PIDController pid;
+  PIDController p_pid;
   double voltage;
+  double speed;
   ShuffleboardTab elevator_tab;
   GenericEntry elevator_position;
   SysIdRoutine routine;
@@ -101,6 +103,8 @@ public class Elevator extends SubsystemBase {
     
     //this creates the pidcontroller that is used when putting the climber in the ready position
     pid = new PIDController(Constants.elevator.kp, Constants.elevator.ki, Constants.elevator.kd);
+
+    p_pid = new PIDController(Constants.elevator.kp, 0, 0);
 
     feedforward = new ElevatorFeedforward(0, 0, 0);
     speed_limiter = new SlewRateLimiter(1.5);
@@ -165,6 +169,11 @@ public class Elevator extends SubsystemBase {
     SmartDashboard.putNumber("Curernt Position RN PID", get_position());
     //sets the voltage to the motors
     run(voltage);
+  }
+
+  public void p_to_position(double position) {
+    speed = MathUtil.clamp(p_pid.calculate(get_position(), position), -0.5, 0.5);
+    run(speed);
   }
 
   //system idenfitication stuff below
