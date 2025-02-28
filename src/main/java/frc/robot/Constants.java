@@ -52,7 +52,7 @@ public final class Constants {
     //this is how many ecoder ticks for one motor revolution
     public static final double encoder_tick_ratio = 1;
     //this is the diameter of the drive wheel in meters, the number put in is in inches
-    public static final double wheel_diameter = Units.inchesToMeters(4);
+    public static final double wheel_diameter = Units.inchesToMeters(3.75);
     //this is the gear ratio of the turn motor, it takes 150 revolutions of the turn motor to rotate the wheel 7 times
     public static final double turn_motor_ratio = 150.0 / 7.0;
     //this uses the constants of the module to create a drive position vonversion factor.
