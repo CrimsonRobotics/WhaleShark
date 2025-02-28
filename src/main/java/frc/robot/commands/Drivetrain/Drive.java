@@ -22,14 +22,16 @@ public class Drive extends Command {
   double rotation;
   double dt_x;
   double dt_y;
+  double max_speed;
   SlewRateLimiter x_limiter = new SlewRateLimiter(3);
   SlewRateLimiter y_limiter = new SlewRateLimiter(3);
   SlewRateLimiter rotation_limiter = new SlewRateLimiter(3);
 
-  public Drive(Drivetrain dt_imp, Joystick joystick_l, Joystick joystick_r) {
+  public Drive(Drivetrain dt_imp, Joystick joystick_l, Joystick joystick_r, double max_speed) {
     this.dt = dt_imp;
     this.joystick_l = joystick_l;
     this.joystick_r = joystick_r;
+    this.max_speed = max_speed;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.dt);
   }
@@ -49,7 +51,7 @@ public class Drive extends Command {
     rotation = rotation_limiter.calculate(MathUtil.applyDeadband(this.joystick_r.getX(), 0.1)) * Constants.dt.max_angular_speed;
     //gets robot translation and rotation from joysticks
     //.times multiplies the translation which has a magnitude between 0 and 1 inclusive by the max speed of the robot
-    translation = new Translation2d(dt_x, dt_y).times(Constants.dt.max_speed); 
+    translation = new Translation2d(dt_x * this.max_speed, dt_y * this.max_speed).times(Constants.dt.max_speed); 
 
     //sets the module speeds and positions using the joystick values
     this.dt.drive(translation, rotation, true);

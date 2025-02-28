@@ -62,6 +62,8 @@ public class RobotContainer {
   //Left Driver Joystick
   //Button 2
   private final JoystickButton reset_gyro = new JoystickButton(l_drive, 2);
+  //Button ?
+  private final JoystickButton slow_drive = new JoystickButton(l_drive, 4);
 
   //Right Driver Joystick
   //Button 1
@@ -122,7 +124,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     elevator.setDefaultCommand(new RunElevator(elevator, r_operator, 0));
-    //drivetrain.setDefaultCommand(new Drive(drivetrain, l_drive, r_drive));
+    drivetrain.setDefaultCommand(new Drive(drivetrain, l_drive, r_drive, Constants.driver.normal_speed));
     //intake.setDefaultCommand(new Rest(intake));
     configureBindings();
   }
@@ -149,6 +151,7 @@ public class RobotContainer {
     //configuring buttons
     //left driver buttons
     reset_gyro.onTrue(new InstantCommand(() -> drivetrain.set_gyro(-90)));
+    slow_drive.whileTrue(new Drive(drivetrain, l_drive, r_drive, Constants.driver.slow_speed));
 
     //right driver buttons
     //run_roller.whileTrue(new RunRoller(intake, r_drive));
