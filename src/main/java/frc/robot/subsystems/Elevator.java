@@ -23,7 +23,9 @@ import frc.robot.Constants;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.units.measure.MutDistance;
 import edu.wpi.first.units.measure.MutLinearVelocity;
@@ -44,7 +46,8 @@ public class Elevator extends SubsystemBase {
   SparkMaxConfig l_motor_config;
   SparkMaxConfig r_motor_config;
   RelativeEncoder encoder;
-  PIDController pid;
+  //PIDController pid;
+  ProfiledPIDController pid;
   PIDController p_pid;
   double voltage;
   double speed;
@@ -62,7 +65,8 @@ public class Elevator extends SubsystemBase {
     //Gets the encoder that is plugged into the spark max controller
     //It isnt the encoder built into the neo motor
     encoder = r_motor.getEncoder();
-    encoder.setPosition(0);
+    //encoder.setPosition(0);
+    reset_elevator();
 
     //Creates spark max motor controller configurations
     r_motor_config = new SparkMaxConfig();
@@ -102,7 +106,8 @@ public class Elevator extends SubsystemBase {
 
     
     //this creates the pidcontroller that is used when putting the climber in the ready position
-    pid = new PIDController(Constants.elevator.kp, Constants.elevator.ki, Constants.elevator.kd);
+    //pid = new PIDController(Constants.elevator.kp, Constants.elevator.ki, Constants.elevator.kd);
+    pid = new ProfiledPIDController(Constants.elevator.kp, Constants.elevator.ki, Constants.elevator.kd, new TrapezoidProfile.Constraints(2, 1));
 
     p_pid = new PIDController(Constants.elevator.kp, 0, 0);
 
@@ -152,6 +157,10 @@ public class Elevator extends SubsystemBase {
 
   public double get_velocity() {
     return encoder.getVelocity();
+  }
+
+  public void reset_elevator() {
+    encoder.setPosition(0);
   }
 
   public void run(double speed_imp) {
