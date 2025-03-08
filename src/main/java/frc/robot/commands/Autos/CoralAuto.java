@@ -9,8 +9,11 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
+import frc.robot.commands.Drivetrain.DriveDouble;
 import frc.robot.commands.Elevator.HoldPosition;
 import frc.robot.commands.Intake.CoralDrop;
+import frc.robot.commands.Intake.Intaking;
+import frc.robot.commands.Operator.AlgaeIntake;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
@@ -30,14 +33,28 @@ public class CoralAuto extends ParallelRaceGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new HoldPosition(this.elevator, Constants.elevator.coral_auto),
+      // new HoldPosition(this.elevator, Constants.elevator.coral_auto),
       Commands.sequence(
-        new DriveTime(this.drivetrain, Constants.autos.coral_drive_time),
+        // Commands.race(
+        //   new WaitCommand(Constants.autos.coral_drive_time),
+        //   new DriveDouble(this.drivetrain, 0, -0.25, 0, 1)
+        // ),
+        this.intake.retractCommand(),
+        new WaitCommand(1.5),
         Commands.race(
-          new WaitCommand(Constants.autos.coral_score_time),
-          new CoralDrop(this.intake)
+          new WaitCommand(1),
+          this.intake.runCommand(Constants.intake.intake_speed)
         ),
-        new WaitCommand(3)
+        this.intake.extendCommand(),
+        new WaitCommand(1.5)
+        // this.elevator.set_position_command(Constants.elevator.low_reef),
+        // this.intake.retractCommand(),
+        // new WaitCommand(1.5)
+        // Commands.race(
+        //   new WaitCommand(1),
+        //   this.intake.runCommand(Constants.intake.intake_speed),
+        // ),
+        // this.intake.extendCommand()
       )
     );
   }

@@ -61,7 +61,16 @@ public class DriveDouble extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    //turns the rotation from a magnitude of 0 to 1 to be in correct speed range using the multiplication
+    rotation = rotation_limiter.calculate(MathUtil.applyDeadband(this.rot, 0.1)) * Constants.dt.max_angular_speed;
+    //gets robot translation and rotation from joysticks
+    //.times multiplies the translation which has a magnitude between 0 and 1 inclusive by the max speed of the robot
+    translation = new Translation2d(0, 0).times(Constants.dt.max_speed); 
+
+    //sets the module speeds and positions using the joystick values
+    this.dt.drive(translation, rotation, true);
+  }
 
   // Returns true when the command should end.
   @Override

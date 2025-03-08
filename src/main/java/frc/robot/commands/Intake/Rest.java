@@ -25,14 +25,14 @@ public class Rest extends Command {
     this.intake.extend();
     //configures spark flex to hold algae
     //this.intake.configure(Constants.intake.state.HOLD);
-    this.intake.run(0);
+    // this.intake.run(0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     //slowly spins the motor inwards 
-    this.intake.run(Constants.intake.rest_speed);
+    // this.intake.run(Constants.intake.rest_speed);
   }
 
   // Called once the command ends or is interrupted.

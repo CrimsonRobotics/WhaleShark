@@ -106,7 +106,7 @@ public final class Constants {
     public static final double low_reef = 0.71;
     public static final double high_reef = 1.08;
     public static final double coral = 0.33;
-    public static final double ground = .03;
+    public static final double ground = .095164; //.03
     public static final double barge = 2.12;
     public static final double coral_auto = 0.20;
 
@@ -162,12 +162,12 @@ public final class Constants {
 
   public static class intake {
     public static final int motor_id = 10;
-    public static final int hold_current_limit = 60; 
+    public static final int hold_current_limit = 50; 
     public static final int intake_current_limit = 60;
 
     //intake motor spin speeds
     public static final double hold_speed = 0.1; 
-    public static final double intake_speed = 0.8;
+    public static final double intake_speed = 0.47; //.8
     public static final double shoot_speed = -0.2;
     public static final double rest_speed = 0.2; 
     public static final double coral_speed = 0.5;
@@ -186,12 +186,12 @@ public final class Constants {
 
   public static class driver {
     public static final double normal_speed = 1;
-    public static final double slow_speed = 0.5;
+    public static final double slow_speed = 0.4;
   }
 
   public static class autos {
-    public static final double coral_drive_time = 2;
-    public static final double coral_score_time = 2;
+    public static final double coral_drive_time = 2.5; //2 //2.2
+    public static final double coral_score_time = 3; //2
   }
   
 }
