@@ -46,8 +46,8 @@ public class Elevator extends SubsystemBase {
   SparkMaxConfig l_motor_config;
   SparkMaxConfig r_motor_config;
   RelativeEncoder encoder;
-  //PIDController pid;
-  ProfiledPIDController pid;
+  PIDController pid;
+  //ProfiledPIDController pid;
   PIDController p_pid;
   double voltage;
   double speed;
@@ -95,7 +95,7 @@ public class Elevator extends SubsystemBase {
     l_motor_config.encoder
       //sets the position conversion factor to the elevator position conversion factor from Constants
       .positionConversionFactor(Constants.elevator.position_conversion_factor)
-      .velocityConversionFactor(Constants.elevator.position_conversion_factor);
+      .velocityConversionFactor(Constants.elevator.velocity_conversion_factor);
     
     //configures the motor controllers with the config s
     //when this is run all old settings on spark max are reset to default
@@ -106,8 +106,8 @@ public class Elevator extends SubsystemBase {
 
     
     //this creates the pidcontroller that is used when putting the climber in the ready position
-    //pid = new PIDController(Constants.elevator.kp, Constants.elevator.ki, Constants.elevator.kd);
-    pid = new ProfiledPIDController(Constants.elevator.kp, Constants.elevator.ki, Constants.elevator.kd, new TrapezoidProfile.Constraints(2, 1));
+    pid = new PIDController(Constants.elevator.kp, Constants.elevator.ki, Constants.elevator.kd);
+    //pid = new ProfiledPIDController(Constants.elevator.kp, Constants.elevator.ki, Constants.elevator.kd, new TrapezoidProfile.Constraints(2, 1));
 
     p_pid = new PIDController(Constants.elevator.kp, 0, 0);
 
