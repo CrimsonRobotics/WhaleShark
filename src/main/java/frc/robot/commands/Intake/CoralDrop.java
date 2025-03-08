@@ -21,7 +21,7 @@ public class CoralDrop extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    this.intake.extend();
+    this.intake.retract();
     //configures spark flex to shoot algae(same configuration as intaking algae)
     this.intake.configure(Constants.intake.state.INTAKE);
   }

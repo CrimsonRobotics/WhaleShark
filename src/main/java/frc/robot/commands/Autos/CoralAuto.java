@@ -6,6 +6,7 @@ package frc.robot.commands.Autos;
 
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.commands.Elevator.HoldPosition;
@@ -17,7 +18,7 @@ import frc.robot.subsystems.Intake;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class CoralAuto extends ParallelCommandGroup {
+public class CoralAuto extends ParallelRaceGroup {
   /** Creates a new CoralAuto. */
   Drivetrain drivetrain;
   Intake intake;
@@ -31,11 +32,12 @@ public class CoralAuto extends ParallelCommandGroup {
     addCommands(
       new HoldPosition(this.elevator, Constants.elevator.coral_auto),
       Commands.sequence(
-        new DriveTime(this.drivetrain, 2),
+        new DriveTime(this.drivetrain, Constants.autos.coral_drive_time),
         Commands.race(
-          new WaitCommand(1),
+          new WaitCommand(Constants.autos.coral_score_time),
           new CoralDrop(this.intake)
-        )
+        ),
+        new WaitCommand(3)
       )
     );
   }

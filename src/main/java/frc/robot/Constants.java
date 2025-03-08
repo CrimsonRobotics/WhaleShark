@@ -188,5 +188,10 @@ public final class Constants {
     public static final double normal_speed = 1;
     public static final double slow_speed = 0.5;
   }
+
+  public static class autos {
+    public static final double coral_drive_time = 2;
+    public static final double coral_score_time = 2;
+  }
   
 }
