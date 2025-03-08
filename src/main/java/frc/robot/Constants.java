@@ -167,8 +167,9 @@ public final class Constants {
     //intake motor spin speeds
     public static final double hold_speed = 0.1; 
     public static final double intake_speed = 0.8;
-    public static final double shoot_speed = 0.2;
-    public static final double rest_speed = 0; 
+    public static final double shoot_speed = -0.2;
+    public static final double rest_speed = 0.2; 
+    public static final double coral_speed = 0.5;
 
     //enum for configs
     //an enum is a variable that you create with set values you define

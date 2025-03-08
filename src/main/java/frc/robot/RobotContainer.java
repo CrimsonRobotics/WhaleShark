@@ -7,6 +7,8 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AutoFile;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.Autos.CoralAuto;
+import frc.robot.commands.Autos.DriveTime;
 import frc.robot.commands.Climber.Climb;
 import frc.robot.commands.Climber.ClimbBack;
 import frc.robot.commands.Climber.ReadyUp;
@@ -50,7 +52,6 @@ public class RobotContainer {
   private final Intake intake = new Intake();
   private final Elevator elevator = new Elevator();
   private final Drivetrain drivetrain = new Drivetrain();
-  private final Drivetrain test = new Drivetrain();
 
   //Creating joysticks
   private final Joystick l_drive = new Joystick(0);
@@ -156,6 +157,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return AutoFile.Leave(drivetrain);
+    return new CoralAuto(drivetrain, intake);
   }
 }
