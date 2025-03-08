@@ -50,6 +50,7 @@ public class RobotContainer {
   private final Intake intake = new Intake();
   private final Elevator elevator = new Elevator();
   private final Drivetrain drivetrain = new Drivetrain();
+  private final Drivetrain test = new Drivetrain();
 
   //Creating joysticks
   private final Joystick l_drive = new Joystick(0);
