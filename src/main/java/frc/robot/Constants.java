@@ -108,6 +108,7 @@ public final class Constants {
     public static final double coral = 0.33;
     public static final double ground = .03;
     public static final double barge = 2.12;
+    public static final double coral_auto = 0.20;
 
     //conversion factors for the elevator
     //stage position change to chain movement

@@ -157,6 +157,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return new CoralAuto(drivetrain, intake);
+    return new CoralAuto(drivetrain, intake, elevator);
   }
 }

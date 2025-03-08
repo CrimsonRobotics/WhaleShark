@@ -5,29 +5,37 @@
 package frc.robot.commands.Autos;
 
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.Constants;
+import frc.robot.commands.Elevator.HoldPosition;
 import frc.robot.commands.Intake.CoralDrop;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class CoralAuto extends SequentialCommandGroup {
+public class CoralAuto extends ParallelCommandGroup {
   /** Creates a new CoralAuto. */
   Drivetrain drivetrain;
   Intake intake;
-  public CoralAuto(Drivetrain drivetrain, Intake intake) {
+  Elevator elevator;
+  public CoralAuto(Drivetrain drivetrain, Intake intake, Elevator elevator) {
     this.drivetrain = drivetrain;
     this.intake = intake;
+    this.elevator = elevator;
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new DriveTime(this.drivetrain, 2),
-      Commands.race(
-        new WaitCommand(1),
-        new CoralDrop(this.intake)
+      new HoldPosition(this.elevator, Constants.elevator.coral_auto),
+      Commands.sequence(
+        new DriveTime(this.drivetrain, 2),
+        Commands.race(
+          new WaitCommand(1),
+          new CoralDrop(this.intake)
+        )
       )
     );
   }
