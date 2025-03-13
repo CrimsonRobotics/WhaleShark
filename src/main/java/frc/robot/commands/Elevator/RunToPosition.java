@@ -8,11 +8,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Elevator;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class HoldPosition extends Command {
+public class RunToPosition extends Command {
   /** Creates a new HoldPosition. */
   Elevator elevator;
   double position;
-  public HoldPosition(Elevator elevator, double position) {
+  public RunToPosition(Elevator elevator, double position) {
     this.elevator = elevator;
     this.position = position;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -38,6 +38,10 @@ public class HoldPosition extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if (this.elevator.get_position() != this.position) {
+      return false;
+    } else {
+      return true;
+    }
   }
 }
