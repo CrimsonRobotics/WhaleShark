@@ -12,10 +12,10 @@ import frc.robot.subsystems.Intake;
 public class RunRoller extends Command {
   /** Creates a new RunRoller. */
   Intake intake;
-  Joystick joystick;
-  public RunRoller(Intake intake, Joystick joystick) {
+  double speed;
+  public RunRoller(Intake intake, double speed) {
     this.intake = intake;
-    this.joystick = joystick;
+    this.speed = speed;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.intake);
   }
@@ -28,7 +28,7 @@ public class RunRoller extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    this.intake.run(joystick.getX());
+    this.intake.run(this.speed);
   }
 
   // Called once the command ends or is interrupted.

@@ -7,12 +7,17 @@ package frc.robot.commands.Autos;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.commands.Drivetrain.DriveDouble;
 import frc.robot.commands.Elevator.HoldPosition;
 import frc.robot.commands.Intake.CoralDrop;
+import frc.robot.commands.Intake.Extend;
 import frc.robot.commands.Intake.Intaking;
+import frc.robot.commands.Intake.Retract;
+import frc.robot.commands.Intake.RunRoller;
+import frc.robot.commands.Intake.Retract;
 import frc.robot.commands.Operator.AlgaeIntake;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Elevator;
@@ -21,7 +26,7 @@ import frc.robot.subsystems.Intake;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class CoralAuto extends ParallelRaceGroup {
+public class CoralAuto extends SequentialCommandGroup {
   /** Creates a new CoralAuto. */
   Drivetrain drivetrain;
   Intake intake;
@@ -33,29 +38,18 @@ public class CoralAuto extends ParallelRaceGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      // new HoldPosition(this.elevator, Constants.elevator.coral_auto),
-      Commands.sequence(
-        // Commands.race(
-        //   new WaitCommand(Constants.autos.coral_drive_time),
-        //   new DriveDouble(this.drivetrain, 0, -0.25, 0, 1)
-        // ),
-        this.intake.retractCommand(),
+        Commands.race(
+          new WaitCommand(Constants.autos.coral_drive_time),
+          new DriveDouble(this.drivetrain, 0, -0.25, 0, 1)
+        ),
+        new Retract(this.intake),
         new WaitCommand(1.5),
         Commands.race(
           new WaitCommand(1),
-          this.intake.runCommand(Constants.intake.intake_speed)
+          new RunRoller(this.intake, Constants.intake.intake_speed)
         ),
-        this.intake.extendCommand(),
+        new Extend(this.intake),
         new WaitCommand(1.5)
-        // this.elevator.set_position_command(Constants.elevator.low_reef),
-        // this.intake.retractCommand(),
-        // new WaitCommand(1.5)
-        // Commands.race(
-        //   new WaitCommand(1),
-        //   this.intake.runCommand(Constants.intake.intake_speed),
-        // ),
-        // this.intake.extendCommand()
-      )
-    );
+      );
   }
 }

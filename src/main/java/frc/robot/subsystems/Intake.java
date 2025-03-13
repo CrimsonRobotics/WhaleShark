@@ -101,33 +101,7 @@ public class Intake extends SubsystemBase {
     solenoid.set(DoubleSolenoid.Value.kReverse);
   }
 
-  public Command extendCommand() {
-    return this.runOnce(
-      () -> {
-        this.extend();
-      }
-    );
-  }
-
-  public Command retractCommand() {
-    return this.runOnce(
-      () -> {
-        this.retract();      
-      }
-    );
-  }
-
-  public Command runCommand(double speed) {
-    return this.startEnd(
-      () -> {
-        this.run(speed);
-      },
-      () -> {
-        this.run(0);
-      }
-    );
-  }
-
+  
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
