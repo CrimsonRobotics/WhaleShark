@@ -6,8 +6,10 @@ package frc.robot.commands.Operator;
 
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.Elevator.HoldPosition;
+import frc.robot.commands.Elevator.RunToPosition;
 import frc.robot.commands.Intake.Intaking;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
@@ -15,7 +17,7 @@ import frc.robot.subsystems.Intake;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AlgaeIntake extends ParallelCommandGroup {
+public class AlgaeIntake extends SequentialCommandGroup {
   /** Creates a new AlgaeIntake. */
   Elevator elevator;
   Intake intake;
@@ -28,11 +30,11 @@ public class AlgaeIntake extends ParallelCommandGroup {
     this.position = position;
 
     addCommands(
-      Commands.sequence(
-        new WaitCommand(.1),
+      new RunToPosition(this.elevator, this.position),
+      Commands.parallel(
+        new HoldPosition(this.elevator, this.position),
         new Intaking(this.intake)
-      ),
-      new HoldPosition(this.elevator, this.position)
+      )
     );
   }
 }

@@ -4,6 +4,7 @@
 
 package frc.robot.commands.Elevator;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Elevator;
 
@@ -27,6 +28,8 @@ public class RunToPosition extends Command {
   @Override
   public void execute() {
     this.elevator.run_to_position(this.position);
+    SmartDashboard.putNumber("Current Elevator Position", this.elevator.get_position());
+    SmartDashboard.putNumber("setpoint elevator", this.position);
   }
 
   // Called once the command ends or is interrupted.
@@ -38,10 +41,13 @@ public class RunToPosition extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (this.elevator.get_position() != this.position) {
-      return false;
-    } else {
+    if (this.elevator.get_position() > this.position - 0.02 && this.elevator.get_position() < this.position + 0.02) {
+      SmartDashboard.putBoolean("Elevator Loop", true);
       return true;
+    } else {
+      SmartDashboard.putBoolean("Elevator Loop", false);
+      return false;
     }
+
   }
 }

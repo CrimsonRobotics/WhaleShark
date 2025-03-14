@@ -46,8 +46,8 @@ public class Elevator extends SubsystemBase {
   SparkMaxConfig l_motor_config;
   SparkMaxConfig r_motor_config;
   RelativeEncoder encoder;
-  PIDController pid;
-  //ProfiledPIDController pid;
+  //PIDController pid;
+  ProfiledPIDController pid;
   PIDController p_pid;
   double voltage;
   double speed;
@@ -106,13 +106,13 @@ public class Elevator extends SubsystemBase {
 
     
     //this creates the pidcontroller that is used when putting the climber in the ready position
-    pid = new PIDController(Constants.elevator.kp, Constants.elevator.ki, Constants.elevator.kd);
-    //pid = new ProfiledPIDController(Constants.elevator.kp, Constants.elevator.ki, Constants.elevator.kd, new TrapezoidProfile.Constraints(2, 1));
+    //pid = new PIDController(Constants.elevator.kp, Constants.elevator.ki, Constants.elevator.kd);
+    pid = new ProfiledPIDController(Constants.elevator.kp, Constants.elevator.ki, Constants.elevator.kd, new TrapezoidProfile.Constraints(4, 4));
 
     p_pid = new PIDController(Constants.elevator.kp, 0, 0);
 
     feedforward = new ElevatorFeedforward(0, 0, 0);
-    speed_limiter = new SlewRateLimiter(1.5);
+    speed_limiter = new SlewRateLimiter(2);
 
     //this creates the shuffleboard tab for outputing elevator data onto shuffleboard
     elevator_tab = Shuffleboard.getTab("Elevator");
@@ -173,7 +173,7 @@ public class Elevator extends SubsystemBase {
   //it is used for putting the elevator into various intake and scoring positions
   public void run_to_position(double position) {
     //this calculates the voltage that needs to be applied using the pid controller, the current position, and the desired position(which is passed in as a parameter)
-    voltage = MathUtil.clamp(pid.calculate(get_position(), position), -0.5, 0.5);
+    voltage = MathUtil.clamp(pid.calculate(get_position(), position), -1, 1);
     SmartDashboard.putNumber("Position set", position);
     SmartDashboard.putNumber("Curernt Position RN PID", get_position());
     //sets the voltage to the motors

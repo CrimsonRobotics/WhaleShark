@@ -32,7 +32,7 @@ public class Intaking extends Command {
   @Override
   public void execute() {
     //quickly spins motor to intake algae
-    this.intake.run(Constants.intake.intake_speed);
+    //this.intake.run(Constants.intake.intake_speed);
   }
 
   // Called once the command ends or is interrupted.
