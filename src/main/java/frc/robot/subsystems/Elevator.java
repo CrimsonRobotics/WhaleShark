@@ -112,7 +112,7 @@ public class Elevator extends SubsystemBase {
     p_pid = new PIDController(Constants.elevator.kp, 0, 0);
 
     feedforward = new ElevatorFeedforward(0, 0, 0);
-    speed_limiter = new SlewRateLimiter(2);
+    speed_limiter = new SlewRateLimiter(4.5);
 
     //this creates the shuffleboard tab for outputing elevator data onto shuffleboard
     elevator_tab = Shuffleboard.getTab("Elevator");
@@ -173,7 +173,7 @@ public class Elevator extends SubsystemBase {
   //it is used for putting the elevator into various intake and scoring positions
   public void run_to_position(double position) {
     //this calculates the voltage that needs to be applied using the pid controller, the current position, and the desired position(which is passed in as a parameter)
-    voltage = MathUtil.clamp(pid.calculate(get_position(), position), -1, 1);
+    voltage = MathUtil.clamp(pid.calculate(get_position(), position), -0.8, 0.8);
     SmartDashboard.putNumber("Position set", position);
     SmartDashboard.putNumber("Curernt Position RN PID", get_position());
     //sets the voltage to the motors

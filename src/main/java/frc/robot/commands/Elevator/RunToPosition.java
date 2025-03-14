@@ -41,7 +41,7 @@ public class RunToPosition extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (this.elevator.get_position() > this.position - 0.02 && this.elevator.get_position() < this.position + 0.02) {
+    if (this.elevator.get_position() > this.position - 0.05 && this.elevator.get_position() < this.position + 0.05) {
       SmartDashboard.putBoolean("Elevator Loop", true);
       return true;
     } else {
