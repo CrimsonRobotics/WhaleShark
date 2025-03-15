@@ -5,10 +5,12 @@
 package frc.robot.commands.Operator;
 
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.commands.Elevator.HoldPosition;
+import frc.robot.commands.Intake.Extend;
 import frc.robot.commands.Intake.Rest;
 import frc.robot.commands.Intake.RunRoller;
 import frc.robot.subsystems.Elevator;
@@ -37,6 +39,7 @@ public class Resting extends ParallelCommandGroup {
       ),
       //the intake will go into rest state
       Commands.sequence(
+        new Extend(this.intake),
         Commands.race(
           new WaitCommand(1),
           new RunRoller(this.intake, Constants.intake.intake_speed)
