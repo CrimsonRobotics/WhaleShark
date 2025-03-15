@@ -12,6 +12,7 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -23,26 +24,32 @@ public class Climber extends SubsystemBase {
   /** Creates a new Climber. */
   SparkMax motor;
   SparkMaxConfig config;
-  double voltage;
+  double speed;
   PIDController pid;
   RelativeEncoder encoder;
   ShuffleboardTab climber_tab;
   GenericEntry climber_position;
+  SparkMax motor_2;
+
   public Climber() {
     /**creates the climb motor using the motor id from Constants. */
     motor = new SparkMax(Constants.climber.motor_id, MotorType.kBrushless);
+    motor_2 = new SparkMax(Constants.climber.motor_2_id, MotorType.kBrushless);
 
-    /**gets the encoder from the motor */
+
+    /**gets the encoder from the motor_2 */
     encoder = motor.getEncoder();
     encoder.setPosition(0);
 
     /**creates and defines the spark max config */
     config = new SparkMaxConfig();
+
     config
       /**idle mode is brake */
       .idleMode(IdleMode.kBrake)
       /**motor is not inverted */
-      .inverted(false);
+      .inverted(false)
+      .voltageCompensation(12);
     config.encoder
       .positionConversionFactor(Constants.climber.position_conversion_factor);
 
@@ -53,6 +60,7 @@ public class Climber extends SubsystemBase {
      * persist means that if robot is power cycled, the settings will remain
      */
     motor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    motor_2.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     /**this creates the pidcontroller that is used when putting the climber in the ready position */
     pid = new PIDController(Constants.climber.kp, Constants.climber.ki, Constants.climber.kd);
@@ -69,7 +77,9 @@ public class Climber extends SubsystemBase {
    */
   public double get_position() {
     return encoder.getPosition();
+    
   }
+
 
   /**
    * this will have the climber move to a specific position
@@ -78,9 +88,10 @@ public class Climber extends SubsystemBase {
    */
   public void run_to_position(double position) {
     /**this calculates the voltage that needs to be applied using the pid controller, the current position, and the desired position(which is passed in as a parameter) */
-    voltage = pid.calculate(get_position(), position);
+    speed = MathUtil.clamp(pid.calculate(get_position(), position), -Constants.climber.max_speed, Constants.climber.max_speed);
     /**sets the voltage to the motor */
-    motor.setVoltage(voltage);
+    motor.set(speed);
+    motor_2.set(speed);
   }
 
   /**
@@ -90,6 +101,7 @@ public class Climber extends SubsystemBase {
    */
   public void run(double speed) {
     motor.setVoltage(speed);
+    motor_2.setVoltage(speed);
   }
 
   @Override
