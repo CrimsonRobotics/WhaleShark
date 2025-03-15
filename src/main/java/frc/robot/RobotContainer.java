@@ -108,9 +108,9 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
-    //elevator.setDefaultCommand(new RunElevator(elevator, r_operator, 0));
+    elevator.setDefaultCommand(new RunElevator(elevator, r_operator, 0));
     drivetrain.setDefaultCommand(new Drive(drivetrain, l_drive, r_drive, Constants.driver.normal_speed));
-    //intake.setDefaultCommand(new Rest( intake));
+    intake.setDefaultCommand(new Rest( intake));
     configureBindings();
   }
 
@@ -144,24 +144,24 @@ public class RobotContainer {
     //piston_retract.onTrue(new Retract(intake));
 
     //left operator buttons
-    //ground_intake.whileTrue(new AlgaeIntake(elevator, intake, Constants.elevator.ground));
-    //low_reef_intake.whileTrue(new AlgaeIntake(elevator, intake, Constants.elevator.low_reef));
-    //high_reef_intake.whileTrue(new AlgaeIntake(elevator, intake, Constants.elevator.high_reef));
-    //coral_intake.whileTrue(new AlgaeIntake(elevator, intake, Constants.elevator.coral));
+    ground_intake.whileTrue(new AlgaeIntake(elevator, intake, Constants.elevator.ground));
+    low_reef_intake.whileTrue(new AlgaeIntake(elevator, intake, Constants.elevator.low_reef));
+    high_reef_intake.whileTrue(new AlgaeIntake(elevator, intake, Constants.elevator.high_reef));
+    coral_intake.whileTrue(new AlgaeIntake(elevator, intake, Constants.elevator.coral));
     
     //intake_down.onTrue(new InstantCommand(() -> intake.setDefaultCommand(new Retract(intake))));
     //intake_down.whileTrue(new Retract(intake));
-    //ready_up.onTrue(new ReadyUp(climber));
+    ////ready_up.onTrue(new ReadyUp(climber));
     //climb_down.whileTrue(new ClimbBack(climber));
     //climb_up.whileTrue(new Climb(climber));
-    //reset_elevator.onTrue(new InstantCommand(() -> elevator.reset_elevator()));
+    reset_elevator.onTrue(new InstantCommand(() -> elevator.reset_elevator()));
 
 
-    ////right operator buttons
-    //shoot_intake.whileTrue(new Shoot(intake));
-    //barge_elevator_control.whileTrue(new PRunToPosition(elevator, Constants.elevator.barge, r_operator));
-    //run_elevator.whileTrue(new RunElevator(elevator, r_operator, Constants.elevator.high_speed));
-    //intake_only.whileTrue(new Intaking(intake));
+    //right operator buttons
+    shoot_intake.whileTrue(new Shoot(intake));
+    barge_elevator_control.whileTrue(new PRunToPosition(elevator, Constants.elevator.barge, r_operator));
+    run_elevator.whileTrue(new RunElevator(elevator, r_operator, Constants.elevator.high_speed));
+    intake_only.whileTrue(new Intaking(intake));
   }
 
   /**

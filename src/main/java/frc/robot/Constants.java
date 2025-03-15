@@ -78,10 +78,10 @@ public final class Constants {
 
     //front of robot is postive x and back of robot is negative x
     //left of robot is positive y and right of robot is negative y
-    public static final Translation2d front_right = new Translation2d(robot_length / 2, -robot_width / 2);
-    public static final Translation2d back_right = new Translation2d(-robot_length / 2, -robot_width / 2);
-    public static final Translation2d back_left = new Translation2d(-robot_length / 2, robot_width / 2);
-    public static final Translation2d front_left = new Translation2d(robot_length / 2, robot_width / 2);
+    public static final Translation2d front_right = new Translation2d(-robot_length / 2, -robot_width / 2);
+    public static final Translation2d back_right = new Translation2d(-robot_length / 2, robot_width / 2);
+    public static final Translation2d back_left = new Translation2d(robot_length / 2, robot_width / 2);
+    public static final Translation2d front_left = new Translation2d(robot_length / 2, -robot_width / 2);
     //swerve drice kinematics
     public static final SwerveDriveKinematics swerve_map = new SwerveDriveKinematics(
       front_right,
