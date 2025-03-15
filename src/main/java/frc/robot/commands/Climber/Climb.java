@@ -25,7 +25,7 @@ public class Climb extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    climber.run(Constants.climber.climb_voltage);
+    climber.run(Constants.climber.climb_speed);
   }
 
   // Called once the command ends or is interrupted.

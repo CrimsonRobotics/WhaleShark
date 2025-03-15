@@ -78,7 +78,14 @@ public class RobotContainer {
   //Button 4
   private final JoystickButton coral_intake = new JoystickButton(l_operator, 4);
   //Button 5
-  private final JoystickButton reset_elevator = new JoystickButton(l_operator, 5);
+  private final JoystickButton ready_up = new JoystickButton(l_operator, 5);
+  //Button 6
+  private final JoystickButton climb_down = new JoystickButton(l_operator, 6);
+  //Button 7
+  private final JoystickButton climb_up = new JoystickButton(l_operator, 7);
+  //Button 11
+  private final JoystickButton reset_elevator = new JoystickButton(l_operator, 11);
+
 
   //Right Operator Joystick
   //Button 1
@@ -140,6 +147,10 @@ public class RobotContainer {
     low_reef_intake.whileTrue(new AlgaeIntake(elevator, intake, Constants.elevator.low_reef));
     high_reef_intake.whileTrue(new AlgaeIntake(elevator, intake, Constants.elevator.high_reef));
     coral_intake.whileTrue(new AlgaeIntake(elevator, intake, Constants.elevator.coral));
+    
+    ready_up.onTrue(new ReadyUp(climber));
+    climb_down.whileTrue(new ClimbBack(climber));
+    climb_up.whileTrue(new Climb(climber));
     reset_elevator.onTrue(new InstantCommand(() -> elevator.reset_elevator()));
 
 

@@ -100,8 +100,8 @@ public class Climber extends SubsystemBase {
    * @param speed speed at which to spin the motor
    */
   public void run(double speed) {
-    motor.setVoltage(speed);
-    motor_2.setVoltage(speed);
+    motor.set(speed);
+    motor_2.set(speed);
   }
 
   @Override
