@@ -138,7 +138,7 @@ public final class Constants {
 
   public static class climber {
     public static final int motor_id = 35;
-    public static final int motor_2_id = 0;
+    public static final int motor_2_id = 47;
 
     //run to position pid values
     public static final double kp = 2;

@@ -49,7 +49,8 @@ public class Climber extends SubsystemBase {
       .idleMode(IdleMode.kBrake)
       /**motor is not inverted */
       .inverted(false)
-      .voltageCompensation(12);
+      .voltageCompensation(12)
+      .follow(motor);
     config.encoder
       .positionConversionFactor(Constants.climber.position_conversion_factor);
 
@@ -59,6 +60,7 @@ public class Climber extends SubsystemBase {
      * then config is applied
      * persist means that if robot is power cycled, the settings will remain
      */
+    
     motor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     motor_2.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
@@ -91,7 +93,6 @@ public class Climber extends SubsystemBase {
     speed = MathUtil.clamp(pid.calculate(get_position(), position), -Constants.climber.max_speed, Constants.climber.max_speed);
     /**sets the voltage to the motor */
     motor.set(speed);
-    motor_2.set(speed);
   }
 
   /**
@@ -101,7 +102,6 @@ public class Climber extends SubsystemBase {
    */
   public void run(double speed) {
     motor.set(speed);
-    motor_2.set(speed);
   }
 
   @Override

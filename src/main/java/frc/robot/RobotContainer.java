@@ -109,7 +109,7 @@ public class RobotContainer {
     // Configure the trigger bindings
     elevator.setDefaultCommand(new RunElevator(elevator, r_operator, 0));
     drivetrain.setDefaultCommand(new Drive(drivetrain, l_drive, r_drive, Constants.driver.normal_speed));
-    intake.setDefaultCommand(new Rest(intake));
+    intake.setDefaultCommand(new Resting(elevator, intake));
     configureBindings();
   }
 
@@ -148,7 +148,8 @@ public class RobotContainer {
     high_reef_intake.whileTrue(new AlgaeIntake(elevator, intake, Constants.elevator.high_reef));
     coral_intake.whileTrue(new AlgaeIntake(elevator, intake, Constants.elevator.coral));
     
-    ready_up.onTrue(new ReadyUp(climber));
+    ready_up.onTrue(new InstantCommand(() -> intake.setDefaultCommand(new Extend(intake))));
+    //ready_up.onTrue(new ReadyUp(climber));
     climb_down.whileTrue(new ClimbBack(climber));
     climb_up.whileTrue(new Climb(climber));
     reset_elevator.onTrue(new InstantCommand(() -> elevator.reset_elevator()));

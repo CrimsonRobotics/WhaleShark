@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.commands.Elevator.HoldPosition;
 import frc.robot.commands.Intake.Rest;
+import frc.robot.commands.Intake.RunRoller;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
 
@@ -31,11 +32,17 @@ public class Resting extends ParallelCommandGroup {
     addCommands(
       //the elevator will hold positiot at rest height
       Commands.sequence(
-        new WaitCommand(1),
-        new HoldPosition(this.elevator, Constants.elevator.ground)
+        new WaitCommand(1)
+        //new HoldPosition(this.elevator, Constants.elevator.ground)
       ),
       //the intake will go into rest state
-      new Rest(this.intake)
+      Commands.sequence(
+        Commands.race(
+          new WaitCommand(1),
+          new RunRoller(this.intake, Constants.intake.intake_speed)
+        ),
+        new Rest(this.intake)
+      )
     );
   }
 }
