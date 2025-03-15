@@ -94,5 +94,8 @@ public class Drivetrain extends SubsystemBase {
     field.setRobotPose(pose_estimator.getEstimatedPosition());
     SmartDashboard.putData("Field", field);
     SmartDashboard.putNumber("Gyro Yaw", get_yaw().getDegrees());
+    for (SwerveModule module : this.dt) {
+      SmartDashboard.putNumber("Module Can" + module.module_number, module.get_can_coder().getDegrees());
+    }
   }
 }

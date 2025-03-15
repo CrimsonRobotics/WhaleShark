@@ -173,7 +173,7 @@ public class Elevator extends SubsystemBase {
   //it is used for putting the elevator into various intake and scoring positions
   public void run_to_position(double position) {
     //this calculates the voltage that needs to be applied using the pid controller, the current position, and the desired position(which is passed in as a parameter)
-    voltage = MathUtil.clamp(pid.calculate(get_position(), position), -0.8, 0.8);
+    voltage = MathUtil.clamp(pid.calculate(get_position(), position), -0.6, 0.8);
     SmartDashboard.putNumber("Position set", position);
     SmartDashboard.putNumber("Curernt Position RN PID", get_position());
     //sets the voltage to the motors
