@@ -138,7 +138,7 @@ public final class Constants {
 
   public static class climber {
     public static final int motor_id = 35;
-    public static final int motor_2_id = 47;
+    public static final int motor_2_id = 27;
 
     //run to position pid values
     public static final double kp = 2;
@@ -154,9 +154,9 @@ public final class Constants {
 
     //ready up position is the position that the climber will be at when it is ready to climb
     //this is in rotations of the motor
-    public static final double ready_up_position = 0.25;
+    public static final double ready_up_position = 0.23;
     //this is the speed at which the robot will climb
-    public static final double climb_speed = 1.5/12;
+    public static final double climb_speed = 0.5;
     public static final double max_speed = 0.5;
 
 

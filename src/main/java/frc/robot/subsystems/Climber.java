@@ -17,6 +17,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -49,8 +50,7 @@ public class Climber extends SubsystemBase {
       .idleMode(IdleMode.kBrake)
       /**motor is not inverted */
       .inverted(false)
-      .voltageCompensation(12)
-      .follow(motor);
+      .voltageCompensation(12);
     config.encoder
       .positionConversionFactor(Constants.climber.position_conversion_factor);
 
@@ -102,6 +102,8 @@ public class Climber extends SubsystemBase {
    */
   public void run(double speed) {
     motor.set(speed);
+    motor_2.set(speed);
+    SmartDashboard.putNumber("Climb Speed", speed);
   }
 
   @Override
