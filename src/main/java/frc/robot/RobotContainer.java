@@ -108,7 +108,7 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
-    elevator.setDefaultCommand(new RunElevator(elevator, r_operator, 0));
+    elevator.setDefaultCommand(new HoldPosition(elevator, Constants.elevator.coral));
     drivetrain.setDefaultCommand(new Drive(drivetrain, l_drive, r_drive, Constants.driver.normal_speed));
     intake.setDefaultCommand(new Resting(intake));
     configureBindings();
