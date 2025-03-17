@@ -29,11 +29,14 @@ public class Resting extends SequentialCommandGroup {
 
     //these commands will both happen at the same time
     addCommands(
+      //pulls the intake up
       new Extend(this.intake),
+      //spins the intake rollers for a second while intake goes up
       Commands.race(
         new WaitCommand(1),
         new RunRoller(this.intake, Constants.intake.intake_speed)
       ),
+      //has the intake stay in rest mode
       new Rest(this.intake)
     );
   }
