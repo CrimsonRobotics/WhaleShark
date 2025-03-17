@@ -105,10 +105,6 @@ public class Intake extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putBoolean("Compressor Enabled", compressor.isEnabled());
-    SmartDashboard.putBoolean("Get Pressure Switch Value",compressor.getPressureSwitchValue());
-    SmartDashboard.putNumber("Current Pressure", compressor.getPressure());
-    SmartDashboard.putNumber("Compressor current", compressor.getCurrent());
-    SmartDashboard.putNumber("Sparkflex Current (applied)", intake_motor.getOutputCurrent() * intake_motor.getAppliedOutput());
+    SmartDashboard.putNumber("Intake Sparkflex Current (applied)", intake_motor.getOutputCurrent() * intake_motor.getAppliedOutput());
   }
 }

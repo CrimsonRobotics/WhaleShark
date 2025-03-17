@@ -28,8 +28,6 @@ public class RunToPosition extends Command {
   @Override
   public void execute() {
     this.elevator.run_to_position(this.position);
-    SmartDashboard.putNumber("Current Elevator Position", this.elevator.get_position());
-    SmartDashboard.putNumber("setpoint elevator", this.position);
   }
 
   // Called once the command ends or is interrupted.
@@ -42,10 +40,8 @@ public class RunToPosition extends Command {
   @Override
   public boolean isFinished() {
     if (this.elevator.get_position() > this.position - 0.05 && this.elevator.get_position() < this.position + 0.05) {
-      SmartDashboard.putBoolean("Elevator Loop", true);
       return true;
     } else {
-      SmartDashboard.putBoolean("Elevator Loop", false);
       return false;
     }
 
