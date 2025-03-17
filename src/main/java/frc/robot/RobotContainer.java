@@ -110,7 +110,7 @@ public class RobotContainer {
     // Configure the trigger bindings
     elevator.setDefaultCommand(new RunElevator(elevator, r_operator, 0));
     drivetrain.setDefaultCommand(new Drive(drivetrain, l_drive, r_drive, Constants.driver.normal_speed));
-    intake.setDefaultCommand(new Resting( elevator, intake));
+    intake.setDefaultCommand(new Resting(intake));
     configureBindings();
   }
 
