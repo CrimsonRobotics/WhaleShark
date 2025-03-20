@@ -96,6 +96,8 @@ public class RobotContainer {
   private final JoystickButton barge_elevator_control = new JoystickButton(r_operator, 2);
   //Button 3
   private final JoystickButton run_elevator = new JoystickButton(r_operator, 3);
+  //Button 4
+  private final JoystickButton processor_elevator = new JoystickButton(r_operator, 4);
   //Button 6
   private final JoystickButton normal_mode = new JoystickButton(r_operator, 6);
   //Button 7
@@ -165,6 +167,7 @@ public class RobotContainer {
     //right operator buttons
     shoot_intake.whileTrue(new Shoot(intake));
     barge_elevator_control.whileTrue(new PRunToPosition(elevator, Constants.elevator.barge, r_operator));
+    processor_elevator.whileTrue(new HoldPosition(elevator, Constants.elevator.processor));
     run_elevator.whileTrue(new RunElevator(elevator, r_operator, Constants.elevator.high_speed));
     normal_mode.onTrue(new InstantCommand(() -> elevator.setDefaultCommand(new ElevatorRest(elevator))));
     manual_mode.onTrue(new InstantCommand(() -> elevator.setDefaultCommand(new RunElevator(elevator, r_operator, 0))));

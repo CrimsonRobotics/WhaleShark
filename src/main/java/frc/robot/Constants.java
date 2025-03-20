@@ -109,6 +109,7 @@ public final class Constants {
     public static final double ground = .0677; //.095164
     public static final double barge = 2.12;
     public static final double coral_auto = 0.20;
+    public static final double processor = .0677;
     public static final double rest = 0.33;
 
     //conversion factors for the elevator
