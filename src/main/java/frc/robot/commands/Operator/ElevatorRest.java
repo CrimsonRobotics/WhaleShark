@@ -22,9 +22,9 @@ public class ElevatorRest extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new WaitCommand(1),
-      //new HoldPosition(this.elevator, Constants.elevator.rest)
-      new RestHoldPosition(this.elevator, Constants.elevator.rest)
+      new WaitCommand(0.8),
+      new HoldPosition(this.elevator, Constants.elevator.rest)
+      //new RestHoldPosition(this.elevator, Constants.elevator.rest)
     );
   }
 }

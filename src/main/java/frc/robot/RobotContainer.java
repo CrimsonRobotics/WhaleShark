@@ -98,8 +98,8 @@ public class RobotContainer {
   private final JoystickButton run_elevator = new JoystickButton(r_operator, 3);
   //Button 4
   private final JoystickButton processor_elevator = new JoystickButton(r_operator, 4);
-  //Button 12
-  private final JoystickButton normal_mode = new JoystickButton(r_operator, 12);
+  //Button 11
+  private final JoystickButton normal_mode = new JoystickButton(r_operator, 11);
   //Button 13
   private final JoystickButton manual_mode = new JoystickButton(r_operator, 13);
   //Buttom 14
