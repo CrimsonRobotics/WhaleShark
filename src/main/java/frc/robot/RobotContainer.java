@@ -96,6 +96,10 @@ public class RobotContainer {
   private final JoystickButton barge_elevator_control = new JoystickButton(r_operator, 2);
   //Button 3
   private final JoystickButton run_elevator = new JoystickButton(r_operator, 3);
+  //Button 6
+  private final JoystickButton normal_mode = new JoystickButton(r_operator, 6);
+  //Button 7
+  private final JoystickButton manual_mode = new JoystickButton(r_operator, 7);
   //Buttom 8
   private final JoystickButton intake_only = new JoystickButton(r_operator, 8);
   
@@ -150,11 +154,11 @@ public class RobotContainer {
     high_reef_intake.whileTrue(new AlgaeIntake(elevator, intake, Constants.elevator.high_reef));
     coral_intake.whileTrue(new AlgaeIntake(elevator, intake, Constants.elevator.coral));
     
-    intake_down.onTrue(new InstantCommand(() -> intake.setDefaultCommand(new Retract(intake))));
-    intake_down.whileTrue(new Retract(intake));
-    //ready_up.onTrue(new ReadyUp(climber));
-    climb_down.whileTrue(new ClimbBack(climber));
-    climb_up.whileTrue(new Climb(climber));
+    //intake_down.onTrue(new InstantCommand(() -> intake.setDefaultCommand(new Retract(intake))));
+    //intake_down.whileTrue(new Retract(intake));
+    ////ready_up.onTrue(new ReadyUp(climber));
+    //climb_down.whileTrue(new ClimbBack(climber));
+    //climb_up.whileTrue(new Climb(climber));
     reset_elevator.onTrue(new InstantCommand(() -> elevator.reset_elevator()));
 
 
@@ -162,6 +166,8 @@ public class RobotContainer {
     shoot_intake.whileTrue(new Shoot(intake));
     barge_elevator_control.whileTrue(new PRunToPosition(elevator, Constants.elevator.barge, r_operator));
     run_elevator.whileTrue(new RunElevator(elevator, r_operator, Constants.elevator.high_speed));
+    normal_mode.onTrue(new InstantCommand(() -> elevator.setDefaultCommand(new ElevatorRest(elevator))));
+    manual_mode.onTrue(new InstantCommand(() -> elevator.setDefaultCommand(new RunElevator(elevator, r_operator, 0))));
     intake_only.whileTrue(new Intaking(intake));
   }
 
