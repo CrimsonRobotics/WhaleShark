@@ -64,8 +64,8 @@ public class RobotContainer {
   //Left Driver Joystick
   //Button 1
   private final JoystickButton reset_gyro = new JoystickButton(l_drive, 1);
-  //Button 2
-  private final JoystickButton slow_drive = new JoystickButton(l_drive, 2);
+  //Button 11
+  private final JoystickButton slow_drive = new JoystickButton(l_drive, 11);
 
   //Right Driver Joystick
 
@@ -98,12 +98,12 @@ public class RobotContainer {
   private final JoystickButton run_elevator = new JoystickButton(r_operator, 3);
   //Button 4
   private final JoystickButton processor_elevator = new JoystickButton(r_operator, 4);
-  //Button 6
-  private final JoystickButton normal_mode = new JoystickButton(r_operator, 6);
-  //Button 7
-  private final JoystickButton manual_mode = new JoystickButton(r_operator, 7);
-  //Buttom 8
-  private final JoystickButton intake_only = new JoystickButton(r_operator, 8);
+  //Button 12
+  private final JoystickButton normal_mode = new JoystickButton(r_operator, 12);
+  //Button 13
+  private final JoystickButton manual_mode = new JoystickButton(r_operator, 13);
+  //Buttom 14
+  private final JoystickButton intake_only = new JoystickButton(r_operator, 14);
   
 
 
