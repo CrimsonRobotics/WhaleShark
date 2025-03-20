@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.commands.Elevator.HoldPosition;
+import frc.robot.commands.Elevator.RestHoldPosition;
 import frc.robot.subsystems.Elevator;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -22,7 +23,8 @@ public class ElevatorRest extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new WaitCommand(0.5),
-      new HoldPosition(this.elevator, Constants.elevator.rest)
+      //new HoldPosition(this.elevator, Constants.elevator.rest)
+      new RestHoldPosition(this.elevator, Constants.elevator.rest)
     );
   }
 }
