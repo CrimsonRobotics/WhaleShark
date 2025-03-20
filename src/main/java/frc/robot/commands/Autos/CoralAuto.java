@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.commands.Drivetrain.DriveDouble;
+import frc.robot.commands.Elevator.ElevatorNothing;
 import frc.robot.commands.Elevator.HoldPosition;
 import frc.robot.commands.Intake.CoralDrop;
 import frc.robot.commands.Intake.Extend;
@@ -26,7 +27,7 @@ import frc.robot.subsystems.Intake;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class CoralAuto extends SequentialCommandGroup {
+public class CoralAuto extends ParallelCommandGroup {
   /** Creates a new CoralAuto. */
   Drivetrain drivetrain;
   Intake intake;
@@ -38,18 +39,21 @@ public class CoralAuto extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-        Commands.race(
-          new WaitCommand(Constants.autos.coral_drive_time),
-          new DriveDouble(this.drivetrain, 0, -0.25, 0, 1)
-        ),
-        new Retract(this.intake),
-        new WaitCommand(1.5),
-        Commands.race(
-          new WaitCommand(1),
-          new RunRoller(this.intake, Constants.intake.intake_speed)
-        ),
-        new Extend(this.intake),
-        new WaitCommand(1.5)
-      );
+      new ElevatorNothing(this.elevator),
+        Commands.sequence(
+          Commands.race(
+            new WaitCommand(Constants.autos.coral_drive_time),
+            new DriveDouble(this.drivetrain, 0, -0.25, 0, 1)
+          ),
+          new Retract(this.intake),
+          new WaitCommand(1.5),
+          Commands.race(
+            new WaitCommand(1),
+            new RunRoller(this.intake, Constants.intake.intake_speed)
+          ),
+          new Extend(this.intake),
+          new WaitCommand(1.5)
+      )
+    );
   }
 }

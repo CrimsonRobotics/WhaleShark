@@ -103,8 +103,8 @@ public final class Constants {
     public static final double ki = 0.4;
     public static final double kd = 0.0001;
     //height values of the elvator
-    public static final double low_reef = 0.69;
-    public static final double high_reef = 1.02; 
+    public static final double low_reef = 0.67;
+    public static final double high_reef = 1.09; 
     public static final double coral = 0.33;
     public static final double ground = .0677; //.095164
     public static final double barge = 2.12;
