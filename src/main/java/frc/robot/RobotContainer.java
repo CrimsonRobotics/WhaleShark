@@ -167,6 +167,7 @@ public class RobotContainer {
     //right operator buttons
     shoot_intake.whileTrue(new Shoot(intake));
     barge_elevator_control.whileTrue(new PRunToPosition(elevator, Constants.elevator.barge, r_operator));
+    //barge_elevator_control.whileTrue(new HoldPosition(elevator, Constants.elevator.barge));
     processor_elevator.whileTrue(new HoldPosition(elevator, Constants.elevator.processor));
     run_elevator.whileTrue(new RunElevator(elevator, r_operator, Constants.elevator.high_speed));
     normal_mode.onTrue(new InstantCommand(() -> elevator.setDefaultCommand(new ElevatorRest(elevator))));
