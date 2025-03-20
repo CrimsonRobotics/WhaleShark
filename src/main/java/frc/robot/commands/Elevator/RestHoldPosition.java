@@ -27,7 +27,7 @@ public class RestHoldPosition extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (this.elevator.get_position() > Constants.elevator.high_reef + 0.2) {
+    if (this.elevator.get_position() < Constants.elevator.high_reef + 0.2) {
       this.elevator.run_to_position(this.position);
     }
   }
