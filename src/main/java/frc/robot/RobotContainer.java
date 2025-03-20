@@ -152,9 +152,13 @@ public class RobotContainer {
 
     //left operator buttons
     ground_intake.whileTrue(new AlgaeIntake(elevator, intake, Constants.elevator.ground));
+    ground_intake.onTrue(new InstantCommand(() -> elevator.setDefaultCommand(new ElevatorRest(elevator))));
     low_reef_intake.whileTrue(new AlgaeIntake(elevator, intake, Constants.elevator.low_reef));
+    low_reef_intake.onTrue(new InstantCommand(() -> elevator.setDefaultCommand(new ElevatorRest(elevator))));
     high_reef_intake.whileTrue(new AlgaeIntake(elevator, intake, Constants.elevator.high_reef));
+    high_reef_intake.onTrue(new InstantCommand(() -> elevator.setDefaultCommand(new ElevatorRest(elevator))));
     coral_intake.whileTrue(new AlgaeIntake(elevator, intake, Constants.elevator.coral));
+    coral_intake.onTrue(new InstantCommand(() -> elevator.setDefaultCommand(new ElevatorRest(elevator))));
     
     //intake_down.onTrue(new InstantCommand(() -> intake.setDefaultCommand(new Retract(intake))));
     //intake_down.whileTrue(new Retract(intake));
@@ -167,9 +171,11 @@ public class RobotContainer {
     //right operator buttons
     shoot_intake.whileTrue(new Shoot(intake));
     barge_elevator_control.whileTrue(new PRunToPosition(elevator, Constants.elevator.barge, r_operator));
+    barge_elevator_control.onTrue(new InstantCommand(() -> elevator.setDefaultCommand(new RunElevator(elevator, r_operator, 0))));
     //barge_elevator_control.whileTrue(new HoldPosition(elevator, Constants.elevator.barge));
     processor_elevator.whileTrue(new HoldPosition(elevator, Constants.elevator.processor));
     run_elevator.whileTrue(new RunElevator(elevator, r_operator, Constants.elevator.high_speed));
+    run_elevator.onTrue(new InstantCommand(() -> elevator.setDefaultCommand(new RunElevator(elevator, r_operator, 0))));
     normal_mode.onTrue(new InstantCommand(() -> elevator.setDefaultCommand(new ElevatorRest(elevator))));
     manual_mode.onTrue(new InstantCommand(() -> elevator.setDefaultCommand(new RunElevator(elevator, r_operator, 0))));
     intake_only.whileTrue(new Intaking(intake));
