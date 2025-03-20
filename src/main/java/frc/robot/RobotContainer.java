@@ -24,6 +24,7 @@ import frc.robot.commands.Intake.Retract;
 import frc.robot.commands.Intake.RunRoller;
 import frc.robot.commands.Intake.Shoot;
 import frc.robot.commands.Operator.AlgaeIntake;
+import frc.robot.commands.Operator.ElevatorRest;
 import frc.robot.commands.Operator.Resting;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
@@ -108,7 +109,7 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
-    elevator.setDefaultCommand(new HoldPosition(elevator, Constants.elevator.rest));
+    elevator.setDefaultCommand(new ElevatorRest(elevator));
     drivetrain.setDefaultCommand(new Drive(drivetrain, l_drive, r_drive, Constants.driver.normal_speed));
     intake.setDefaultCommand(new Resting(intake));
     configureBindings();
@@ -149,11 +150,11 @@ public class RobotContainer {
     high_reef_intake.whileTrue(new AlgaeIntake(elevator, intake, Constants.elevator.high_reef));
     coral_intake.whileTrue(new AlgaeIntake(elevator, intake, Constants.elevator.coral));
     
-    //intake_down.onTrue(new InstantCommand(() -> intake.setDefaultCommand(new Retract(intake))));
-    //intake_down.whileTrue(new Retract(intake));
-    ////ready_up.onTrue(new ReadyUp(climber));
-    //climb_down.whileTrue(new ClimbBack(climber));
-    //climb_up.whileTrue(new Climb(climber));
+    intake_down.onTrue(new InstantCommand(() -> intake.setDefaultCommand(new Retract(intake))));
+    intake_down.whileTrue(new Retract(intake));
+    //ready_up.onTrue(new ReadyUp(climber));
+    climb_down.whileTrue(new ClimbBack(climber));
+    climb_up.whileTrue(new Climb(climber));
     reset_elevator.onTrue(new InstantCommand(() -> elevator.reset_elevator()));
 
 
