@@ -101,13 +101,13 @@ public final class Constants {
     //run to position pid values
     public static final double kp = 4;
     public static final double ki = 0.4;
-    public static final double kd = 0.0001;
+    public static final double kd = 0.0002;
     //height values of the elvator
     public static final double low_reef = 0.67;
     public static final double high_reef = 1.09; 
     public static final double coral = 0.33;
     public static final double ground = .0677; //.095164
-    public static final double barge = 2.12;
+    public static final double barge = 2.13;
     public static final double coral_auto = 0.20;
     public static final double processor = .0677;
     public static final double rest = 0.33;

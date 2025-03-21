@@ -27,12 +27,12 @@ import frc.robot.subsystems.Intake;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class CoralAlgaeAuto extends SequentialCommandGroup {
+public class AlgaeAuto extends SequentialCommandGroup {
   /** Creates a new CoralAuto. */
   Drivetrain drivetrain;
   Intake intake;
   Elevator elevator;
-  public CoralAlgaeAuto(Drivetrain drivetrain, Intake intake, Elevator elevator) {
+  public AlgaeAuto(Drivetrain drivetrain, Intake intake, Elevator elevator) {
     this.drivetrain = drivetrain;
     this.intake = intake;
     this.elevator = elevator;
@@ -61,9 +61,9 @@ public class CoralAlgaeAuto extends SequentialCommandGroup {
         new AlgaeIntake(this.elevator, this.intake, Constants.elevator.low_reef)
       ),
       Commands.race(
-        new WaitCommand(1),
-        new DriveDouble(this.drivetrain, 0, 0.25, 0, 1)
-      )
+        new WaitCommand(2.5),
+        new DriveDouble(this.drivetrain, -0.25, 0.25, 0, 1)
+      ) 
     );
   }
 }

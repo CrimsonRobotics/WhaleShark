@@ -7,6 +7,8 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AutoFile;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.Autos.AlgaeAuto;
+import frc.robot.commands.Autos.CoralAlgaeAuto;
 import frc.robot.commands.Autos.CoralAuto;
 import frc.robot.commands.Autos.DriveTime;
 import frc.robot.commands.Climber.Climb;
@@ -188,6 +190,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return new CoralAuto(drivetrain, intake, elevator);
+    //return new AlgaeAuto(drivetrain, intake, elevator);
+    return AutoFile.Leave(drivetrain);
   }
 }
