@@ -58,10 +58,10 @@ public class CoralAlgaeAuto extends SequentialCommandGroup {
       ),
       Commands.race(
         new WaitCommand(5),
-        new AlgaeIntake(this.elevator, this.intake, Constants.elevator.low_reef)
+        new AlgaeIntake(this.elevator, this.intake, Constants.elevator.low_reef, false)
       ),
       Commands.race(
-        new WaitCommand(1),
+        new WaitCommand(0.5),
         new DriveDouble(this.drivetrain, 0, 0.25, 0, 1)
       )
     );

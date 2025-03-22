@@ -27,6 +27,7 @@ public class Intake extends SubsystemBase {
   SparkFlexConfig hold_config;
   SparkFlexConfig intake_config;
   Compressor compressor;
+  public boolean ground_true;
   public Intake() {
     compressor = new Compressor(PneumaticsModuleType.REVPH);
     //creates the solenoid for the intake going in and out
@@ -69,6 +70,7 @@ public class Intake extends SubsystemBase {
 
     //configures the spark flex motor controller with the intake config
     intake_motor.configure(intake_config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    ground_true = false;
 
   }
 
@@ -91,6 +93,10 @@ public class Intake extends SubsystemBase {
     }
   }
 
+  public double time_update() {
+    return (ground_true ? 2 : 1);
+  }
+
   //pushes pistons out
   public void extend() {
     solenoid.set(DoubleSolenoid.Value.kForward);
@@ -106,5 +112,6 @@ public class Intake extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Intake Sparkflex Current (applied)", intake_motor.getOutputCurrent() * intake_motor.getAppliedOutput());
+    SmartDashboard.putBoolean("Ground Intake True", ground_true);
   }
 }

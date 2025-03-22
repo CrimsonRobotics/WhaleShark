@@ -11,6 +11,7 @@ import frc.robot.commands.Autos.AlgaeAuto;
 import frc.robot.commands.Autos.CoralAlgaeAuto;
 import frc.robot.commands.Autos.CoralAuto;
 import frc.robot.commands.Autos.DriveTime;
+import frc.robot.commands.Autos.TestAuto;
 import frc.robot.commands.Climber.Climb;
 import frc.robot.commands.Climber.ClimbBack;
 import frc.robot.commands.Climber.ReadyUp;
@@ -34,6 +35,8 @@ import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -106,6 +109,10 @@ public class RobotContainer {
   private final JoystickButton manual_mode = new JoystickButton(r_operator, 13);
   //Buttom 14
   private final JoystickButton intake_only = new JoystickButton(r_operator, 14);
+
+
+  //Auto
+  private final SendableChooser<Command> m_chooser = new SendableChooser<>();
   
 
 
@@ -117,10 +124,17 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
-    elevator.setDefaultCommand(new ElevatorRest(elevator));
+    //elevator.setDefaultCommand(new ElevatorRest(elevator));
+    elevator.setDefaultCommand(new RunElevator(elevator, r_operator, 0));
     drivetrain.setDefaultCommand(new Drive(drivetrain, l_drive, r_drive, Constants.driver.normal_speed));
     intake.setDefaultCommand(new Resting(intake));
     configureBindings();
+
+    
+    m_chooser.setDefaultOption("AlgaeCoral", new CoralAlgaeAuto(drivetrain, intake, elevator));
+    m_chooser.addOption("Algae", new AlgaeAuto(drivetrain, intake, elevator));
+    m_chooser.addOption("Test", new TestAuto(elevator, intake, drivetrain));
+    SmartDashboard.putData("Auto choices", m_chooser);
   }
 
   /**
@@ -153,13 +167,13 @@ public class RobotContainer {
     //piston_retract.onTrue(new Retract(intake));
 
     //left operator buttons
-    ground_intake.whileTrue(new AlgaeIntake(elevator, intake, Constants.elevator.ground));
+    ground_intake.whileTrue(new AlgaeIntake(elevator, intake, Constants.elevator.ground, true));
     ground_intake.onTrue(new InstantCommand(() -> elevator.setDefaultCommand(new ElevatorRest(elevator))));
-    low_reef_intake.whileTrue(new AlgaeIntake(elevator, intake, Constants.elevator.low_reef));
+    low_reef_intake.whileTrue(new AlgaeIntake(elevator, intake, Constants.elevator.low_reef, false));
     low_reef_intake.onTrue(new InstantCommand(() -> elevator.setDefaultCommand(new ElevatorRest(elevator))));
-    high_reef_intake.whileTrue(new AlgaeIntake(elevator, intake, Constants.elevator.high_reef));
+    high_reef_intake.whileTrue(new AlgaeIntake(elevator, intake, Constants.elevator.high_reef, false));
     high_reef_intake.onTrue(new InstantCommand(() -> elevator.setDefaultCommand(new ElevatorRest(elevator))));
-    coral_intake.whileTrue(new AlgaeIntake(elevator, intake, Constants.elevator.coral));
+    coral_intake.whileTrue(new AlgaeIntake(elevator, intake, Constants.elevator.coral, false));
     coral_intake.onTrue(new InstantCommand(() -> elevator.setDefaultCommand(new ElevatorRest(elevator))));
     
     //intake_down.onTrue(new InstantCommand(() -> intake.setDefaultCommand(new Retract(intake))));
@@ -171,7 +185,7 @@ public class RobotContainer {
 
 
     //right operator buttons
-    shoot_intake.whileTrue(new Shoot(intake));
+    shoot_intake.whileTrue(new Shoot(intake, processor_elevator.getAsBoolean()));
     barge_elevator_control.whileTrue(new PRunToPosition(elevator, Constants.elevator.barge, r_operator));
     barge_elevator_control.onTrue(new InstantCommand(() -> elevator.setDefaultCommand(new RunElevator(elevator, r_operator, 0))));
     //barge_elevator_control.whileTrue(new HoldPosition(elevator, Constants.elevator.barge));
@@ -191,6 +205,9 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
     //return new AlgaeAuto(drivetrain, intake, elevator);
-    return AutoFile.Leave(drivetrain);
+    //return new CoralAlgaeAuto(drivetrain, intake, elevator);
+    //return AutoFile.Leave(drivetrain);
+    //return new TestAuto(elevator, intake, drivetrain);
+    return m_chooser.getSelected();
   }
 }

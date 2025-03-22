@@ -49,6 +49,7 @@ public class Elevator extends SubsystemBase {
   //PIDController pid;
   ProfiledPIDController pid;
   PIDController p_pid;
+  PIDController auto_pid;
   double voltage;
   double speed;
   ShuffleboardTab elevator_tab;
@@ -110,6 +111,8 @@ public class Elevator extends SubsystemBase {
     pid = new ProfiledPIDController(Constants.elevator.kp, Constants.elevator.ki, Constants.elevator.kd, new TrapezoidProfile.Constraints(4, 4));
 
     p_pid = new PIDController(Constants.elevator.kp, 0, 0);
+
+    auto_pid = new PIDController(Constants.elevator.kp, 0, 0);
 
     feedforward = new ElevatorFeedforward(0, 0, 0);
     speed_limiter = new SlewRateLimiter(4.5);
@@ -182,6 +185,11 @@ public class Elevator extends SubsystemBase {
 
   public void p_to_position(double position, double i_add) {
     speed = MathUtil.clamp(p_pid.calculate(get_position(), position), -0.5, 0.5);
+    run(speed + i_add);
+  }
+
+  public void p_to_position_auto(double position, double i_add) {
+    speed = MathUtil.clamp(auto_pid.calculate(get_position(), position), -0.4, 0.4);
     run(speed + i_add);
   }
 

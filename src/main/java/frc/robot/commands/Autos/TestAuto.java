@@ -4,26 +4,16 @@
 
 package frc.robot.commands.Autos;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.commands.Drivetrain.DriveAutoDouble;
 import frc.robot.commands.Drivetrain.DriveDouble;
-import frc.robot.commands.Elevator.ElevatorNothing;
 import frc.robot.commands.Elevator.HoldPosition;
-import frc.robot.commands.Elevator.PRunToPosition;
 import frc.robot.commands.Elevator.PRunToPositionAuto;
-import frc.robot.commands.Intake.CoralDrop;
 import frc.robot.commands.Intake.Extend;
-import frc.robot.commands.Intake.Intaking;
-import frc.robot.commands.Intake.Retract;
-import frc.robot.commands.Intake.RunRoller;
 import frc.robot.commands.Intake.Shoot;
-import frc.robot.commands.Intake.Retract;
 import frc.robot.commands.Operator.AlgaeIntake;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Elevator;
@@ -32,42 +22,27 @@ import frc.robot.subsystems.Intake;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AlgaeAuto extends SequentialCommandGroup {
-  /** Creates a new CoralAuto. */
-  Drivetrain drivetrain;
-  Intake intake;
+public class TestAuto extends SequentialCommandGroup {
   Elevator elevator;
-  public AlgaeAuto(Drivetrain drivetrain, Intake intake, Elevator elevator) {
+  Intake intake;
+  Drivetrain drivetrain;
+  /** Creates a new TestAuto. */
+  public TestAuto(Elevator elevator, Intake intake, Drivetrain drivetrain) {
     this.drivetrain = drivetrain;
-    this.intake = intake;
     this.elevator = elevator;
+    this.intake = intake;
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      Commands.deadline(
-        Commands.sequence(
-          Commands.race(
-            new WaitCommand(Constants.autos.coral_drive_time),
-            new DriveDouble(this.drivetrain, 0, -0.25, 0, 1)
-          ),
-          new Retract(this.intake),
-          new WaitCommand(0.3),
-          Commands.race(
-            new WaitCommand(0.35),
-            new RunRoller(this.intake, Constants.intake.intake_speed)
-          ),
-          new Extend(this.intake),
-          new WaitCommand(0.5)
-        ),
-        new ElevatorNothing(this.elevator)
-      ),
       Commands.race(
         new WaitCommand(2.7),
-        new AlgaeIntake(this.elevator, this.intake, Constants.elevator.low_reef - 0.05, false)
+        //new AlgaeIntake(this.elevator, this.intake, Constants.elevator.low_reef - 0.05)
+        new HoldPosition(this.elevator, Constants.elevator.low_reef - 0.05)
       ),
       Commands.race(
         new WaitCommand(2.5),
-        new DriveAutoDouble(this.drivetrain, -0.3, 0.251, 0, 1)
+        new DriveAutoDouble(this.drivetrain, -0.3, 0.27, 0, 1),
+        new HoldPosition(this.elevator, Constants.elevator.high_reef)
       ),
       new Extend(this.intake),
       Commands.race(
@@ -90,11 +65,6 @@ public class AlgaeAuto extends SequentialCommandGroup {
         new WaitCommand(1),
         new HoldPosition(this.elevator, Constants.elevator.coral),
         new DriveDouble(this.drivetrain, 0, -0.20, 0, 1)
-      ),
-      Commands.race(
-        new WaitCommand(1.5),
-        new DriveDouble(this.drivetrain, 0, -0.25, 0, 1),
-        new HoldPosition(this.elevator, Constants.elevator.coral)
       )
     );
   }

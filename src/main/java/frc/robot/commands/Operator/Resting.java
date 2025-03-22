@@ -4,6 +4,7 @@
 
 package frc.robot.commands.Operator;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
@@ -21,11 +22,18 @@ import frc.robot.subsystems.Intake;
 public class Resting extends SequentialCommandGroup {
   /** Creates a new Rest. */
   Intake intake;
+  double time;
   public Resting(Intake intake) {
     //sets the paramaters to local instance variables
     this.intake = intake;
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
+    if (this.intake.ground_true == true) {
+      time = 2;
+    } else {
+      time = 1;
+    }
+    SmartDashboard.putNumber("Time", time);
 
     //these commands will both happen at the same time
     addCommands(
@@ -33,7 +41,7 @@ public class Resting extends SequentialCommandGroup {
       new Extend(this.intake),
       //spins the intake rollers for a second while intake goes up
       Commands.race(
-        new WaitCommand(1),
+        new WaitCommand(this.intake.time_update()),
         new RunRoller(this.intake, Constants.intake.intake_speed)
       ),
       //has the intake stay in rest mode
