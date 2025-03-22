@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
+import frc.robot.commands.Drivetrain.DriveAutoDouble;
 import frc.robot.commands.Drivetrain.DriveDouble;
 import frc.robot.commands.Elevator.ElevatorNothing;
 import frc.robot.commands.Elevator.HoldPosition;
@@ -57,12 +58,16 @@ public class CoralAlgaeAuto extends SequentialCommandGroup {
         new ElevatorNothing(this.elevator)
       ),
       Commands.race(
-        new WaitCommand(5),
+        new WaitCommand(4),
         new AlgaeIntake(this.elevator, this.intake, Constants.elevator.low_reef, false)
       ),
       Commands.race(
-        new WaitCommand(0.5),
+        new WaitCommand(1),
         new DriveDouble(this.drivetrain, 0, 0.25, 0, 1)
+      ),
+      Commands.race(
+        new WaitCommand(2.5),
+        new DriveAutoDouble(drivetrain, 0, 0.05, 0, 1)
       )
     );
   }
