@@ -37,11 +37,18 @@ public class Resting extends SequentialCommandGroup {
 
     //these commands will both happen at the same time
     addCommands(
+      new InstantCommand(() -> {
+        if (this.intake.ground_true) {
+          time = 2;
+        } else {
+          time = 1;
+        }
+      }),
       //pulls the intake up
       new Extend(this.intake),
       //spins the intake rollers for a second while intake goes up
       Commands.race(
-        new WaitCommand(this.intake.time_update()),
+        new WaitCommand(time),
         new RunRoller(this.intake, Constants.intake.intake_speed)
       ),
       //has the intake stay in rest mode
