@@ -11,6 +11,7 @@ import frc.robot.commands.Autos.AlgaeAuto;
 import frc.robot.commands.Autos.CoralAlgaeAuto;
 import frc.robot.commands.Autos.CoralAuto;
 import frc.robot.commands.Autos.DriveTime;
+import frc.robot.commands.Autos.ProcessorAuto;
 import frc.robot.commands.Autos.TestAuto;
 import frc.robot.commands.Climber.Climb;
 import frc.robot.commands.Climber.ClimbBack;
@@ -39,7 +40,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -134,6 +137,7 @@ public class RobotContainer {
     m_chooser.setDefaultOption("AlgaeCoral", new CoralAlgaeAuto(drivetrain, intake, elevator));
     m_chooser.addOption("Algae", new AlgaeAuto(drivetrain, intake, elevator));
     m_chooser.addOption("Test", new TestAuto(elevator, intake, drivetrain));
+    m_chooser.addOption("Processor", new ProcessorAuto(drivetrain, intake, elevator));
     SmartDashboard.putData("Auto choices", m_chooser);
   }
 
@@ -168,6 +172,11 @@ public class RobotContainer {
 
     //left operator buttons
     ground_intake.whileTrue(new AlgaeIntake(elevator, intake, Constants.elevator.ground, true));
+    ground_intake.onFalse(Commands.sequence(new Extend(intake),
+      Commands.race(
+        new WaitCommand(1),
+        new RunRoller(this.intake, Constants.intake.intake_speed)
+      )));
     ground_intake.onTrue(new InstantCommand(() -> elevator.setDefaultCommand(new ElevatorRest(elevator))));
     low_reef_intake.whileTrue(new AlgaeIntake(elevator, intake, Constants.elevator.low_reef, false));
     low_reef_intake.onTrue(new InstantCommand(() -> elevator.setDefaultCommand(new ElevatorRest(elevator))));

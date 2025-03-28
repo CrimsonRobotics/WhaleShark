@@ -29,9 +29,9 @@ public class Resting extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     if (this.intake.ground_true == true) {
-      time = 2;
+      this.time = 5;
     } else {
-      time = 1;
+      this.time = 1;
     }
     SmartDashboard.putNumber("Time", time);
 
@@ -39,16 +39,17 @@ public class Resting extends SequentialCommandGroup {
     addCommands(
       new InstantCommand(() -> {
         if (this.intake.ground_true) {
-          time = 2;
+          this.time = 5;
         } else {
-          time = 1;
+          this.time = 1;
         }
       }),
+      new InstantCommand(() -> SmartDashboard.putNumber("Time", this.time)),
       //pulls the intake up
       new Extend(this.intake),
       //spins the intake rollers for a second while intake goes up
       Commands.race(
-        new WaitCommand(time),
+        new WaitCommand(1),
         new RunRoller(this.intake, Constants.intake.intake_speed)
       ),
       //has the intake stay in rest mode
