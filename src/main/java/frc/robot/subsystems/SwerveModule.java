@@ -46,9 +46,6 @@ public class SwerveModule {
         this.module_number = module_number;
         this.turn_offset = turn_offset;
 
-
-
-
         //can coder stuff new firmware
         this.best_turn_encoder = new CANcoder(can_coder_id);
         //can coder magnet sensor conifg
@@ -66,7 +63,7 @@ public class SwerveModule {
         this.drive_config
             .inverted(false)
             .idleMode(IdleMode.kBrake)
-            .smartCurrentLimit(50)
+            .smartCurrentLimit(40)
             .voltageCompensation(12);
         this.drive_config.encoder
             .positionConversionFactor(Constants.dt.drive_position_conversion_factor)

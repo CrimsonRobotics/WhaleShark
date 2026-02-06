@@ -65,7 +65,7 @@ public final class Constants {
     public static final double robot_length = Units.inchesToMeters(21.5);
     public static final double robot_width = Units.inchesToMeters(21.5);
 
-    public static final double turn_kp = 0.00759; //0.00759;
+    public static final double turn_kp = 0.00759; //0.00759; 
     public static final double turn_ki = 0.00069; //0.00069;
     public static final double turn_kd = 0.0001;  //0.0001;
     public static final double drive_kp = 0.02;
@@ -170,9 +170,9 @@ public final class Constants {
     public static final int intake_current_limit = 60;
 
     //intake motor spin speeds
-    public static final double hold_speed = 0.1; 
-    public static final double intake_speed = 0.47; //.8
-    public static final double shoot_speed = -0.2;
+    public static final double hold_speed = 0.1; //.05 pepfest
+    public static final double intake_speed = 0.47; //.15 pepfest
+    public static final double shoot_speed = -0.2; //-1.0
     public static final double processor_speed = -0.1;
     public static final double rest_speed = 0.2; 
     public static final double coral_speed = 0.5;
@@ -187,7 +187,14 @@ public final class Constants {
       HOLD,
       INTAKE
     }
-  }
+  } 
+    public static enum rotation{
+      DEFAULT,
+      CW_90,
+      CW_180,
+      CW_270
+    
+    }
 
   public static class driver {
     public static final double normal_speed = 1;
@@ -198,5 +205,40 @@ public final class Constants {
     public static final double coral_drive_time = 2.5; //2 //2.2
     public static final double coral_score_time = 3; //2
   }
+
+  public static class camera{
+    
+    //Leaning forward would be positive, leaning back is negative
+    public static final double camera_lean_angle = -20;
+
+    //Camera height off the ground in inches
+    public static final double camera_height = 34.5;
+
+    //Height of Target Off the Floor to the middle of the Tag
+    public static final double target_height_2 = 9;
+
+    public static final double target_height_3 = 70;
+
+    //Can only be 0,90,180 or 270 and is clockwise from looking at the lens
+    public static final rotation limelight_rotation = rotation.CW_270;
+  }
   
 }
+
+/*public enum LimelightRotation{
+  DEFAULT(0),
+  CW_90(90),
+  CW_180(180),
+  CW_270(270);
+
+  private final int rotation;
+
+  LimelightRotation(int rotation){
+    this.rotation = rotation;
+  }
+  public int getRotation(){
+    return this.rotation;
+  }
+    
+}
+  */

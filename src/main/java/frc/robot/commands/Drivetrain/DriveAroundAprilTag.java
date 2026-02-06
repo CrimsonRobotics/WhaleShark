@@ -11,13 +11,15 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Tracking;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class Drive extends Command {
-  /** Creates a new Drive. */
+public class DriveAroundAprilTag extends Command {
+  /** Creates a new DriveAroundAprilTag. */
   Drivetrain dt;
-  Joystick joystick_l;
-  Joystick joystick_r;
+  Tracking track;
+  Joystick joystick_ol;
+  Joystick joystick_dl;
   Translation2d translation;
   double rotation;
   double dt_x;
@@ -26,14 +28,16 @@ public class Drive extends Command {
   SlewRateLimiter x_limiter = new SlewRateLimiter(3);
   SlewRateLimiter y_limiter = new SlewRateLimiter(3);
   SlewRateLimiter rotation_limiter = new SlewRateLimiter(3);
-
-  public Drive(Drivetrain dt_imp, Joystick joystick_l, Joystick joystick_r, double max_speed) {
+  public DriveAroundAprilTag(Drivetrain dt_imp, Tracking track, Joystick joystick_dl, Joystick joystick_ol, double max_speed) {
     this.dt = dt_imp;
-    this.joystick_l = joystick_l;
-    this.joystick_r = joystick_r;
+    this.joystick_ol = joystick_ol;
+    this.joystick_dl = joystick_dl;
     this.max_speed = max_speed;
+    this.track = track;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.dt);
+    addRequirements(track);
+
   }
 
   // Called when the command is initially scheduled.
@@ -43,20 +47,10 @@ public class Drive extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //slew rate limiter slows how fast the values change; it takes 1/3 of a second to go from 0 to 1
-    //the deadband makes it so if joystick is between -0.1 and 0.1 it will just return 0
-    dt_x = -x_limiter.calculate(MathUtil.applyDeadband(this.joystick_l.getY(), 0.1));
-    dt_y = -y_limiter.calculate(MathUtil.applyDeadband(this.joystick_l.getX(), 0.1));
-    //turns the rotation from a magnitude of 0 to 1 to be in correct speed range using the multiplication
-    rotation = rotation_limiter.calculate(MathUtil.applyDeadband(this.joystick_r.getX(), 0.1)) * Constants.dt.max_angular_speed;
-    //gets robot translation and rotation from joysticks
-    //.times multiplies the translation which has a magnitude between 0 and 1 inclusive by the max speed of the robot
-    translation = new Translation2d(dt_x * this.max_speed, dt_y * this.max_speed).times(Constants.dt.max_speed); 
+    double x_speed = x_limiter.calculate(MathUtil.applyDeadband(this.joystick_dl.getY(), 0.1)) * Constants.dt.max_speed;
+    double y_speed = y_limiter.calculate(MathUtil.applyDeadband(this.joystick_dl.getX(), 0.1)) * Constants.dt.max_speed;
 
-    //sets the module speeds and positions using the joystick values
-    this.dt.drive(translation, rotation, true);
-    
-
+    this.dt.drive(x_speed, y_speed, -Tracking.limelight_aim_proportional(), false);
   }
 
   // Called once the command ends or is interrupted.

@@ -17,6 +17,7 @@ import frc.robot.commands.Climber.Climb;
 import frc.robot.commands.Climber.ClimbBack;
 import frc.robot.commands.Climber.ReadyUp;
 import frc.robot.commands.Drivetrain.Drive;
+import frc.robot.commands.Drivetrain.DriveAroundAprilTag;
 import frc.robot.commands.Elevator.ElevatorNothing;
 import frc.robot.commands.Elevator.HoldPosition;
 import frc.robot.commands.Elevator.PRunToPosition;
@@ -35,18 +36,19 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Tracking;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -55,12 +57,14 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
+  private final NetworkTable limelight_network_table = NetworkTableInstance.getDefault().getTable("limelight");
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final Climber climber = new Climber();
   private final Intake intake = new Intake();
   private final Elevator elevator = new Elevator();
   private final Drivetrain drivetrain = new Drivetrain();
+  private final Tracking tracking = new Tracking(limelight_network_table);
 
   //Creating joysticks
   private final Joystick l_drive = new Joystick(0);
@@ -95,6 +99,9 @@ public class RobotContainer {
   private final JoystickButton climb_up = new JoystickButton(l_operator, 7);
   //Button 11
   private final JoystickButton reset_elevator = new JoystickButton(l_operator, 11);
+
+  //Button 13
+  private final JoystickButton trackingAprilTag = new JoystickButton(l_operator, 13);
 
 
   //Right Operator Joystick
@@ -187,10 +194,12 @@ public class RobotContainer {
     
     //intake_down.onTrue(new InstantCommand(() -> intake.setDefaultCommand(new Retract(intake))));
     //intake_down.whileTrue(new Retract(intake));
-    ////ready_up.onTrue(new ReadyUp(climber));
-    //climb_down.whileTrue(new ClimbBack(climber));
-    //climb_up.whileTrue(new Climb(climber));
+    ready_up.onTrue(new ReadyUp(climber));
+    climb_down.whileTrue(new ClimbBack(climber));
+    climb_up.whileTrue(new Climb(climber));
     reset_elevator.onTrue(new InstantCommand(() -> elevator.reset_elevator()));
+
+    trackingAprilTag.whileTrue(new DriveAroundAprilTag(drivetrain, tracking, l_drive, l_operator, Constants.dt.max_speed));
 
 
     //right operator buttons

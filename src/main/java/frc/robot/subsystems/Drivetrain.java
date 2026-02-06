@@ -83,6 +83,21 @@ public class Drivetrain extends SubsystemBase {
       module.set_desired_state(swerve_module_states[module.module_number]);
     }
   }
+  public void drive(double xSpeed, double ySpeed, double rotation, boolean is_field_relative) {
+    //creates swerve module states form joystick values which are in translation and rotation
+    SwerveModuleState[] swerve_module_states =
+      Constants.dt.swerve_map.toSwerveModuleStates(is_field_relative
+        ? ChassisSpeeds.fromFieldRelativeSpeeds(
+          xSpeed, ySpeed, rotation, get_yaw())
+        : new ChassisSpeeds(xSpeed, ySpeed, rotation));
+    //reduces all the swervemodule state speeds if one of them is over the max speed to make it so that none are over but all are still the same ratio
+    SwerveDriveKinematics.desaturateWheelSpeeds(swerve_module_states, Constants.dt.max_speed);
+
+    //sets the module states
+    for (SwerveModule module: this.dt) {
+      module.set_desired_state(swerve_module_states[module.module_number]);
+    }
+  }
 
   @Override
   public void periodic() {
